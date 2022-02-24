@@ -1,2 +1,2 @@
-# backend
-Backend Service Repository 
+# Dualis-Bot
+Dualis Bot Repository 
