@@ -1,31 +1,19 @@
-
-import {
-  dirname,
-  fromFileUrl,
-  join,
-} from "https://deno.land/std@0.95.0/path/mod.ts";
-import {
-  json,
-  opine,
-  Router,
-  serveStatic,
-  urlencoded,
-} from "https://deno.land/x/opine@1.3.3/mod.ts";
-
-import usersRouter from "./routes/users.ts";
-
-const __dirname = fromFileUrl(dirname(import.meta.url));
+import { opine } from "https://deno.land/x/opine@2.1.1/mod.ts";
+import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
+import Routes from './routes/routes.ts';
 
 const app = opine();
 
-// Handle different incoming body types
-app.use(json());
-app.use(urlencoded());
+const port = parseInt(Deno.env.get("PORT") as string);
 
-// Serve our static assets
-app.use(serveStatic(join(__dirname, "public")));
+app.use('/api/v1', Routes);
 
-// Mount our routers
-app.use("/users", usersRouter);  
+if(Number.isNaN(port)) {
+    console.error("Port must be a number")
+    Deno.exit(1);
+}
 
-export default app;
+app.listen(
+    port,
+    () => console.log(`server has started on http://localhost:${port} 🚀`),
+);

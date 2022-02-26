@@ -1,10 +1,11 @@
-import { Router } from "https://deno.land/x/opine@1.3.3/mod.ts";
+import { Router } from "https://deno.land/x/opine@2.1.1/mod.ts";
+import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 
 const router = Router();
 
-// GET users listing.
-router.get("/", (_req, res, _next) => {
-  res.send("Users are coming shortly!");
-});
+
+router.get("/", (_req, res) => {
+    res.send("HelloWorld")
+})
 
 export default router;
