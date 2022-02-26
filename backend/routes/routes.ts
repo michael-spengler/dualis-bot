@@ -4,6 +4,6 @@ import UserRouter from './users.ts';
 
 const router = Router();
 
-router.use('/user', UserRouter);
+router.use('/', UserRouter);
 
 export default router;
