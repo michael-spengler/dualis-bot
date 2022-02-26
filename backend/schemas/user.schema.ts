@@ -4,10 +4,10 @@ import {
   import Utils from "../utils/utils.ts"
 
 // Defining schema interface
-interface UserSchema {
+export interface IUser {
     _id: Bson.ObjectId;
     username: string;
     password: string;
   }
-  export default (await Utils.getDatabaseClient()).database("myFirstDatabase").collection<UserSchema>("users");
+  export default (await Utils.getDatabaseClient()).database("myFirstDatabase").collection<IUser>("users");
   
