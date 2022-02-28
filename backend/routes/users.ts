@@ -1,35 +1,52 @@
 import { Router } from "https://deno.land/x/opine@2.1.1/mod.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
-import {IUser} from "../schemas/user.schema.ts"
-import User from "../schemas/user.schema.ts"
+import {IUser} from "../interfaces/user.interface.ts"
+import User from "../interfaces/user.interface.ts"
+import { decode } from "https://deno.land/x/djwt@v2.2/mod.ts"
 import {
     Bson,
   } from "https://deno.land/x/mongo@v0.29.2/mod.ts";
 
+ interface IJWTPayload {
+    userId: Bson.ObjectId
+}
 
 
 const router = Router();
 
-router.get("/users", async (_req, res) => {
+router.get("/user", async (req, res) => {
     try {
-        //TODO remove password from result
-        let users = await User.find({username: { '$ne': 'null'}}).toArray()
-        res.json(users)
+        const payload = decode(req.headers.get("auth")as string)
+        const userId = ((payload[1] as IJWTPayload).userId);
+        const user = await User.findOne({_id: new Bson.ObjectId(userId)})
+        if(!user) {
+            res.setStatus(404).send()
+            return
+        }
+        user.password = "";
+        res.json(user)
     } catch (e) {
-        res.json(e)
+        res.setStatus(500).json(e)
     }
 })
 
-router.get("/user/:id(*)", async (req, res) => {
-    console.log(req.params[0])
-    try {
-        //TODO remove password from result
-        let users = await User.find({_id: new Bson.ObjectId(req.params[0])}).toArray()
-        res.json(users)
-    } catch (e) {
-        res.json(e)
+router.put("/user", async(req, res) => {
+    try{
+        const payload = decode(req.headers.get("auth")as string)
+        const userId = ((payload[1] as IJWTPayload).userId);
+        const user = await User.updateOne({_id: new Bson.ObjectId(userId)}, {$set: req.body})
+        if (!user) {
+            res.setStatus(500).send()
+            return
+        }
+        res.setStatus(204).send()
+    } catch(e) {
+        console.log(e)
+        res.setStatus(400).json(e)
     }
 })
+
+
 
 
 

@@ -8,6 +8,7 @@ export interface IUser {
     _id: Bson.ObjectId;
     username: string;
     password: string;
+    active: boolean;
   }
   export default (await Utils.getDatabaseClient()).database("myFirstDatabase").collection<IUser>("users");
   
