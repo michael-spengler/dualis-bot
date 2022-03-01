@@ -25,11 +25,12 @@ router.get("/user", async (req, res) => {
         }
         user.password = "";
         res.json(user)
-    } catch (e) {
-        res.setStatus(500).json(e)
+    } catch (err) {
+        res.setStatus(500).json({err:err})
     }
 })
 
+//add validation
 router.put("/user", async(req, res) => {
     try{
         const payload = decode(req.headers.get("auth")as string)
@@ -40,9 +41,8 @@ router.put("/user", async(req, res) => {
             return
         }
         res.setStatus(204).send()
-    } catch(e) {
-        console.log(e)
-        res.setStatus(400).json(e)
+    } catch(err) {
+        res.setStatus(400).json({err})
     }
 })
 
