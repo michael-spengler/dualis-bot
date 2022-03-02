@@ -11,9 +11,14 @@ console.log(await fetch("https://dualis.dhbw.de/", {
 //import ky from 'https://deno.land/x/ky@v0.23.0/index.js';
 //import ky from 'https://unpkg.com/ky@0.29.0/distribution/index.js'
 import ky from 'https://cdn.skypack.dev/ky?dts';
-import "https://deno.land/x/xhr@0.1.2/mod.ts";
-//ky.get("https://google.de").then(msg => console.log(msg)).catch(e => console.error(e));
-fetch("https://moodle.dhbw-mannheim.de").then(msg => console.log(msg)).catch(e => console.error(e));
+import {getDualisChanges} from "./dualis/dualis.ts"
+import {
+    Bson,
+  } from "https://deno.land/x/mongo@v0.29.2/mod.ts";
+console.log(await getDualisChanges(new Bson.ObjectId("621f6841a7db1e851b3563f1")))
+
+import Utils from "./utils/utils.ts"
+
 
 
 

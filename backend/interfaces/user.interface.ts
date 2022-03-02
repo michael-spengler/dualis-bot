@@ -28,5 +28,7 @@ export interface IUser {
     }
   }
 }
+
+
 export default (await Utils.getDatabaseClient()).database("myFirstDatabase").collection<IUser>("users");
 
