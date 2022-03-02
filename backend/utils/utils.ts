@@ -15,4 +15,7 @@ export default class Utils {
         return Utils.client;
     }
 
+    static setupCronjobs () {
+    }
+
 }
