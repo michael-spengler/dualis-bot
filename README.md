@@ -18,3 +18,4 @@ Dualis Bot Repository
 ## Backend
 - Login / config
 - Batchjob, der dualis scraped und mit MongoDB abgleicht
+
