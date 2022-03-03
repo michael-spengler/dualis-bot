@@ -1,7 +1,8 @@
 import {
   Bson,
-} from "https://deno.land/x/mongo@v0.29.2/mod.ts";
+} from "../deps.ts";
 import Utils from "../utils/utils.ts"
+import {IDualisCourse} from "./dualis.interface.ts"
 
 export interface IUser {
   _id: Bson.ObjectId;
@@ -27,6 +28,9 @@ export interface IUser {
       active: boolean
     }
   }
+  dualisSummary: IDualisCourse[]
 }
+
+
 export default (await Utils.getDatabaseClient()).database("myFirstDatabase").collection<IUser>("users");
 

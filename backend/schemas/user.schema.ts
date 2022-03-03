@@ -6,7 +6,7 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     dualis_username: { type: String, required: true },
     dualis_password: { type: String, required: true },
-    active: {type: Boolean, required: true, default: true},
+    active: {type: Boolean, required: true},
     notifications: {
         email: {
             notificationEmail: {type:String},
