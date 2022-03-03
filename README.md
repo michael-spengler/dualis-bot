@@ -1,6 +1,6 @@
 # Dualis-Bot
 Dualis Bot Repository 
 
-##Backend
+## Backend
 `docker-compose build`
 `docker-compose up`
