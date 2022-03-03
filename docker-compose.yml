@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  backend: 
+    build: ./backend
+    image: lumaghg/dualis-bot-backend
+    ports: 
+      - 3000:3000
+    environment:
+      - BACKEND_PORT=${BACKEND_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - AES_SECRET=${AES_SECRET}
+      - CRAWLER_HOST=${CRAWLER_HOST}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+    depends_on:
+      - dualis-crawler
+    
+  dualis-crawler:
+    build: ./dualis-crawler
+    image: lumaghg/dualis-crawler

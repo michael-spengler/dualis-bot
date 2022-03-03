@@ -8,7 +8,7 @@ import User from "../interfaces/user.interface.ts"
 export async function getDualisSummary(dualis_username: string, dualis_password: string): Promise<IDualisCourse[]> {
 
     //change when docker compose is finished
-    const response = await axiod.post("http://localhost:8080/scrapedualis", {
+    const response = await axiod.post("http://dualis-crawler:8080/scrapedualis", {
         email: dualis_username,
         password: dualis_password
     })
