@@ -49,6 +49,7 @@ router.post("/register", async (req, res) => {
         user.username = Utils.encrypt(user.username)
         user.dualis_password = Utils.encrypt(user.dualis_password)
         user.dualis_username = Utils.encrypt(user.dualis_username)
+        user.active = true
 
         await User.insertOne(user)
         res.setStatus(201).send()

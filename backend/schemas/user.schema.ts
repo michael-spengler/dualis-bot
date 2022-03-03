@@ -19,7 +19,7 @@ const userSchema = new Schema({
             active: {type: Boolean}
         },
         telegram: {
-            notificationUsername: {type:String},
+            notificationNumber: {type:String},
             withGrades: {type: Boolean},
             active: {type: Boolean}
         }

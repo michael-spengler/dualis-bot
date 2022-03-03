@@ -18,12 +18,12 @@ export interface IUser {
       active: boolean
     },
     discord: {
-      notificationEmail: string,
+      notificationUsername: string,
       withGrades: boolean,
       active: boolean
     },
     telegram: {
-      notificationEmail: string,
+      notificationNumber: string,
       withGrades: boolean,
       active: boolean
     }
