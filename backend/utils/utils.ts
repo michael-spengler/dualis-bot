@@ -6,7 +6,9 @@ import { Aes } from "../deps.ts";
 import { Cbc, Padding } from "../deps.ts";
 import { encodeToString, decodeString } from "../deps.ts";
 import User from "../interfaces/user.interface.ts"
+import {IUser} from "../interfaces/user.interface.ts"
 import { getDualisChanges, getDualisSummary } from "../dualis/dualis.ts"
+import {IDualisCourse } from "../interfaces/dualis.interface.ts"
 
 export default class Utils {
     static client: MongoClient;
@@ -53,7 +55,7 @@ export default class Utils {
                     console.log("user:" + user._id + ", changes:", changes)
                     if (changes.length > 0) {
                         await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: dualisSummary } })
-                        await this.notifyUser(user._id, changes)
+                        await this.notifyUser(user, changes)
                     }
                 } catch (e) {
                     console.error(e)
@@ -62,8 +64,8 @@ export default class Utils {
         })
     }
 
-    static notifyUser(userId: Bson.ObjectId, dualisChanges: any) {
-        console.log("notifications not implemented yet")
+    static notifyUser(userId: IUser, dualisChanges: IDualisCourse[]) {
+        console.log("notifications not implemented yet", userId, dualisChanges)
     }
 
 }
