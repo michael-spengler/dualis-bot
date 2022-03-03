@@ -6,6 +6,8 @@ import User from "../interfaces/user.interface.ts"
 import userSchema from "../schemas/user.schema.ts"
 import Utils from "../utils/utils.ts"
 import { getDualisSummary } from "../dualis/dualis.ts"
+import sendEmail from '../notifications/email.ts';
+import "https://deno.land/x/dotenv/load.ts";
 
 const router = Router();
 
