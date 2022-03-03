@@ -3,12 +3,13 @@ import {
 } from "../deps.ts";
 import { IDualisExamination, IDualisCourse } from "../interfaces/dualis.interface.ts"
 import axiod from "https://deno.land/x/axiod@0.24/mod.ts";
+import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 import User from "../interfaces/user.interface.ts"
 
 export async function getDualisSummary(dualis_username: string, dualis_password: string): Promise<IDualisCourse[]> {
 
     //change when docker compose is finished
-    const response = await axiod.post("http://dualis-crawler:8080/scrapedualis", {
+    const response = await axiod.post("http://" + Deno.env.get("CRAWLER_HOST") + ":8080/scrapedualis", {
         email: dualis_username,
         password: dualis_password
     })
