@@ -59,7 +59,7 @@ func GetDualisCrawlResults(email string, password string) ([]Course, error) {
 	}
 	refreshURL, err := app.performLoginAndGetRefreshURL(loginInput)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 		return []Course{}, err
 	}
 	gradePageURL, err := app.getGradePageURL(refreshURL)
@@ -85,14 +85,14 @@ func (app *App) getLoginData(email string, password string) (LoginInput, error) 
 	response, err := client.Get(loginURL)
 
 	if err != nil {
-		log.Fatalln("Error fetching response. ", err)
+		log.Println("Error fetching response. ", err)
 	}
 
 	defer response.Body.Close()
 	// convert response to Document
 	document, err := goquery.NewDocumentFromReader(response.Body)
 	if err != nil {
-		log.Fatal("Error loading HTTP response body. ", err)
+		log.Print("Error loading HTTP response body. ", err)
 	}
 	//find hidden values
 	appname, _ := document.Find("input[name='APPNAME']").Attr("value")
@@ -140,7 +140,6 @@ func (app *App) performLoginAndGetRefreshURL(loginInput LoginInput) (string, err
 	response, err := client.PostForm(loginURL, data)
 
 	if err != nil {
-		log.Fatalln(err)
 		return "", err
 	}
 
@@ -190,7 +189,8 @@ func (app *App) getGradePageURL(refreshURL string) (string, error) {
 	}
 	bodyBytes, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return "", err
 	}
 	defer response.Body.Close()
 	bodyString := string(bodyBytes)
@@ -268,10 +268,10 @@ func (app *App) extractGrades(gradeDetailLinks []string) ([]Course, error) {
 		detailGradeWaitGroup.Add(1)
 
 		go func(req_url string, waitGroup *sync.WaitGroup, courseChan chan<- Course, errChan chan<- error, i int) {
-			fmt.Printf("routine %d started \n", i)
+			//fmt.Printf("routine %d started \n", i)
 			//ensure, that the function signals it's completion in any case
 			defer waitGroup.Done()
-			defer fmt.Printf("routine %d finished\n", i)
+			//defer fmt.Printf("routine %d finished\n", i)
 
 			response, err := client.Get(req_url)
 			if err != nil {
@@ -334,11 +334,12 @@ func (app *App) extractGrades(gradeDetailLinks []string) ([]Course, error) {
 		courses = append(courses, course)
 
 	}
-	// debug purposes
+	/* debug purposes
 	for _, v := range courses {
 		fmt.Println(v.Name)
 		fmt.Println(v.Examinations)
 		fmt.Println("")
 	}
+	*/
 	return courses, nil
 }

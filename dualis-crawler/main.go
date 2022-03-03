@@ -2,9 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lumaghg/dualis-crawler/crawler"
@@ -13,19 +11,6 @@ import (
 type MyEvent struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
-}
-
-func HandleRequest(event MyEvent) (string, error) {
-	start := time.Now()
-
-	results, _ := crawler.GetDualisCrawlResults(event.Email, event.Password)
-	fmt.Println(time.Since(start))
-	fmt.Println(results)
-	resultsBytes, err := json.Marshal(results)
-	if err != nil {
-		return "", err
-	}
-	return string(resultsBytes), nil
 }
 
 func main() {
@@ -37,6 +22,7 @@ func main() {
 	})
 
 	r.POST("/scrapedualis", func(c *gin.Context) {
+
 		body, err := ioutil.ReadAll(c.Request.Body)
 		if err != nil {
 			c.JSON(400, gin.H{"err": err})

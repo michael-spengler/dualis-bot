@@ -9,7 +9,7 @@ app.use(json())
 
 Utils.setupCronjob()
 
-const port = parseInt(Deno.env.get("PORT") as string);
+const port = parseInt(Deno.env.get("BACKEND_PORT") as string);
 if (Number.isNaN(port)) {
     console.error("Port must be a number")
     Deno.exit(1);
