@@ -1,14 +1,11 @@
-import { Router } from "https://deno.land/x/opine@2.1.1/mod.ts";
+import { decode } from "../deps.ts"
+import { bcrypt } from "../deps.ts";
+import { Bson } from "../deps.ts";
+import { Router } from "../deps.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
-import { IUser } from "../interfaces/user.interface.ts"
 import User from "../interfaces/user.interface.ts"
 import userSchema from "../schemas/user.schema.ts"
-import { decode } from "https://deno.land/x/djwt@v2.2/mod.ts"
-import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
 import Utils from "../utils/utils.ts"
-import {
-    Bson,
-} from "https://deno.land/x/mongo@v0.29.2/mod.ts";
 
 interface IJWTPayload {
     userId: Bson.ObjectId
@@ -29,6 +26,7 @@ router.get("/user", async (req, res) => {
         user.password = "";
         user.dualis_password = "";
         user.dualis_username = "";
+        user.username = Utils.decrypt(user.username)
 
 
         res.json(user)
@@ -43,12 +41,17 @@ router.put("/user", async (req, res) => {
         const payload = decode(req.headers.get("auth") as string)
         const userId = ((payload[1] as IJWTPayload).userId);
 
-        let user = await User.findOne({ _id: new Bson.ObjectId(userId) })
-        let updatedUser = { ...user, ...req.body }
+        const user = await User.findOne({ _id: new Bson.ObjectId(userId) })
+        const updatedUser = { ...user, ...req.body }
         try {
             userSchema.assert(updatedUser)
-        } catch (e) {
+        } catch (_e) {
             res.setStatus(400).json(userSchema.validate(updatedUser).toString())
+            return
+        }
+
+        if (req.body.username) {
+            res.setStatus(400).json({ err: "username cannot be changed" })
             return
         }
 

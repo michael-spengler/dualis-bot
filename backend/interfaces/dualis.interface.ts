@@ -1,7 +1,10 @@
-export default interface IDualisCourse {
-    name: String
-    examinations: [{
-        exam_type: String
-        grade: String
-    }]
+export  interface IDualisCourse {
+    name: string,
+    examinations: IDualisExamination[]
 }
+
+export interface IDualisExamination 
+    {
+        exam_type: string
+        grade: string
+    }
