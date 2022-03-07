@@ -10,6 +10,9 @@ import {IUser} from "../interfaces/user.interface.ts"
 import { getDualisChanges, getDualisSummary } from "../dualis/dualis.ts"
 import {IDualisCourse } from "../interfaces/dualis.interface.ts"
 
+import * as telegram from "../notifications/telegram.ts"
+
+
 export default class Utils {
     static client: MongoClient;
     static async getDatabaseClient(): Promise<MongoClient> {
@@ -64,8 +67,15 @@ export default class Utils {
         })
     }
 
-    static notifyUser(userId: IUser, dualisChanges: IDualisCourse[]) {
-        console.log("notifications not implemented yet", userId, dualisChanges)
+    static notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
+        console.log("notifications not implemented complete yet", user, dualisChanges)
+
+        //Telegram Notification
+        //get Telegram Message
+        const message = telegram.getMessageFromChanges(user, dualisChanges)
+        //send Message
+        const targetID = user.notifications.telegram.notificationNumber //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot
+        telegram.sendMessage(targetID, message)                         
     }
 
 }
