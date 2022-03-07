@@ -1,6 +1,7 @@
 import {IUser} from "../interfaces/user.interface.ts"
 import {IDualisCourse} from "../interfaces/dualis.interface.ts"
 import {Request} from 'https://deno.land/x/request@1.3.0/request.ts'
+import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 
 export async function sendMessage(targetID: string, message: string) {
     const telegramBotToken = Deno.env.get("TELEGRAM_BOT")
