@@ -74,6 +74,8 @@ export default class Utils {
         //Telegram Notification
         const targetID = user.notifications.telegram.notificationNumber //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot
         const personalMessage = user.notifications.telegram.withGrades  //check if personal message is necessary for msg function
+        //send funny sticker before serious message
+        telegram.sendSticker(targetID, "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA")
         telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A")) 
         
         //Discord Notification
