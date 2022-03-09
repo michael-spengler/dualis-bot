@@ -11,6 +11,7 @@ import { getDualisChanges, getDualisSummary } from "../dualis/dualis.ts"
 import {IDualisCourse } from "../interfaces/dualis.interface.ts"
 
 import * as telegram from "../notifications/telegram.ts"
+import * as msg from "../notifications/message.ts"
 
 
 export default class Utils {
@@ -71,11 +72,11 @@ export default class Utils {
         console.log("notifications not implemented complete yet", user, dualisChanges)
 
         //Telegram Notification
-        //get Telegram Message
-        const message = telegram.getMessageFromChanges(user, dualisChanges)
-        //send Message
         const targetID = user.notifications.telegram.notificationNumber //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot
-        telegram.sendMessage(targetID, message)                         
+        const personalMessage = user.notifications.telegram.withGrades  //check if personal message is necessary for msg function
+        telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A")) 
+        
+        //Discord Notification
     }
 
 }

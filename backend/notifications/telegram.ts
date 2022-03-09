@@ -5,36 +5,13 @@ import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 
 export async function sendMessage(targetID: string, message: string) {
     const telegramBotToken = Deno.env.get("TELEGRAM_BOT")
+    //sendPanicSticker
+    const stickerURL = `https://api.telegram.org/bot${telegramBotToken}/sendSticker?chat_id=${targetID}&sticker=CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA`
+    await Request.get(stickerURL)
+    //timeout
+    await new Promise(f => setTimeout(f, 20000));
     //sendMessage
-    const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${targetID}&text=${message}&disable_web_page_preview=true`
-    console.log(url)
-    await Request.get(url)
-}
-
-export function getMessageFromChanges(user: IUser, dualisChanges: IDualisCourse[]){
-    let message = "Hallo, %0AEs sind folgende neue Bewertungen in Dualis verfügbar:"
-    const personalMessage = user.notifications.telegram.withGrades
-    // personal Message with Grades and Submodules
-    if (personalMessage) { 
-        //iterate through all modules with new grades
-        for(let i in dualisChanges) {
-            message += "%0A"
-            const totalModuleObject = dualisChanges[i].examinations;
-            //iterate through submodules
-            for(let j in totalModuleObject){ 
-                const submoduleObject = totalModuleObject[j]
-                message += "%0A" + dualisChanges[i].name + " - " + submoduleObject.exam_type + ": " + submoduleObject.grade
-            }
-        }
-    // message without grades
-    } else {
-        //iterate through modules with new grades
-        for(let i in dualisChanges) {
-            message += "%0A" + dualisChanges[i].name
-        }
-    }
-
-    message += "%0AVielen Dank für ihr Vertrauen an unseren Service. Der Dualis-Bot hält Sie immer auf dem aktuellen Stand. %0A Besuche " + "WEBSITE" + " für die persönliche Konfiguration."
-    console.log(message)
-    return message
+    const messageURL = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${targetID}&text=${message}&disable_web_page_preview=true`
+    console.log(messageURL)
+    await Request.get(messageURL)
 }
