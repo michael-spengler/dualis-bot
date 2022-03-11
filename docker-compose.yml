@@ -12,6 +12,8 @@ services:
       - AES_SECRET=${AES_SECRET}
       - CRAWLER_HOST=${CRAWLER_HOST}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - TELEGRAM_BOT=${TELEGRAM_BOT}
+      - WEBSITE=${WEBSITE}
     depends_on:
       - dualis-crawler
     

@@ -9,6 +9,10 @@ import IUser from "../interfaces/user.interface.ts"
 import { getDualisChanges, getDualisSummary } from "../dualis/dualis.ts"
 import {IDualisCourse } from "../interfaces/dualis.interface.ts"
 
+import * as telegram from "../notifications/telegram.ts"
+import * as msg from "../notifications/message.ts"
+
+
 export default class Utils {
     static client: any;
     static async getDatabaseClient(): Promise<any> {
@@ -63,8 +67,18 @@ export default class Utils {
         })
     }
 
-    static notifyUser(userId: IUser, dualisChanges: IDualisCourse[]) {
-        console.log("notifications not implemented yet", userId, dualisChanges)
+    static notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
+        console.log("notifications not implemented complete yet", user, dualisChanges)
+
+        //Telegram Notification
+        const telegramBotToken = Deno.env.get("TELEGRAM_BOT") || ""
+        const targetID = user.notifications.telegram.notificationNumber //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot
+        const personalMessage = user.notifications.telegram.withGrades  //check if personal message is necessary for msg function
+        //send funny sticker before serious message
+        telegram.sendSticker(targetID, "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA", telegramBotToken)
+        telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"), telegramBotToken) 
+        
+        //Discord Notification
     }
 
 }
