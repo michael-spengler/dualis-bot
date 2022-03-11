@@ -1,25 +1,27 @@
 <script>
-  import Home from "@/components/Home.svelte";
-  import { fade } from "svelte/transition";
+  import Router from "svelte-routing/Router.svelte";
+  import Route from "svelte-routing/Route.svelte";
+  import Link from "svelte-routing/Link.svelte";
+  
+  import Login from "@/routes/Login.svelte";
+  import Register from "@/routes/Register.svelte";
+  import About from "@/routes/About.svelte";
+  import Config from "@/routes/Config.svelte";
 
-  let name = "World";
+  export let url = "";
 </script>
 
-<main transition:fade>
-  <Home {name} />
-</main>
-
-<style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
-</style>
+<Router url="{url}">
+  <nav>
+    <Link to="/">Login</Link>
+    <Link to="register">Register</Link>
+    <Link to="config">Configuration</Link>
+    <Link to="about">About Us</Link>
+  </nav>
+  <div>
+    <Route path="register" component="{Register}" />
+    <Route path="config" component="{Config}" />
+    <Route path="about" component="{About}" />
+    <Route path="/" component="{Login}"><Login /></Route>
+  </div>
+</Router>
