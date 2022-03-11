@@ -1,15 +1,4 @@
-on: 
-  push:
-    paths:
-    - '/backend/*'
-    branches: 
-    - main
-    
-  pull_request:
-    paths:
-    - '/backend/*'
-    branches:
-    - main
+on: [push, pull_request]
 
 jobs:
   build:

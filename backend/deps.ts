@@ -1,7 +1,7 @@
 export {
     Bson,
     MongoClient,
-    Collection
+    Collection 
 } from "https://deno.land/x/mongo@v0.29.2/mod.ts";
 export { equal } from "https://deno.land/std@0.127.0/testing/asserts.ts";
 export type { OpineRequest, OpineResponse, NextFunction } from "https://deno.land/x/opine@2.1.1/mod.ts";
