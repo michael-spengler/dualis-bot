@@ -1,21 +1,20 @@
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 import { MongoClient } from "../deps.ts";
-import { Bson } from "../deps.ts";
 import { everyMinute } from "../deps.ts";
 import { Aes } from "../deps.ts";
 import { Cbc, Padding } from "../deps.ts";
 import { encodeToString, decodeString } from "../deps.ts";
-import User from "../interfaces/user.interface.ts"
-import {IUser} from "../interfaces/user.interface.ts"
+import User from "../collections/user.collection.ts"
+import IUser from "../interfaces/user.interface.ts"
 import { getDualisChanges, getDualisSummary } from "../dualis/dualis.ts"
 import {IDualisCourse } from "../interfaces/dualis.interface.ts"
 
 export default class Utils {
-    static client: MongoClient;
-    static async getDatabaseClient(): Promise<MongoClient> {
+    static client: any;
+    static async getDatabaseClient(): Promise<any> {
         if (Utils.client == undefined) {
             try {
-                Utils.client = new MongoClient();
+                Utils.client = await new MongoClient();
                 await Utils.client.connect("mongodb+srv://dualis-bot:" + Deno.env.get("DATABASE_PASSWORD") + "@cluster0.mw4xn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&authMechanism=SCRAM-SHA-1&authSource=admin")
             } catch (e) {
                 console.error(e)
@@ -48,7 +47,7 @@ export default class Utils {
     static setupCronjob() {
         everyMinute(async () => {
             console.log("running dualis check for every user")
-            await User.find({ active: true }).forEach(async (user) => {
+            await User.find({ active: true }).forEach(async (user: IUser) => {
                 try {
                     const dualisSummary = await getDualisSummary(Utils.decrypt(user.dualis_username), Utils.decrypt(user.dualis_password));
                     const changes = await getDualisChanges(user._id, dualisSummary)

@@ -1,12 +1,14 @@
 import { Router } from "../deps.ts"
 import authMiddleware from "../middleware/authMiddleware.ts"
 
-import UserRouter from './users.ts';
-import AuthRouter from './auth.ts'
+import UserController from './users.ts';
+import AuthController from './auth.ts'
 
 const router = Router();
 
-router.use('/', AuthRouter);
-router.use('/', authMiddleware, UserRouter);
+router.get('/user', UserController.getLoggedInUser);
+router.put('/user', UserController.updateLoggedInUser)
+router.post('/register', AuthController.registerUser);
+router.post('/login', AuthController.loginUser)
 
 export default router;

@@ -1,10 +1,10 @@
 import {
   Bson,
 } from "../deps.ts";
-import Utils from "../utils/utils.ts"
+
 import {IDualisCourse} from "./dualis.interface.ts"
 
-export interface IUser {
+export default interface IUser {
   _id: Bson.ObjectId;
   username: string;
   password: string;
@@ -32,5 +32,5 @@ export interface IUser {
 }
 
 
-export default (await Utils.getDatabaseClient()).database("myFirstDatabase").collection<IUser>("users");
+
 

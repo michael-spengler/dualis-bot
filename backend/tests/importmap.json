@@ -1,5 +1,6 @@
 {
     "imports": {
-        "https://deno.land/x/smtp/mod.ts": "./mocks/smtp.mock.ts"
+        "https://deno.land/x/smtp/mod.ts": "./mocks/smtp.mock.ts",
+        "../collections/user.collection.ts": "./mocks/user.collection.mock.ts"
     }
   }

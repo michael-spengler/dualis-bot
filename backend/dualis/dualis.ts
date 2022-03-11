@@ -4,7 +4,7 @@ import {
 import { IDualisExamination, IDualisCourse } from "../interfaces/dualis.interface.ts"
 import axiod from "https://deno.land/x/axiod@0.24/mod.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
-import User from "../interfaces/user.interface.ts"
+import User from "../collections/user.collection.ts"
 
 export async function getDualisSummary(dualis_username: string, dualis_password: string): Promise<IDualisCourse[]> {
 
