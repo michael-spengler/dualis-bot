@@ -12,12 +12,6 @@
 </script>
 
 <Router url="{url}">
-  <nav>
-    <Link to="/">Login</Link>
-    <Link to="register">Register</Link>
-    <Link to="config">Configuration</Link>
-    <Link to="about">About Us</Link>
-  </nav>
   <div>
     <Route path="register" component="{Register}" />
     <Route path="config" component="{Config}" />
