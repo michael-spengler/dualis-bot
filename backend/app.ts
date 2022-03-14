@@ -2,9 +2,12 @@ import { opine, json } from "./deps.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 import Routes from './routes/routes.ts';
 import Utils from "./utils/utils.ts"
+import { opineCors } from "./deps.ts";
+
 const app = opine();
 
 
+app.use(opineCors())
 app.use(json())
 
 Utils.setupCronjob()

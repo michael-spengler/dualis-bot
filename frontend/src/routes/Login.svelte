@@ -22,7 +22,6 @@
     }
     await fetch(loginCall, {
         method: 'POST',
-        mode: 'no-cors',
         headers: { 
           'Access-Control-Allow-Origin': true,
           'accept': 'application/json',
