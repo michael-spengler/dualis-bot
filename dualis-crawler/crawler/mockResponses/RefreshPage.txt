@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+        <!-- Redirect -->
+        <meta http-equiv="refresh"
+                content="0;URL=/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=MLSSTART&ARGUMENTS=-N976165151668439,-N000019," />
+
+        <!-- Manual header, becase frame template cannot be reused here. -->
+        <!--
+        © DATENLOTSEN INFORMATIONSSYSTEME GMBH
+        e-mail:                 info@datenlotsen.de
+        web:                    http://www.datenlotsen.de
+
+        customer:               dhbw
+        version:                11.00.002
+        filename:               redirect_startpage_dispatch.ht
+//-->
+
+        <script type="text/javascript"></script>
+
+
+        <title>Duale Hochschule Baden-Württemberg</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="-1" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Script-Type" content="text/javascript" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0" />
+
+        <link href="/css/_default/dl.startpage.css" rel="stylesheet" type="text/css" />
+        <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+        <link href="/css/colors.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="redirect">
+        <div id="wrapper">
+                <a href="http://www.dhbw.de" title="extern www.dhbw.de">
+                        <img border="0" id="logo" src="/gfx/dhbw/logo.png"
+                                alt="Logo Duale Hochschule Baden-Württemberg" />
+                </a>
+
+                <!-- Fallback if automatic meta redirect fails -->
+                <h2><a href="/">Sie werden zur Startseite weitergeleitet ...</a></h2>
+                <a style="text-decoration: underline;"
+                        href="/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=MLSSTART&ARGUMENTS=-N976165151668439,-N000019,">Startseite</a>
+
+        </div>
+</body>
+
+</html>
