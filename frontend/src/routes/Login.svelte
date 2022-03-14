@@ -4,8 +4,7 @@
   import Route from "svelte-routing/Route.svelte";
   import Link from "svelte-routing/Link.svelte";
   import { navigate } from "svelte-routing";
-
-  //import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
+  import { jwt, BACKEND_SERVER } from "../stores.js";
 
   //***VARIABLES***
   var username = "";
@@ -14,8 +13,7 @@
 
   //***FUNCTIONS***
   async function login() {
-    //const loginCall = Deno.env.get("BACKEND_SERVER") + "/login"
-    const loginCall = "http://localhost:4000/api/v1/login"
+    const loginCall = BACKEND_SERVER + "/login"
     const loginData = {
       "username": username, 
       "password": password
@@ -29,10 +27,12 @@
         },
         body: JSON.stringify(loginData)
       })
-      .then(response => {
-        console.log(response)
+      .then(async response => { 
         if(response.status==200){
-          navigate("/config", { replace: true });
+          const res = await response.json()
+          console.log(res.jwt)
+          jwt.set(res.jwt)
+          navigate("/config", { replace: false });
         }else{
           incorrect = true;
         }
@@ -47,7 +47,7 @@
 
 <div class="border">
   <div class="center">
-    <h1>Login</h1>
+    <h1>Anmeldung</h1>
     <hr/>
     <p>
       Gib hier deine Anmeldedaten für den Dualis-Bot ein.
