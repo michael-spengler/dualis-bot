@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+	<head>
+	<title>Duale Hochschule Baden-Württemberg</title>
+	<!--
+		© DATENLOTSEN INFORMATIONSSYSTEME GMBH
+		e-mail: 		info@datenlotsen.de
+		web: 			http://www.datenlotsen.de
+		
+		customer: 		dhbw
+		version: 		11.00.002
+		filename:		head_popup.htm
+	//-->
+
+		<!-- IE document mode -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+			
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />	
+	<!-- <meta http-equiv="Content-Type" 	content="text/html; charset=iso-8859-1" /> -->
+	<meta http-equiv="Content-Type" 	content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta name="referrer" content="origin">
+		
+	<script src='/js/checkDate.js' type='text/javascript'></script>
+	<script src='/js/edittext.js' type='text/javascript'></script>
+	<script src="/js/skripts.js" type="text/javascript"></script>
+	<script src="/js/x.js" type="text/javascript"></script>
+		
+		
+	<!-- ++++++++++++++++++ DEFAULT STYLESHEETS  ++++++++++++++++++++ -->		
+	<link href="/css/_default/def_layout.css" 	rel="stylesheet"  type="text/css" media="screen" />	
+	<link href="/css/_default/def_styles.css" 	rel="stylesheet"  type="text/css" media="screen" />		
+	<link href="/css/_default/def_print.css" 		rel="stylesheet"  type="text/css" media="print" />
+
+			
+	<!-- ++++++++++++++++++ CUSTOMER STYLESHEETS  ++++++++++++++++++++ -->		
+	<link href="/css/styles.css" rel="stylesheet"  type="text/css" /><!-- no media specified because -->
+	<link href="/css/colors.css" rel="stylesheet"  type="text/css" /><!-- used for screen AND print -->
+	
+			<!-- ++++++++++++++++++ MINOR IE FIXES ++++++++++++++++++ -->
+	<!--[if IE]>
+		<link id="IE7FIXES" href="/css/_default/IE/fixes_ie.css" rel="stylesheet" type="text/css"  />
+	<![endif]-->
+	<!--[if lt IE 7]>
+		<link id="IE6FIXES" href="/css/_default/IE/fixes_ie6.css" rel="stylesheet" type="text/css"  media="screen" />
+		<noscript>
+			<link id="IE6FIXESNOSCRIPT" href="/css/_default/IE/fixes_ie6_noScript.css" 	rel="stylesheet" type="text/css"  media="screen" />
+		</noscript>
+	<![endif]-->
+	</head>
+	<body class="popUpBody">
+		<div id="pageContentPopUp" class="pageElementTop"> <!-- CENTER COL OF CONTENT -->				
+<!--
+	© DATENLOTSEN INFORMATIONSSYSTEME GMBH
+	e-mail: 		info@datenlotsen.de
+	web: 			http://www.datenlotsen.de
+	
+	customer: 		dhbw
+	version: 		11.00.002
+	filename:		partial_results.htm
+//-->
+
+	<script type="text/javascript"></script>
+	
+
+<script type="text/javascript">
+<!--
+    function popUp(datei) {
+        Message = dl_popUp(datei,"Message",680,400);
+        Message.focus();
+}
+//-->
+</script>
+<noscript></noscript>
+
+
+<form name="courseform">
+
+<h1>
+W3WI_601&nbsp;
+Mathematik I (WiSe 2020/21)</h1>
+<h2>
+ Max Mustermann</h2>
+ 
+
+
+<table class="tb" style="width:700px;">
+    <tr><td class="tbhead" colspan="7">&nbsp;</td></tr>
+    <tr>
+        <td class="tbsubhead">Versuch</td>
+        <td class="tbsubhead">&nbsp;</td>
+        <td class="tbsubhead">Prüfung</td>
+        <td class="tbsubhead">Datum</td>
+        <td class="tbsubhead">Bewertung</td>
+                <td class="tbsubhead">Extern anerkannt</td>
+               <td class="tbsubhead">&nbsp;</td>
+    </tr>
+                    <tr>
+           <td class="level01" colspan="5">
+              Versuch  1
+           </td>
+           <td class="level01">&nbsp;</td>
+           <td class="level01">
+                         </td>
+        </tr>
+        
+                            <tr>
+                                        <td class="level02" colspan="8">W3WI_601.1 Analysis und Lineare Algebra (MA-WWI20SEA)</td>
+                                   </tr>
+            
+        <!-- Anfang Teilpruefungen -->
+                    <!-- Ende Teilpruefungen -->
+                                            <tr>
+            <td class="tbdata" colspan="2">SoSe 2021</td>
+            <td class="tbdata" >Klausur (50%)</td>
+            <td class="tbdata" style="vertical-align:top;"></td>
+                                <td class="tbdata" style="vertical-align:top;">
+                                                                                            1,0
+                                                                                                                            </td>
+                                <td class="tbdata" style="text-align:center;">
+                                </td>
+			
+						
+			<td class="tbdata" >
+                                                                            </td>
+        </tr>
+                            
+        <!-- Anfang Teilpruefungen -->
+                                                <!-- Ende Teilpruefungen -->
+                            <tr>
+                                        <td class="level02" colspan="8">W3WI_601.2 Logik und Algebra (MA-WWI20SEA)</td>
+                                   </tr>
+            
+        <!-- Anfang Teilpruefungen -->
+                    <!-- Ende Teilpruefungen -->
+                                            <tr>
+            <td class="tbdata" colspan="2">WiSe 2020/21</td>
+            <td class="tbdata" >Klausur (50%)</td>
+            <td class="tbdata" style="vertical-align:top;"></td>
+                                <td class="tbdata" style="vertical-align:top;">
+                                                                                            1,1
+                                                                                                                            </td>
+                                <td class="tbdata" style="text-align:center;">
+                                </td>
+			
+						
+			<td class="tbdata" >
+                                                                            </td>
+        </tr>
+                            
+        <!-- Anfang Teilpruefungen -->
+                                                <!-- Ende Teilpruefungen -->
+        
+	<tr>
+		<td class="level02">&nbsp;</td>
+		<td class="level02" style="white-space:nowrap;">Gesamt 1</td>
+		<td class="level02" colspan="2">&nbsp;</td>
+					<td class="level02" style="vertical-align:top;">1,0&nbsp;bestanden</td>
+			<td class="level02">&nbsp;</td>
+		
+						
+					 <td class="level02">&nbsp;</td>
+	</tr>
+    </table>
+
+
+
+
+
+   <h2>Zugehörige Bausteine</h2>
+   <table class="tb" style="width:700px;">
+       <tr><td class="tbhead" colspan="4">Pflichtbereich</td></tr>
+       <tr>
+          <td class="tbsubhead" width="15%">Unit-Nr.</td>
+          <td class="tbsubhead" width="25%">Unit-Name</td>
+          <td class="tbsubhead" width="40%">Veranstaltung</td>
+          <td class="tbsubhead" width="20%">Aktive Teilnahme</td>
+        </tr>
+              <tr>
+           <td class="tbdata" style="vertical-align:top;">W3WI_601.1</td>
+           <td class="tbdata" style="vertical-align:top;">Analysis und Lineare Algebra</td>
+           <td class="tbdata" style="vertical-align:top;">W3WI_601.1 Analysis und Lineare Algebra (MA-WWI20SEA)</td>
+           <td class="tbdata" style="text-align:center;">
+                         <img src="/img/individual/pass.gif" height="15" alt="Anerkannt" title="Anerkannt"  />
+                </td>
+       </tr>
+           <tr>
+           <td class="tbdata" style="vertical-align:top;">W3WI_601.2</td>
+           <td class="tbdata" style="vertical-align:top;">Logik und Algebra</td>
+           <td class="tbdata" style="vertical-align:top;">W3WI_601.2 Logik und Algebra (MA-WWI20SEA)</td>
+           <td class="tbdata" style="text-align:center;">
+                         <img src="/img/individual/pass.gif" height="15" alt="Anerkannt" title="Anerkannt"  />
+                </td>
+       </tr>
+       </table>
+</form>
+
+		<!--
+			© DATENLOTSEN INFORMATIONSSYSTEME GMBH
+			e-mail: 		info@datenlotsen.de
+			web: 			http://www.datenlotsen.de
+			
+			customer: 		dhbw
+			version: 		11.00.002
+			filename:		foot_popup.htm
+		//-->
+		</div>
+	</body>
+</html>
