@@ -4,7 +4,7 @@
   import Route from "svelte-routing/Route.svelte";
   import Link from "svelte-routing/Link.svelte";
   import { navigate } from "svelte-routing";
-  import axios from 'https://cdn.skypack.dev/axios';
+
   //import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 
   //***VARIABLES***
@@ -20,10 +20,15 @@
       "username": username, 
       "password": password
     }
-    await axios
-      .post(loginCall, loginData, {
-        headers: { "Access-Control-Allow-Origin": true },
-        mode: "cors"
+    await fetch(loginCall, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 
+          'Access-Control-Allow-Origin': true,
+          'accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(loginData)
       })
       .then(response => {
         console.log(response)
