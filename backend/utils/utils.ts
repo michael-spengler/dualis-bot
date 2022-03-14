@@ -7,7 +7,7 @@ import { encodeToString, decodeString } from "../deps.ts";
 import User from "../collections/user.collection.ts"
 import IUser from "../interfaces/user.interface.ts"
 import { getDualisChanges, getDualisSummary } from "../dualis/dualis.ts"
-import {IDualisCourse } from "../interfaces/dualis.interface.ts"
+import { IDualisCourse } from "../interfaces/dualis.interface.ts"
 
 import * as telegram from "../notifications/telegram.ts"
 import * as msg from "../notifications/message.ts"
@@ -57,8 +57,10 @@ export default class Utils {
                     const changes = await getDualisChanges(user._id, dualisSummary)
                     console.log("user:" + user._id + ", changes:", changes)
                     if (changes.length > 0) {
-                        await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: dualisSummary } })
-                        await this.notifyUser(user, changes)
+                        if (changes[0].examinations.length > 0) {
+                            await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: dualisSummary } })
+                            await this.notifyUser(user, changes)
+                        }
                     }
                 } catch (e) {
                     console.error(e)
@@ -76,8 +78,8 @@ export default class Utils {
         const personalMessage = user.notifications.telegram.withGrades  //check if personal message is necessary for msg function
         //send funny sticker before serious message
         telegram.sendSticker(targetID, "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA", telegramBotToken)
-        telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"), telegramBotToken) 
-        
+        telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"), telegramBotToken)
+
         //Discord Notification
     }
 
