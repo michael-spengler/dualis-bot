@@ -5,7 +5,7 @@ services:
     build: ./backend
     image: lumaghg/dualis-bot-backend
     ports: 
-      - 4000:4000
+      - 3000:3000
     environment:
       - BACKEND_PORT=${BACKEND_PORT}
       - JWT_SECRET=${JWT_SECRET}

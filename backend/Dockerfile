@@ -1,7 +1,7 @@
 FROM denoland/deno:1.19.1
 
 # The port that your application listens to.
-EXPOSE 4000
+EXPOSE 3000
 
 WORKDIR /app
 

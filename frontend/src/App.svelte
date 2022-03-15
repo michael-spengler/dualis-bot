@@ -16,7 +16,6 @@
     <Route path="register" component="{Register}" />
     <Route path="config" component="{Config}" />
     <Route path="about" component="{About}" />
-    <Route path="login" component="{Login}" />
     <Route path="/" component="{Login}"><Login /></Route>
   </div>
 </Router>

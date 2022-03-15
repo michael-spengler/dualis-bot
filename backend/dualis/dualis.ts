@@ -2,33 +2,9 @@ import {
     Bson,
 } from "../deps.ts";
 import { IDualisExamination, IDualisCourse } from "../interfaces/dualis.interface.ts"
-import User from "../collections/user.collection.ts"
-import IUser from "../interfaces/user.interface.ts"
-import axiod from "https://deno.land/x/axiod@0.24/mod.ts"
-import { everyMinute } from "../deps.ts";
+import axiod from "https://deno.land/x/axiod@0.24/mod.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
-import Utils from "../utils/utils.ts";
-
-export function setupCronjob() {
-    everyMinute(cronjob)
-}
-
-export async function cronjob() {
-    console.log("running dualis check for every user")
-    await User.find({ active: true }).forEach(async (user: IUser) => {
-        try {
-            const dualisSummary = await getDualisSummary(Utils.decrypt(user.dualis_username), Utils.decrypt(user.dualis_password));
-            const changes = await getDualisChanges(user._id, dualisSummary)
-            console.log("user:" + user._id + ", changes:", changes)
-            if (changes.length > 0) {
-                await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: dualisSummary } })
-                await Utils.notifyUser(user, changes)
-            }
-        } catch (e) {
-            console.error(e)
-        }
-    })
-}
+import User from "../collections/user.collection.ts"
 
 export async function getDualisSummary(dualis_username: string, dualis_password: string): Promise<IDualisCourse[]> {
 
