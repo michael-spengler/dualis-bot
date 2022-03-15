@@ -72,7 +72,6 @@ func GetDualisCrawlResults(email string, password string) ([]Course, error) {
 	if err != nil {
 		return []Course{}, err
 	}
-	fmt.Println(courses)
 	return courses, nil
 }
 
