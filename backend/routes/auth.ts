@@ -5,7 +5,7 @@ import  IUser from "../interfaces/user.interface.ts"
 import User from "../collections/user.collection.ts"
 import userSchema from "../schemas/user.schema.ts"
 import Utils from "../utils/utils.ts"
-import { getDualisSummary } from "../dualis/dualis.ts"
+import { fetchDualisSummary } from "../dualis/dualis.ts"
 import _sendEmail from '../notifications/email.ts';
 import "https://deno.land/x/dotenv/load.ts";
 
@@ -46,7 +46,7 @@ export default class AuthController {
                 return
             }
 
-            user.dualisSummary = await getDualisSummary(user.dualis_username, user.dualis_password)
+            user.dualisSummary = await fetchDualisSummary(user.dualis_username, user.dualis_password)
             user.password = await bcrypt.hash(user.password)
             user.username = Utils.encrypt(user.username)
             user.dualis_password = Utils.encrypt(user.dualis_password)

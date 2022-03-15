@@ -1,6 +1,4 @@
-import {
-    Bson,
-} from "../deps.ts";
+
 import { IDualisExamination, IDualisCourse } from "../interfaces/dualis.interface.ts"
 import axiod from "https://deno.land/x/axiod@0.24/mod.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
@@ -18,12 +16,16 @@ export async function cronjob() {
     console.log("running dualis check for every user")
         await User.find({ active: true }).forEach(async (user: IUser) => {
             try {
-                const dualisSummary = await getDualisSummary(Utils.decrypt(user.dualis_username), Utils.decrypt(user.dualis_password));
-                const changes = await getDualisChanges(user._id, dualisSummary)
+                const newDualisSummary = (await axiod.post(Deno.env.get("CRAWLER_URL") + "/scrapedualis", {
+                    email: Utils.decrypt(user.dualis_username),
+                    password: Utils.decrypt(user.dualis_password)
+                })).data
+                console.log(newDualisSummary)
+                const changes = getDualisChanges(user.dualisSummary, newDualisSummary)
                 console.log("user:" + user._id + ", changes:", changes)
                 if (changes.length > 0) {
                     if (changes[0].examinations.length > 0) {
-                        await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: dualisSummary } })
+                        await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: newDualisSummary } })
                         await Utils.notifyUser(user, changes)
                     }
                 }
@@ -33,25 +35,7 @@ export async function cronjob() {
         })
 }
 
-
-export async function getDualisSummary(dualis_username: string, dualis_password: string): Promise<IDualisCourse[]> {
-
-    //change when docker compose is finished
-    const response = await axiod.post("http://" + Deno.env.get("CRAWLER_HOST") + ":8080/scrapedualis", {
-        email: dualis_username,
-        password: dualis_password
-    })
-
-    return response.data
-
-}
-
-export async function getDualisChanges(userId: Bson.ObjectId, newSummary: IDualisCourse[]) {
-    const user = await User.findOne({ _id: userId })
-    if (!user) {
-        throw new Error
-    }
-    const oldSummary = user.dualisSummary;
+export function getDualisChanges(oldSummary: IDualisCourse[], newSummary: IDualisCourse[]) {
 
     	/*
 		compare the differences, so that new Courses and new Examinations and
@@ -98,7 +82,7 @@ export async function getDualisChanges(userId: Bson.ObjectId, newSummary: IDuali
 
 }
 
-function compareExaminations(examination1: IDualisExamination, examination2: IDualisExamination): boolean {
+export function compareExaminations(examination1: IDualisExamination, examination2: IDualisExamination): boolean {
     return examination1.exam_type == examination2.exam_type && examination1.grade == examination2.grade
 }
 
