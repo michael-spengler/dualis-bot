@@ -2,13 +2,14 @@ import { opine, json } from "./deps.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 import Routes from './routes/routes.ts';
 import Utils from "./utils/utils.ts"
-import { opineCors } from "https://deno.land/x/cors@v1.2.1/mod.ts";
+import { opineCors } from "./deps.ts";
+import {setupCronjob} from "./dualis/dualis.ts"
 const app = opine();
 
 app.use(json())
 app.use(opineCors())
 
-Utils.setupCronjob()
+setupCronjob()
 
 const port = parseInt(Deno.env.get("BACKEND_PORT") as string);
 if (Number.isNaN(port)) {
