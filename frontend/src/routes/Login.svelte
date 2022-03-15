@@ -70,23 +70,3 @@
     <button class="rButton" on:click={login}>Anmelden</button>
   </div>
 </div>
-
-<style>
-  .center {
-    margin: auto;
-    width: 350px;
-    padding: 10px;
-    text-align: center;
-  }
-  .border {
-    border: 3px solid #222222;
-  }
-  .rButton {
-    background: #E30613;
-    color: #FFFFFF;
-    margin-top: 10px;
-  }
-  .warning {
-    color: #E30613
-  }
-</style>
