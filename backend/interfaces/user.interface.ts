@@ -18,7 +18,7 @@ export default interface IUser {
       active: boolean
     },
     discord: {
-      notificationUsername: string,
+      chatId: string,
       withGrades: boolean,
       active: boolean
     },
