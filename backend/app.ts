@@ -4,7 +4,11 @@ import Routes from './routes/routes.ts';
 import Utils from "./utils/utils.ts"
 import { opineCors } from "./deps.ts";
 import {setupCronjob} from "./dualis/dualis.ts"
+
 const app = opine();
+
+
+app.use(opineCors())
 
 app.use(json())
 app.use(opineCors())

@@ -8,6 +8,7 @@ import { IDualisCourse } from "../interfaces/dualis.interface.ts"
 
 import * as telegram from "../notifications/telegram.ts"
 import * as msg from "../notifications/message.ts"
+import * as discord from "../notifications/discord.ts"
 
 
 export default class Utils {
@@ -57,6 +58,10 @@ export default class Utils {
         telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"), telegramBotToken)
 
         //Discord Notification
+        const discordBotToken = Deno.env.get("DISCORD_TOKEN") || ""
+        const chatID = user.notifications.discord.chatId
+        const personalMessageDiscord = user.notifications.discord.withGrades;
+        discord.sendMessageDiscord(chatID, msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "%0A"), discordBotToken);
     }
 
 }

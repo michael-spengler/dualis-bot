@@ -31,4 +31,4 @@ jobs:
         run: deno --version
 
       - name: Run backend tests with import map
-        run: deno test  --import-map=./backend/tests/importmap.json ./backend
+        run: deno test  --allow-all --import-map=./backend/tests/importmap.json ./backend

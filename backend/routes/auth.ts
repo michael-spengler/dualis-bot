@@ -13,7 +13,8 @@ export default class AuthController {
 
     static async loginUser(req: OpineRequest, res: OpineResponse) {
         try {
-            const user = await User.findOne({ username: Utils.encrypt(req.body.username) })
+            const user = <IUser | null>(await User.findOne({ username: Utils.encrypt(req.body.username) }))
+
             if (!user) {
                 res.setStatus(401).send()
                 return
@@ -25,7 +26,7 @@ export default class AuthController {
             res.json({ "jwt": jwt })
 
         } catch (_e) {
-            res.setStatus(401).send()
+            res.setStatus(401).send();
         }
     }
 

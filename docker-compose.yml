@@ -5,12 +5,12 @@ services:
     build: ./backend
     image: lumaghg/dualis-bot-backend
     ports: 
-      - 3000:3000
+      - 4000:4000
     environment:
       - BACKEND_PORT=${BACKEND_PORT}
       - JWT_SECRET=${JWT_SECRET}
       - AES_SECRET=${AES_SECRET}
-      - CRAWLER_HOST=${CRAWLER_HOST}
+      - CRAWLER_URL=${CRAWLER_URL}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - TELEGRAM_BOT=${TELEGRAM_BOT}
       - WEBSITE=${WEBSITE}
