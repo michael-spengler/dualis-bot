@@ -8,27 +8,24 @@ import IUser from "../interfaces/user.interface.ts"
 import userSchema from "../schemas/user.schema.ts"
 import Utils from "../utils/utils.ts"
 
-interface IJWTPayload {
+export interface IJWTPayload {
     userId: Bson.ObjectId
 }
 
 export default class UserController {
-    
-
     static async getLoggedInUser(req: OpineRequest, res: OpineResponse) {
         try {
             const payload = decode(req.headers.get("auth") as string)
             const userId = ((payload[1] as IJWTPayload).userId);
-            const user = await User.findOne({ _id: new Bson.ObjectId(userId) })
+            const user = <IUser>await User.findOne({ _id: new Bson.ObjectId(userId) })
             if (!user) {
-                res.setStatus(404).send()
+                res.setStatus(404).json()
                 return
             }
             user.password = "";
             user.dualis_password = "";
             user.dualis_username = "";
             user.username = Utils.decrypt(user.username)
-
 
             res.json(user)
         } catch (err) {
@@ -43,7 +40,7 @@ export default class UserController {
             const payload = decode(req.headers.get("auth") as string)
             const userId = ((payload[1] as IJWTPayload).userId);
 
-            const user = await User.findOne({ _id: new Bson.ObjectId(userId) })
+            const user = <IUser>await User.findOne({ _id: new Bson.ObjectId(userId) })
             const updatedUser = { ...user, ...req.body }
             try {
                 userSchema.assert(updatedUser)
