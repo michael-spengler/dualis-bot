@@ -16,7 +16,7 @@ export async function cronjob() {
     console.log("running dualis check for every user");
         (<any>(await User.find({ active: true }))).forEach(async (user: IUser) => {
             try {
-                const newDualisSummary = await getDualisSummary(user.dualis_username, user.dualis_password)
+                const newDualisSummary = await getDualisSummary(Utils.decrypt(user.dualis_username), Utils.decrypt(user.dualis_password))
                 console.log(newDualisSummary)
                 const changes = getDualisChanges(user.dualisSummary, newDualisSummary)
                 console.log("user:" + user._id + ", changes:", changes)
