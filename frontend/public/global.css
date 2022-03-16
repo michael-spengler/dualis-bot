@@ -64,9 +64,6 @@ button {
   font-weight: 700;
 }
 
-button:disabled {
-  color: #999;
-}
 
 button:not(:disabled):active {
   background-color: #ddd;
@@ -99,7 +96,12 @@ hr {
   border: none;
 }
 
-
+.left{
+  align-self: start
+}
+.right{
+  align-self: end;
+}
 .center {
   margin: auto;
   width: 350px;
@@ -109,10 +111,15 @@ hr {
 .border {
   border: 3px solid #222222;
 }
-.rButton {
-  background: #E30613;
+.rButton, .gButton {
   color: #FFFFFF;
   margin-top: 10px;
+}
+.rButton {
+  background: #E30613;
+}
+.gButton {
+  background: #C4C4C4;
 }
 .warning {
   color: #E30613

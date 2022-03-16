@@ -16,7 +16,6 @@
   export let url = "";
 
 </script>
-
 <svelte:head>
   <link rel="icon" type="image/jpg" href="../assets/Logo.jpg" />
 </svelte:head>
