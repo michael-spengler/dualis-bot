@@ -119,7 +119,7 @@ import {
     }
 ].forEach((testcase)=>{
     Deno.test(testcase.name, async () => {
-        Deno.env.set("CRAWLER_HOST", "testhost");
+        Deno.env.set("CRAWLER_URL", "http://testhost:8080");
     
         const req = mockRequest({
             body: testcase.body

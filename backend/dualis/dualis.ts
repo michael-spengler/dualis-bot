@@ -35,7 +35,7 @@ export async function cronjob() {
 export async function getDualisSummary(dualis_username: string, dualis_password: string): Promise<IDualisCourse[]> {
 
     //change when docker compose is finished
-    const response = await axiod.post("http://" + Deno.env.get("CRAWLER_HOST") + ":8080/scrapedualis", {
+    const response = await axiod.post(Deno.env.get("CRAWLER_URL") + "/scrapedualis", {
         email: dualis_username,
         password: dualis_password
     })
