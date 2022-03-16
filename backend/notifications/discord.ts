@@ -3,7 +3,7 @@ import {
     Message,
     GatewayIntents,
     TextChannel
-  } from 'https://deno.land/x/harmony/mod.ts'
+  } from "https://deno.land/x/harmony@v2.6.0/mod.ts"
 
   
 
@@ -17,7 +17,7 @@ import {
     */
 
 
-export function sendMessageDis(targetID: string, message: string, discordBotToken: string){
+export function sendMessageDiscord(targetID: string, message: string, discordBotToken: string){
     const client = new Client();
     client.on('ready', () => {
         console.log(`Ready! User: ${client.user?.tag}`)
