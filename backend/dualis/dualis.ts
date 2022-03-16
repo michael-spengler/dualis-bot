@@ -13,13 +13,10 @@ export function setupCronjob() {
 }
 
 export async function cronjob() {
-    console.log("running dualis check for every user")
-        await User.find({ active: true }).forEach(async (user: IUser) => {
+    console.log("running dualis check for every user");
+        (<any>(await User.find({ active: true }))).forEach(async (user: IUser) => {
             try {
-                const newDualisSummary = (await axiod.post(Deno.env.get("CRAWLER_URL") + "/scrapedualis", {
-                    email: Utils.decrypt(user.dualis_username),
-                    password: Utils.decrypt(user.dualis_password)
-                })).data
+                const newDualisSummary = await getDualisSummary(user.dualis_username, user.dualis_password)
                 console.log(newDualisSummary)
                 const changes = getDualisChanges(user.dualisSummary, newDualisSummary)
                 console.log("user:" + user._id + ", changes:", changes)
@@ -34,6 +31,19 @@ export async function cronjob() {
             }
         })
 }
+
+export async function getDualisSummary(dualis_username: string, dualis_password: string): Promise<IDualisCourse[]> {
+
+    //change when docker compose is finished
+    const response = await axiod.post("http://" + Deno.env.get("CRAWLER_HOST") + ":8080/scrapedualis", {
+        email: dualis_username,
+        password: dualis_password
+    })
+
+    return response.data
+
+}
+
 
 export function getDualisChanges(oldSummary: IDualisCourse[], newSummary: IDualisCourse[]) {
 

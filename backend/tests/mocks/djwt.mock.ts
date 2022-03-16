@@ -10,5 +10,8 @@ export const verify = spy(function(jwt: string, secret: string, algo: string){
   }
 });
 
-export const create = function() {}
+export const create = function(...args: any[]) {
+  return "myJWT"
+}
+
 export const decode = function() {}

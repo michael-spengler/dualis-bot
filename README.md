@@ -5,7 +5,7 @@ Dualis Bot Repository
 `docker-compose build | docker-compose up`
 
 ## Run Backend Tests
-`deno test  --import-map=./backend/tests/importmap.json ./backend`
+`deno test --allow-env --allow-read --importmap=./backend/tests/importmap.json`
 
 ## Run Crawler Tests
 `cd dualis-crawler | go test -v ./...`

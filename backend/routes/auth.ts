@@ -5,7 +5,7 @@ import  IUser from "../interfaces/user.interface.ts"
 import User from "../collections/user.collection.ts"
 import userSchema from "../schemas/user.schema.ts"
 import Utils from "../utils/utils.ts"
-import { fetchDualisSummary } from "../dualis/dualis.ts"
+import { getDualisSummary } from "../dualis/dualis.ts"
 import _sendEmail from '../notifications/email.ts';
 import "https://deno.land/x/dotenv/load.ts";
 
@@ -13,7 +13,8 @@ export default class AuthController {
 
     static async loginUser(req: OpineRequest, res: OpineResponse) {
         try {
-            const user = await User.findOne({ username: Utils.encrypt(req.body.username) })
+            const user = <IUser | null>(await User.findOne({ username: Utils.encrypt(req.body.username) }))
+
             if (!user) {
                 res.setStatus(401).send()
                 return
@@ -25,7 +26,7 @@ export default class AuthController {
             res.json({ "jwt": jwt })
 
         } catch (_e) {
-            res.setStatus(401).send()
+            res.setStatus(401).send();
         }
     }
 
@@ -46,7 +47,7 @@ export default class AuthController {
                 return
             }
 
-            user.dualisSummary = await fetchDualisSummary(user.dualis_username, user.dualis_password)
+            user.dualisSummary = await getDualisSummary(user.dualis_username, user.dualis_password)
             user.password = await bcrypt.hash(user.password)
             user.username = Utils.encrypt(user.username)
             user.dualis_password = Utils.encrypt(user.dualis_password)
