@@ -14,7 +14,7 @@ const userSchema = new Schema({
             active: {type: Boolean}
         },
         discord: {
-            notificationUsername: {type:String},
+            chatId: {type:String},
             withGrades: {type: Boolean},
             active: {type: Boolean}
         },

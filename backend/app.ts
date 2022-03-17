@@ -3,14 +3,17 @@ import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 import Routes from './routes/routes.ts';
 import Utils from "./utils/utils.ts"
 import { opineCors } from "./deps.ts";
+import {setupCronjob} from "./dualis/dualis.ts"
 
 const app = opine();
 
 
 app.use(opineCors())
-app.use(json())
 
-Utils.setupCronjob()
+app.use(json())
+app.use(opineCors())
+
+setupCronjob()
 
 const port = parseInt(Deno.env.get("BACKEND_PORT") as string);
 if (Number.isNaN(port)) {
@@ -20,7 +23,6 @@ if (Number.isNaN(port)) {
 
 //setup mongodb
 await Utils.getDatabaseClient()
-
 app.use('/api/v1', Routes);
 
 app.listen(

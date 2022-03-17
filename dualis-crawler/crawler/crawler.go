@@ -13,12 +13,9 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-const (
-	BaseURL = "https://dualis.dhbw.de"
-)
-
 type App struct {
-	Client *http.Client
+	Client  *http.Client
+	BaseURL string
 }
 
 type LoginInput struct {
@@ -50,7 +47,8 @@ func GetDualisCrawlResults(email string, password string) ([]Course, error) {
 	jar, _ := cookiejar.New(nil)
 
 	app := App{
-		Client: &http.Client{Jar: jar},
+		Client:  &http.Client{Jar: jar},
+		BaseURL: "https://dualis.dhbw.de",
 	}
 
 	loginInput, err := app.getLoginData(email, password)
@@ -66,7 +64,6 @@ func GetDualisCrawlResults(email string, password string) ([]Course, error) {
 	if err != nil {
 		return []Course{}, err
 	}
-
 	gradeDetailLinks, err := app.extractGradeDetailLinks(gradePageURL)
 	if err != nil {
 		return []Course{}, err
@@ -79,7 +76,7 @@ func GetDualisCrawlResults(email string, password string) ([]Course, error) {
 }
 
 func (app *App) getLoginData(email string, password string) (LoginInput, error) {
-	loginURL := BaseURL + "/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome"
+	loginURL := app.BaseURL + "/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome"
 	client := app.Client
 	//get login Page document
 	response, err := client.Get(loginURL)
@@ -122,7 +119,7 @@ func (app *App) performLoginAndGetRefreshURL(loginInput LoginInput) (string, err
 	//send Form to login page
 	client := app.Client
 
-	loginURL := BaseURL + "/scripts/mgrqispi.dll"
+	loginURL := app.BaseURL + "/scripts/mgrqispi.dll"
 
 	data := url.Values{
 		"APPNAME":   {loginInput.Appname},
@@ -144,12 +141,12 @@ func (app *App) performLoginAndGetRefreshURL(loginInput LoginInput) (string, err
 	}
 
 	defer response.Body.Close()
-
 	//extract auth cookie
 	cookieHeader := response.Header.Get("Set-Cookie")
 	if len(cookieHeader) < 1 {
 		return "", fmt.Errorf("login failed")
 	}
+
 	cookieValStartIndex := strings.Index(cookieHeader, "=") + 1
 	cookieValEndIndex := strings.Index(cookieHeader, ";")
 	cookieValue := cookieHeader[cookieValStartIndex:cookieValEndIndex]
@@ -158,14 +155,13 @@ func (app *App) performLoginAndGetRefreshURL(loginInput LoginInput) (string, err
 	var cookies []*http.Cookie
 
 	firstCookie := &http.Cookie{
-		Name:   "cnsc",
-		Value:  cookieValue,
-		Path:   "/",
-		Domain: ".dualis.dhbw.de",
+		Name:  "cnsc",
+		Value: cookieValue,
+		Path:  "/",
 	}
 
 	cookies = append(cookies, firstCookie)
-	cookieURL, _ := url.Parse(BaseURL)
+	cookieURL, _ := url.Parse(app.BaseURL)
 	client.Jar.SetCookies(cookieURL, cookies)
 
 	//extract refreshURL
@@ -183,7 +179,7 @@ func (app *App) getGradePageURL(refreshURL string) (string, error) {
 
 	client := app.Client
 	//first Refresh
-	response, err := client.Get(BaseURL + refreshURL)
+	response, err := client.Get(app.BaseURL + refreshURL)
 	if err != nil {
 		return "", err
 	}
@@ -192,6 +188,7 @@ func (app *App) getGradePageURL(refreshURL string) (string, error) {
 		log.Println(err)
 		return "", err
 	}
+
 	defer response.Body.Close()
 	bodyString := string(bodyBytes)
 	//find the start of the URL in the refresh header (there is only one URL substring)
@@ -204,14 +201,16 @@ func (app *App) getGradePageURL(refreshURL string) (string, error) {
 		return "", err
 	}
 
-	startPageResponse, err := client.Get(BaseURL + startPageURL)
+	startPageResponse, err := client.Get(app.BaseURL + startPageURL)
 	if err != nil {
 		return "", nil
 	}
+
 	defer response.Body.Close()
 	//find the URL to "Prüfungsergebnisse"
 	document, _ := goquery.NewDocumentFromReader(startPageResponse.Body)
 	gradePageURL, exists := document.Find("a[class='depth_1 link000307 navLink ']").Attr("href")
+
 	if !exists {
 		return "", fmt.Errorf("grade page url not found")
 	}
@@ -221,7 +220,7 @@ func (app *App) getGradePageURL(refreshURL string) (string, error) {
 func (app *App) extractGradeDetailLinks(gradePageURL string) ([]string, error) {
 	client := app.Client
 	//get baseGradePage and extract the semester-options
-	response, err := client.Get(BaseURL + gradePageURL)
+	response, err := client.Get(app.BaseURL + gradePageURL)
 	if err != nil {
 		return []string{}, err
 	}
@@ -236,7 +235,7 @@ func (app *App) extractGradeDetailLinks(gradePageURL string) ([]string, error) {
 	var gradeDetailLinks = []string{}
 	//for every semesterArgument, request the page
 	for _, argument := range semesterArguments {
-		response, err := client.Get(BaseURL + gradePageURL + "-N" + argument)
+		response, err := client.Get(app.BaseURL + gradePageURL + "-N" + argument)
 		if err != nil {
 			return []string{}, err
 		}
@@ -317,7 +316,7 @@ func (app *App) extractGrades(gradeDetailLinks []string) ([]Course, error) {
 			course.Examinations = examinations
 			//send the assembled course struct on the course channel
 			courseChan <- course
-		}(BaseURL+gradeURL, &detailGradeWaitGroup, courseChan, errChan, i)
+		}(app.BaseURL+gradeURL, &detailGradeWaitGroup, courseChan, errChan, i)
 	}
 	//wait for all goroutines to finish, then close the courseChannel
 	//so that range can be used to iterate

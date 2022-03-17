@@ -1,16 +1,14 @@
 import "https://deno.land/x/dotenv@v3.2.0/load.ts"; //load env
 import { MongoClient } from "../deps.ts";
-import { everyMinute } from "../deps.ts";
 import { Aes } from "../deps.ts";
 import { Cbc, Padding } from "../deps.ts";
 import { encodeToString, decodeString } from "../deps.ts";
-import User from "../collections/user.collection.ts"
 import IUser from "../interfaces/user.interface.ts"
-import { getDualisChanges, getDualisSummary } from "../dualis/dualis.ts"
-import {IDualisCourse } from "../interfaces/dualis.interface.ts"
+import { IDualisCourse } from "../interfaces/dualis.interface.ts"
 
 import * as telegram from "../notifications/telegram.ts"
 import * as msg from "../notifications/message.ts"
+import * as discord from "../notifications/discord.ts"
 
 
 export default class Utils {
@@ -48,25 +46,6 @@ export default class Utils {
 
     }
 
-    static setupCronjob() {
-        everyMinute(async () => {
-            console.log("running dualis check for every user")
-            await User.find({ active: true }).forEach(async (user: IUser) => {
-                try {
-                    const dualisSummary = await getDualisSummary(Utils.decrypt(user.dualis_username), Utils.decrypt(user.dualis_password));
-                    const changes = await getDualisChanges(user._id, dualisSummary)
-                    console.log("user:" + user._id + ", changes:", changes)
-                    if (changes.length > 0) {
-                        await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: dualisSummary } })
-                        await this.notifyUser(user, changes)
-                    }
-                } catch (e) {
-                    console.error(e)
-                }
-            })
-        })
-    }
-
     static notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
         console.log("notifications not implemented complete yet", user, dualisChanges)
 
@@ -76,9 +55,13 @@ export default class Utils {
         const personalMessage = user.notifications.telegram.withGrades  //check if personal message is necessary for msg function
         //send funny sticker before serious message
         telegram.sendSticker(targetID, "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA", telegramBotToken)
-        telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"), telegramBotToken) 
-        
+        telegram.sendMessage(targetID, msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"), telegramBotToken)
+
         //Discord Notification
+        const discordBotToken = Deno.env.get("DISCORD_TOKEN") || ""
+        const chatID = user.notifications.discord.chatId
+        const personalMessageDiscord = user.notifications.discord.withGrades;
+        discord.sendMessageDiscord(chatID, msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "%0A"), discordBotToken);
     }
 
 }
