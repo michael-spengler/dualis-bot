@@ -40,7 +40,11 @@ export default class UserController {
             const payload = decode(req.headers.get("auth") as string)
             const userId = ((payload[1] as IJWTPayload).userId);
 
-            const user = <IUser>await User.findOne({ _id: new Bson.ObjectId(userId) })
+            const user = <IUser>await User.findOne({ _id: new Bson.ObjectId(userId) });
+            if(!user) {
+                res.setStatus(400).json();
+            }
+
             const updatedUser = { ...user, ...req.body }
             try {
                 userSchema.assert(updatedUser)
@@ -65,9 +69,9 @@ export default class UserController {
             }
 
             await User.updateOne({ _id: new Bson.ObjectId(userId) }, { $set: updatedUser })
-            res.setStatus(204).send()
+            res.setStatus(204).json()
         } catch (err) {
-            res.setStatus(400).json({ err })
+            res.setStatus(400).json(err);
         }
     }
 
