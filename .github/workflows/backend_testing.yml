@@ -1,6 +1,14 @@
-name: Run Backend Unit Tests
+name: Backend Unit Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "backend/**"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "backend/**"
 
 jobs:
   build:
@@ -23,4 +31,4 @@ jobs:
         run: deno --version
 
       - name: Run backend tests with import map
-        run: deno test  --import-map=./backend/tests/importmap.json ./backend
+        run: deno test  --allow-all --import-map=./backend/tests/importmap.json ./backend
