@@ -19,9 +19,11 @@ export default class AuthController {
                 res.setStatus(401).send()
                 return
             }
-            //throws error if comparison fails
-            await bcrypt.compare(req.body.password, user.password)
-
+            
+            if (!await bcrypt.compare(req.body.password, user.password)) {
+                throw new Error();
+            }
+            
             const jwt = await create({ alg: "HS512", typ: "JWT" }, { userId: user._id }, Deno.env.get("JWT_SECRET") as string)
             res.json({ "jwt": jwt })
 
