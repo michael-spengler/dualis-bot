@@ -3,45 +3,25 @@
     import { jwt, BACKEND_SERVER } from "../stores.js";
     import Link from "svelte-routing/Link.svelte";
     import { onMount } from 'svelte';
-    import { dialogs } from 'https://cdn.skypack.dev/svelte-dialogs';
+    import { Button, Dialog, MaterialApp } from 'https://cdn.skypack.dev/svelte-materialify';
 
     //***VARIABLES***
     let token;
     jwt.subscribe(value => {token = value})
-    var telegramActive, discordActive, emailActive, telegramDisabled, discordDisabled, emailDisabled = false;
-    var telegramID, discordID, emailID = '';
-    var telegramPersonal, discordPersonal, emailPersonal = true;
+    var telegramActive = false, discordActive = false, emailActive = false, telegramDisabled = false, discordDisabled = false, emailDisabled = false;
+    var telegramID = '', discordID = '', emailID = '';
+    var telegramPersonal = true, discordPersonal = true, emailPersonal = true;
+    var telegramDialog = false, discordDialog = false, emailDialog = false;
     var user = '';
-
-    //***DIALOGS***
-    const telegramDialog= 
-        `
-            <div>
-                <input placeholder="Chat ID" value=${telegramID}/>
-                <input type="checkbox" label="Get Message with Grades" value=${telegramPersonal}/>
-                <button class="rButton" on:click=${saveTelegram}>Speichern</button>
-            </div>
-        `;
-    const discordDialog= 
-        `
-            <div>
-                <input placeholder="Chat ID" value=${discordID}/>
-                <input type="checkbox" label="Get Message with Grades" value=${discordPersonal}/>
-                <button class="rButton" on:click=${saveDiscord}>Speichern</button>
-            </div>
-        `;
-    const emailDialog=
-        `
-            <div>
-                <input placeholder="E-Mail" value=${emailID}/>
-                <input type="checkbox" label="Get Message with Grades" value=${emailPersonal}/>
-                <button class="rButton" on:click=${saveEmail}>Speichern</button>
-            </div>
-        `;
 
 
     //***FUNCTIONS***
+    //get user first time loading page
     onMount(async () => {
+        getUser()
+	});
+
+    async function getUser() {
         const userCall = BACKEND_SERVER + "/user";
 		await fetch(userCall, {
         method: 'GET',
@@ -57,21 +37,27 @@
           user = res;
           if (res.notifications.telegram == undefined) {
             telegramDisabled = true
+            telegramActive = false
           } else {
+            telegramDisabled = false
             telegramActive = res.notifications.telegram.active
             telegramID = res.notifications.telegram.notificationNumber
             telegramPersonal = res.notifications.telegram.withGrades
           }
           if (res.notifications.discord == undefined) {
             discordDisabled = true
+            discordActive = false
           } else {
+            discordDisabled = false
             discordActive = res.notifications.discord.active
-            discordID = res.notifications.discord.notificationUsername //need to change after namechange
+            discordID = res.notifications.discord.chatID
             discordPersonal = res.notifications.discord.withGrades
           }
           if (res.notifications.email == undefined) {
             emailDisabled = true
+            emailActive = false
           } else {
+            emailDisabled = false
             emailActive = res.notifications.email.active
             emailID = res.notifications.email.notificationEmail
             emailPersonal = res.notifications.email.withGrades
@@ -81,73 +67,242 @@
       .catch(error => {
         console.log(error);
         return [];
-      });
-	});
-    function save () {
-
+      })
     }
-    function saveDiscord () {
 
+    //save-functions
+    async function save () {
+        const updateCall = BACKEND_SERVER + "/user"
+        const updateData = {
+            ...(!emailDisabled && { notitfications: {
+                "email": {
+                    "notificationEmail": emailID,
+                    "withGrades": emailPersonal,
+                    "active": emailActive,
+                }
+            }}),
+            ...(!discordDisabled && { notifications: {
+                "discord": {
+                    "chatId": discordID,
+                    "withGrades": discordPersonal,
+                    "active": discordActive
+                }
+            }}),
+            ...(!telegramDisabled && { notifications: {
+                "telegram": {
+                    "notificationNumber": telegramID,
+                    "withGrades": telegramPersonal,
+                    "active": telegramActive
+                }
+            }})
+        }
+        console.log(updateData)
+
+        await fetch(updateCall, {
+            method: 'PUT',
+            headers: { 
+                'Access-Control-Allow-Origin': true,
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+                'auth': token 
+            },
+            body: JSON.stringify(updateData)
+        })
+        .then(async response => { 
+            console.log(response);
+            getUser();
+        })
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
     }
-    function saveEmail () {
-
+    async function saveDiscord () {
+        const updateCall = BACKEND_SERVER + "/user"
+        const updateData = {
+            notifications: {
+                "discord": {
+                    "chatId": discordID,
+                    "withGrades": discordPersonal,
+                    "active": true
+                }
+            }
+        }
+        await fetch(updateCall, {
+            method: 'PUT',
+            headers: { 
+                'Access-Control-Allow-Origin': true,
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+                'auth': token 
+            },
+            body: JSON.stringify(updateData)
+        })
+        .then(async response => { 
+            console.log(response);
+            getUser();
+        })
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
     }
-    function saveTelegram () {
-
+    async function saveEmail () {
+        const updateCall = BACKEND_SERVER + "/user"
+        const updateData = {
+            notifications: {
+                "email": {
+                    "notificationEmail": emailID,
+                    "withGrades": emailPersonal,
+                    "active": true,
+                }
+            }
+        }
+        await fetch(updateCall, {
+            method: 'PUT',
+            headers: { 
+                'Access-Control-Allow-Origin': true,
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+                'auth': token 
+            },
+            body: JSON.stringify(updateData)
+        })
+        .then(async response => { 
+            console.log(response);
+            getUser();
+        })
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
+    }
+    async function saveTelegram () {
+        const updateCall = BACKEND_SERVER + "/user"
+        const updateData = {
+            notifications: {
+                "telegram": {
+                    "notificationNumber": telegramID,
+                    "withGrades": telegramPersonal,
+                    "active": true
+                }
+            }
+        }
+        await fetch(updateCall, {
+            method: 'PUT',
+            headers: { 
+                'Access-Control-Allow-Origin': true,
+                'accept': 'application/json',
+                'Content-Type': 'application/json',
+                'auth': token 
+            },
+            body: JSON.stringify(updateData)
+        })
+        .then(async response => { 
+            console.log(response);
+            getUser();
+        })
+        .catch(error => {
+            console.log(error);
+            return [];
+        });
     }
 </script>
 
-{#if token != undefined}
-<div class="border">
-    <div class="center">
-      <h1>Konfiguration</h1>
-      <hr/>
-      <p>
-        Passe deine Einstellungen an oder richte neue Kommunikationswege ein
-      </p>
-      <div style="text-align: left; margin-top: 40px">	
-        <div style="padding-bottom: 20px">
-            <input type="checkbox" disabled={telegramDisabled} checked={telegramActive}/>
-            <span>Telegram</span>
-            <button class="gButton right" on:click={() => dialogs.modal(telegramDialog)}>
-                {#if !telegramDisabled}
-                    Anpassen
-                {:else}
-                    Konfigurieren
-                {/if}
-            </button>
-        </div>
-        <div style="padding-bottom: 20px">
-            <input type="checkbox" disabled={discordDisabled} checked={discordActive} design="slider"/>
-            <span>Discord</span>
-            <button class="gButton right" on:click={() => dialogs.modal(discordDialog)}>
-                {#if !discordDisabled}
-                    Anpassen
-                {:else}
-                    Konfigurieren
-                {/if}
-            </button>
-        </div>
-        <div style="padding-bottom: 20px">
-            <input type="checkbox" disabled={emailDisabled} checked={emailActive} design="slider"/>
-            <span>E-Mail</span>
-            <button class="gButton right" on:click={() => dialogs.modal(emailDialog)}>
-                {#if !emailDisabled}
-                    Anpassen
-                {:else}
-                    Konfigurieren
-                {/if}
-            </button>  
-        </div>
-      </div>
-      <button class="rButton" on:click={save}>Speichern</button>
-    </div>
-</div>
+{#each [...[]] as _}
+  <div />
 {:else}
-    <nav>
-        <Link to="login">Login</Link>
-    </nav>
-{/if}
+
+
+    {#if token != ''}
+    <div class="border">
+        <div class="center">
+        <h1>Konfiguration</h1>
+        <hr/>
+        <p>
+            Passe deine Einstellungen an oder richte neue Kommunikationswege ein
+        </p>
+        <div style="text-align: left; margin-top: 40px">	
+            <div style="padding-bottom: 20px">
+                <input type="checkbox" disabled={telegramDisabled} bind:checked={telegramActive}/>
+                <span>Telegram</span>
+                <button class="gButton right" on:click={() => (telegramDialog=true)}>
+                    {#if !telegramDisabled}
+                        Anpassen
+                    {:else}
+                        Konfigurieren
+                    {/if}
+                </button>
+            </div>
+            <div style="padding-bottom: 20px">
+                <input type="checkbox" disabled={discordDisabled} bind:checked={discordActive} design="slider"/>
+                <span>Discord</span>
+                <button class="gButton right" on:click={() => (discordDialog=true)}>
+                    {#if !discordDisabled}
+                        Anpassen
+                    {:else}
+                        Konfigurieren
+                    {/if}
+                </button>
+            </div>
+            <div style="padding-bottom: 20px">
+                <input type="checkbox" disabled={emailDisabled} bind:checked={emailActive} design="slider"/>
+                <span>E-Mail</span>
+                <button class="gButton right" on:click={() => (emailDialog=true)}>
+                    {#if !emailDisabled}
+                        Anpassen
+                    {:else}
+                        Konfigurieren
+                    {/if}
+                </button>  
+            </div>
+        </div>
+        <button class="rButton" on:click={() => save()}>Speichern</button>
+        </div>
+    </div>
+    {:else}
+        <nav>
+            <Link to="login">Login</Link>
+        </nav>
+    {/if}
+
+    <Dialog bind:active={telegramDialog} width="auto">
+        <div class="center" style="background: #FFFFFF">
+            <h1>Telegram</h1>
+            <input placeholder="Chat ID" style="width: 190px" bind:value={telegramID}/>
+            <div>
+                <input type="checkbox" bind:checked={telegramPersonal}/>
+                Get Message with Grades
+            </div>
+            <button class="rButton" on:click={() => saveTelegram()}>Speichern</button>
+        </div>
+    </Dialog>
+    <Dialog bind:active={discordDialog} width="auto">
+        <div class="center" style="background: #FFFFFF" >
+            <h1>Discord</h1>
+            <input placeholder="Chat ID" style="width: 190px" bind:value={discordID}/>
+            <div>
+                <input type="checkbox" bind:checked={discordPersonal}/>
+                Get Message with Grades
+            </div>
+            <button class="rButton" on:click={() => saveDiscord()}>Speichern</button>
+        </div>
+    </Dialog>
+    <Dialog bind:active={emailDialog} width="auto">
+        <div class="center" style="background-color: #FFFFFF">
+            <h1>E-Mail</h1>
+            <input placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
+            <div>
+                <input type="checkbox" bind:checked={emailPersonal}/>
+                Get Message with Grades
+            </div>
+            <button class="rButton" on:click={() => saveEmail()}>Speichern</button>
+        </div>
+    </Dialog>
+
+
+
+{/each}
 
 <style>
     .right{
