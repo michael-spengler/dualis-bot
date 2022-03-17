@@ -29,19 +29,19 @@
 <div class="border">
 
     <div class="center">
-        <h1 >About Us</h1>
+        <h1 >About the Gang of Fork</h1>
         <hr>
         <p>Unser Team besteht aus vier Personen:</p>
     </div>
 
     {#each person as person}
         <div class="teammember" on:mouseover={() => {handleMouseOver(person.id)}} on:mouseout={() => {handleMouseOut(person.id)}} on:focus={() => {handleMouseOver(person.id)}} on:blur={() => {handleMouseOut(person.id)}}>
-            <p class="namen">{person.name}</p>
+            <p class="names">{person.name}</p>
             <div class="center_column">
                 <hr>
                 <p>{person.description}</p>
             </div>
-            <img style="position:absolute; top:50%; left:33%; opacity: {person.opacity};" src="{person.image}" height="{person.height}%" alt="Fynn"/>
+            <img style="position:absolute; top:50%; left:33%; opacity: {person.opacity};" src="{person.image}" height="{person.height}%" alt="{person.name}"/>
         </div>
     {/each}    
 </div>
@@ -76,7 +76,7 @@
         height:500px;
         margin: 1%;
     }
-    .namen{
+    .names{
         color: black;
         font-weight: 1000000;
         font-size: 23px;
