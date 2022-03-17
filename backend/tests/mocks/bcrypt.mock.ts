@@ -3,7 +3,7 @@ export function compare(val: string, hash: string) {
     return true;
   }
 
-  throw new Error("passwords do not match");
+  return false;
 }
 
 export function hash(val: string) {
