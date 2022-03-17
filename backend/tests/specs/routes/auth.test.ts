@@ -107,7 +107,7 @@ import {
         success: false
     },
     {
-        name: "Test somthing is weird",
+        name: "Test something is weird",
         body: {
             username: "usernameerr",
             password: "password",
