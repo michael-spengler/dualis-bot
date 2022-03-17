@@ -24,8 +24,8 @@
     async function getUser() {
         const userCall = BACKEND_SERVER + "/user";
 		await fetch(userCall, {
-        method: 'GET',
-        headers: { 
+          method: 'GET',
+          headers: { 
           'Access-Control-Allow-Origin': true,
           'accept': 'application/json',
           'Content-Type': 'application/json',
@@ -62,7 +62,6 @@
             emailID = res.notifications.email.notificationEmail
             emailPersonal = res.notifications.email.withGrades
           }
-          console.log(user);
       })
       .catch(error => {
         console.log(error);
@@ -96,7 +95,6 @@
                 }
             }})
         }
-        console.log(updateData)
 
         await fetch(updateCall, {
             method: 'PUT',
@@ -108,10 +106,7 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(async response => { 
-            console.log(response);
-            getUser();
-        })
+        .then(getUser())
         .catch(error => {
             console.log(error);
             return [];
@@ -138,10 +133,7 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(async response => { 
-            console.log(response);
-            getUser();
-        })
+        .then(getUser())
         .catch(error => {
             console.log(error);
             return [];
@@ -168,10 +160,7 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(async response => { 
-            console.log(response);
-            getUser();
-        })
+        .then(getUser())
         .catch(error => {
             console.log(error);
             return [];
@@ -198,10 +187,7 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(async response => { 
-            console.log(response);
-            getUser();
-        })
+        .then(getUser())
         .catch(error => {
             console.log(error);
             return [];
