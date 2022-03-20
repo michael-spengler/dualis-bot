@@ -74,98 +74,110 @@
     }
 </script>
 
-{#each [...[]] as _}
-  <div />
-{:else}
+<div class="border">
+    {#each [...[]] as _}
+    <div />
+    {:else}
 
-    <SvelteStepWizard initialStep={1}>
-        <SvelteStepWizard.Step num={1} let:nextStep>
-            <div class="center">
-                <h1>Registrierung</h1>
-                <input class="input" on:keyup={filledIn} placeholder="Benutzername" bind:value={username}/>
-                <input class="input" on:keyup={filledIn} placeholder="Passwort" bind:value={password}/>
-                <input class="input" on:keyup={filledIn} placeholder="Passwort (wiederholen)" bind:value={passwordRepeat}/>
-            </div>
-            <div class="button">
-                <button class="nextButton" id="buttonNext1" disabled=false on:click={nextStep}>
-                    next
-                </button>
-            </div>
-        </SvelteStepWizard.Step>
-        <SvelteStepWizard.Step num={2} let:previousStep let:nextStep>
-            <div class="center">
-                <h1>Telegram</h1>
-                <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={telegramID}/>
-                <div>
-                    <input type="checkbox" bind:checked={telegramPersonal}/>
-                    Get Message with Grades
+        <SvelteStepWizard initialStep={1}>
+            <SvelteStepWizard.Step num={1} let:nextStep>
+                <div class="center">
+                    <h1>Registrierung</h1>
+                    <input class="input" on:keyup={filledIn} placeholder="Benutzername" bind:value={username}/>
+                    <input class="input" on:keyup={filledIn} placeholder="Passwort" bind:value={password}/>
+                    <input class="input" on:keyup={filledIn} placeholder="Passwort (wiederholen)" bind:value={passwordRepeat}/>
                 </div>
-            </div>
-            <div class="button">
-                <button class="backButton" on:click={previousStep}>
-                    back
-                </button>
-                <button class="nextButton" on:click={nextStep}>
-                    next
-                </button>
-            </div>
-        </SvelteStepWizard.Step>
-        <SvelteStepWizard.Step num={3} let:previousStep let:nextStep>
-            <div class="center" >
-                <h1>Discord</h1>
-                <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={discordID}/>
-                <div>
-                    <input type="checkbox" bind:checked={discordPersonal}/>
-                    Get Message with Grades
+                <div class="button">
+                    <button class="nextButton" id="buttonNext1" disabled=false on:click={nextStep}>
+                        next
+                    </button>
                 </div>
-            </div>
-            <div class="button">
-                <button class="backButton" on:click={previousStep}>
-                    back
-                </button>
-                <button class="nextButton" on:click={nextStep}>
-                    next
-                </button>
-            </div>
-        </SvelteStepWizard.Step>
-        <SvelteStepWizard.Step num={4} let:previousStep let:nextStep>
-            <div class="center">
-                <h1>E-Mail</h1>
-                <input class="input" placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
-                <div>
-                    <input type="checkbox" bind:checked={emailPersonal}/>
-                    Get Message with Grades
+            </SvelteStepWizard.Step>
+            <SvelteStepWizard.Step num={2} let:previousStep let:nextStep>
+                <div class="center">
+                    <h1>Telegram</h1>
+                    <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={telegramID}/>
+                    <div>
+                        <input type="checkbox" bind:checked={telegramPersonal}/>
+                        Get Message with Grades
+                    </div>
                 </div>
-            </div>
-            <div class="button">
-                <button class="backButton" on:click={previousStep}>
-                    back
-                </button>
-                <button class="nextButton" on:click={nextStep}>
-                    next
-                </button>
-            </div>
-        </SvelteStepWizard.Step>
-        <SvelteStepWizard.Step num={5} let:previousStep>
-            <div class="center">
-                <h1>Registrierung</h1>
-                <input class="input" placeholder="Dualis-Benutzername" bind:value={dualisUsername}/>
-                <input class="input" placeholder="Dualis-Passwort" bind:value={dualisPassword}/>
-            </div>
-            <div class="button">
-                <button class="backButton" on:click={previousStep}>
-                    back
-                </button>
-                <button class="finishButton" on:click={finish}>
-                    finish
-                </button>
-            </div>
-        </SvelteStepWizard.Step>
-    </SvelteStepWizard>
+                <div class="button">
+                    <button class="backButton" on:click={previousStep}>
+                        back
+                    </button>
+                    <button class="nextButton" on:click={nextStep}>
+                        next
+                    </button>
+                </div>
+            </SvelteStepWizard.Step>
+            <SvelteStepWizard.Step num={3} let:previousStep let:nextStep>
+                <div class="center" >
+                    <h1>Discord</h1>
+                    <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={discordID}/>
+                    <div>
+                        <input type="checkbox" bind:checked={discordPersonal}/>
+                        Get Message with Grades
+                    </div>
+                </div>
+                <div class="button">
+                    <button class="backButton" on:click={previousStep}>
+                        back
+                    </button>
+                    <button class="nextButton" on:click={nextStep}>
+                        next
+                    </button>
+                </div>
+            </SvelteStepWizard.Step>
+            <SvelteStepWizard.Step num={4} let:previousStep let:nextStep>
+                <div class="center">
+                    <h1>E-Mail</h1>
+                    <input class="input" placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
+                    <div>
+                        <input type="checkbox" bind:checked={emailPersonal}/>
+                        Get Message with Grades
+                    </div>
+                </div>
+                <div class="button">
+                    <button class="backButton" on:click={previousStep}>
+                        back
+                    </button>
+                    <button class="nextButton" on:click={nextStep}>
+                        next
+                    </button>
+                </div>
+            </SvelteStepWizard.Step>
+            <SvelteStepWizard.Step num={5} let:previousStep>
+                <div class="center">
+                    <h1>Registrierung</h1>
+                    <input class="input" placeholder="Dualis-Benutzername" bind:value={dualisUsername}/>
+                    <input class="input" placeholder="Dualis-Passwort" bind:value={dualisPassword}/>
+                </div>
+                <div class="button">
+                    <button class="backButton" on:click={previousStep}>
+                        back
+                    </button>
+                    <button class="finishButton" on:click={finish}>
+                        finish
+                    </button>
+                </div>
+            </SvelteStepWizard.Step>
+        </SvelteStepWizard>
 
-{/each}
+    {/each}
+</div>
+
 
 <style>
+    .border {
+      border: 3px solid #222222;
+      text-align: center;
+    }
+    .border:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
     .center{
         margin: auto;
         width: 40%;
@@ -191,6 +203,7 @@
     .finishButton{
         color: white;
         background-color: #E30613;
+        width: 10%;
     }
     .input{
         width: 100%;
