@@ -6,7 +6,7 @@
 
     //***VARIABLES***
     var telegramID = '', discordID = '', emailID = '', telegramPersonal = false, discordPersonal = false, emailPersonal = false
-    var username = '', password = '', dualisUsername = '', dualisPassword = ''
+    var username = '', password = '', passwordRepeat = '', dualisUsername = '', dualisPassword = ''
 
     //***FUNCTIONS***
     async function finish () {
@@ -55,6 +55,23 @@
             return [];
         });
     }
+
+    const filledIn = () => {
+        if(username == "" || password == "" || passwordRepeat == "") { 
+                document.getElementById('buttonNext1').disabled = true; 
+                console.log("Empty");            
+        } else { 
+            //Passwords equal?
+            if(password == passwordRepeat){
+                document.getElementById('buttonNext1').disabled = false;
+                console.log("filled");
+            }
+            else{
+                document.getElementById('buttonNext1').disabled = true;
+                console.log("falsch!!!");
+            }
+        }
+    }
 </script>
 
 {#each [...[]] as _}
@@ -64,10 +81,10 @@
     <SvelteStepWizard initialStep={1}>
         <SvelteStepWizard.Step num={1} let:nextStep>
             <h1>Registrierung</h1>
-            <input placeholder="Benutzername" bind:value={username}/>
-            <input placeholder="Passwort" bind:value={password}/>
-            <input placeholder="Passwort (wiederholen)"/>
-            <button on:click={nextStep}>
+            <input on:keyup={filledIn} placeholder="Benutzername" bind:value={username}/>
+            <input on:keyup={filledIn} placeholder="Passwort" bind:value={password}/>
+            <input on:keyup={filledIn} placeholder="Passwort (wiederholen)" bind:value={passwordRepeat}/>
+            <button id="buttonNext1" disabled=false on:click={nextStep}>
                 next
             </button>
         </SvelteStepWizard.Step>
