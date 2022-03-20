@@ -13,19 +13,22 @@ export default class AuthController {
 
     static async loginUser(req: OpineRequest, res: OpineResponse) {
         try {
-            const user = await User.findOne({ username: Utils.encrypt(req.body.username) })
+            const user = <IUser | null>(await User.findOne({ username: Utils.encrypt(req.body.username) }))
+
             if (!user) {
                 res.setStatus(401).send()
                 return
             }
-            //throws error if comparison fails
-            await bcrypt.compare(req.body.password, user.password)
-
+            
+            if (!await bcrypt.compare(req.body.password, user.password)) {
+                throw new Error();
+            }
+            
             const jwt = await create({ alg: "HS512", typ: "JWT" }, { userId: user._id }, Deno.env.get("JWT_SECRET") as string)
             res.json({ "jwt": jwt })
 
         } catch (_e) {
-            res.setStatus(401).send()
+            res.setStatus(401).send();
         }
     }
 
