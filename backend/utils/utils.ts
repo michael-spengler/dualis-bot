@@ -59,7 +59,7 @@ export default class Utils {
 
         //Discord Notification
         const discordBotToken = Deno.env.get("DISCORD_TOKEN") || ""
-        const chatID = user.notifications.discord.chatId
+        const chatID = user.notifications.discord.chatId 
         const personalMessageDiscord = user.notifications.discord.withGrades;
         discord.sendMessageDiscord(chatID, msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "%0A"), discordBotToken);
     }

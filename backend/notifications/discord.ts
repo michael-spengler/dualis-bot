@@ -7,15 +7,6 @@ import {
 
   
 
-    
-    /** Auf Channel lauschen und warten bis die ID angefragt wird und diese dann ausgeben, damit User die eintragen kann
-    client.on('messageCreate', (msg: Message): void => {
-        if(msg.content === 'meineID' || msg.content === 'meineid' || msg.content === 'meineId'){
-            msg.channel.send(`Deine ID ist ${msg.channel.id}.`)
-        }
-    });
-    */
-
 
 export function sendMessageDiscord(targetID: string, message: string, discordBotToken: string){
     const client = new Client();
