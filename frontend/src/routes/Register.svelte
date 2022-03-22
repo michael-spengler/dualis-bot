@@ -58,7 +58,7 @@
             body: JSON.stringify(registerData)
         }
         )
-        .then(response => {
+        .then(async response => {
             if(response.status == 400){
                 error400Dialog = true;
             }
@@ -67,10 +67,7 @@
             navigate("/login", { replace: true });
         })
         .catch(error => {
-            console.log("------------------ERROR--------------")
             console.log(error)
-            console.log("HALLO")
-
             return [];
         });
     }
@@ -109,11 +106,7 @@
         <SvelteStepWizard initialStep={1}>
             <SvelteStepWizard.Step num={1} let:nextStep>
                 <div class="encase">
-                    <div class="info" >
-                        <p on:mouseover={enter} on:mouseout={leave} on:focus={enter} on:blur={leave}>Hallo</p>
-                                          
-                    </div>
-                    <div class="center">
+                    <div class="center_register">
                         <h1>Registrierung</h1>
                         <input class="input" on:keyup={filledIn} placeholder="Benutzername" bind:value={username}/>
                         <input class="input" on:keyup={filledIn} placeholder="Passwort" type="password" bind:value={password}/>
@@ -121,14 +114,18 @@
                     </div>
                     
                 </div>
-                <div class="button">
+                <div class="button_space">
                     <button class="nextButton" id="buttonNext1" disabled=false on:click={nextStep}>
                         next
                     </button>
                 </div>
             </SvelteStepWizard.Step>
             <SvelteStepWizard.Step num={2} let:previousStep let:nextStep>
-                <div class="center">
+                <div class="info" on:mouseover={enter} on:mouseout={leave} on:focus={enter} on:blur={leave}>
+                    <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="50px" />       
+                    <p hidden={!hovering}>Lade dir den Bot herunter. Dieser zeigt dir deine ID an.</p>        
+                </div>
+                <div class="center_register">
                     <h1>Telegram</h1>
                     <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={telegramID}/>
                     <div>
@@ -136,7 +133,7 @@
                         Get Message with Grades
                     </div>
                 </div>
-                <div class="button">
+                <div class="button_space">
                     <button class="backButton" on:click={previousStep}>
                         back
                     </button>
@@ -146,7 +143,12 @@
                 </div>
             </SvelteStepWizard.Step>
             <SvelteStepWizard.Step num={3} let:previousStep let:nextStep>
-                <div class="center" >
+                <div class="info" on:mouseover={enter} on:mouseout={leave} on:focus={enter} on:blur={leave}>
+                    <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="50px" />       
+                    <p hidden={!hovering}>Deine Chat ID kannst du durch Rechtsklick auf dein Channelicon im linken Menü erhalten. Hier "ID kopieren auswählen". Bei Problemen: </p> 
+                    <a hidden={!hovering} href="https://youtu.be/NLWtSHWKbAI?t=18">Tutorial</a>       
+                </div>
+                <div class="center_register" >
                     <h1>Discord</h1>
                     <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={discordID}/>
                     <div>
@@ -154,7 +156,7 @@
                         Get Message with Grades
                     </div>
                 </div>
-                <div class="button">
+                <div class="button_space">
                     <button class="backButton" on:click={previousStep}>
                         back
                     </button>
@@ -164,7 +166,7 @@
                 </div>
             </SvelteStepWizard.Step>
             <SvelteStepWizard.Step num={4} let:previousStep let:nextStep>
-                <div class="center">
+                <div class="center_register">
                     <h1>E-Mail</h1>
                     <input class="input" placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
                     <div>
@@ -172,7 +174,7 @@
                         Get Message with Grades
                     </div>
                 </div>
-                <div class="button">
+                <div class="button_space">
                     <button class="backButton" on:click={previousStep}>
                         back
                     </button>
@@ -182,12 +184,12 @@
                 </div>
             </SvelteStepWizard.Step>
             <SvelteStepWizard.Step num={5} let:previousStep>
-                <div class="center">
+                <div class="center_register">
                     <h1>Registrierung</h1>
                     <input class="input" placeholder="Dualis-Benutzername" bind:value={dualisUsername}/>
                     <input class="input" placeholder="Dualis-Passwort" bind:value={dualisPassword}/>
                 </div>
-                <div class="button">
+                <div class="button_space">
                     <button class="backButton" on:click={previousStep}>
                         back
                     </button>
@@ -202,14 +204,14 @@
 </div>
 
 <Dialog bind:active={error400Dialog} width="auto">
-    <div class="center" style="background: #FFFFFF">
+    <div class="center_register" style="background: #FFFFFF">
         <h1>Registrierung fehlgeschlagen</h1>
         <p>Entweder der Benutzername ist schon vergeben oder die Anmeldedaten für Dualis stimmen nicht.</p>
     </div>
 </Dialog>
 
 <Dialog bind:active={passwordUnequal} width="auto">
-    <div class="center" style="backgorung: #FFFFFF">
+    <div class="center_register" style="backgorung: #FFFFFF">
         <h1>Password nicht gleich!</h1>
         <p>Die eingegebenen Passwörter sind nicht gleich.</p>
     </div>
@@ -231,7 +233,7 @@
     .encase{
         width: 100%;
     }
-    .center{
+    .center_register{
         margin: auto;
         width: 40%;
         padding: 10px;
@@ -239,10 +241,14 @@
     }
     .info{
         margin: auto;
-        width: 5%;
+        padding: 10px;
+        width: 20%;
         float: right;
     }
-    .button{
+    .infoPic{
+        float: right;
+    }
+    .button_space{
         margin: auto;
         width: 60%;
         padding: 10px;
