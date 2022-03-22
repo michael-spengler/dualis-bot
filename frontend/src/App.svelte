@@ -16,9 +16,7 @@
   export let url = "";
 
 </script>
-<svelte:head>
-  <link rel="icon" type="image/jpg" href="../assets/Logo.jpg" />
-</svelte:head>
+
 <Router url="{url}">
   <div>
     <Route path="register" component="{Register}" />
