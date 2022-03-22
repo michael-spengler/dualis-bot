@@ -7,8 +7,6 @@
 
 
 
-
-
     //***VARIABLES***
     var telegramID = '', discordID = '', emailID = '', telegramPersonal = false, discordPersonal = false, emailPersonal = false
     var username = '', password = '', passwordRepeat = '', dualisUsername = '', dualisPassword = ''
@@ -145,7 +143,7 @@
             <SvelteStepWizard.Step num={3} let:previousStep let:nextStep>
                 <div class="info" on:mouseover={enter} on:mouseout={leave} on:focus={enter} on:blur={leave}>
                     <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="50px" />       
-                    <p hidden={!hovering}>Deine Chat ID kannst du durch Rechtsklick auf dein Channelicon im linken Menü erhalten. Hier "ID kopieren auswählen". Bei Problemen: </p> 
+                    <p hidden={!hovering}>1. Bot über Link (unten) hinzufügen <br> 2. ChannelID durch Rechtsklick auf Channelicon im linken Menü kopieren. Bei Problemen: </p> 
                     <a hidden={!hovering} href="https://youtu.be/NLWtSHWKbAI?t=18">Tutorial</a>       
                 </div>
                 <div class="center_register" >
@@ -164,6 +162,8 @@
                         next
                     </button>
                 </div>
+                <p>Füge den Bot mit Hilfe des folgenden Links zu deinem Channel hinzu:</p>
+                <a href="https://discord.com/api/oauth2/authorize?client_id=948977276127686687&permissions=534723950656&scope=bot" target="_blank" >Bot zu Channel hinzufügen</a>
             </SvelteStepWizard.Step>
             <SvelteStepWizard.Step num={4} let:previousStep let:nextStep>
                 <div class="center_register">
