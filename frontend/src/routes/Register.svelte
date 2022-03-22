@@ -3,10 +3,21 @@
     import SvelteStepWizard from 'https://cdn.skypack.dev/svelte-step-wizard';
     import { navigate } from "svelte-routing";
     import { jwt, BACKEND_SERVER } from "../stores.js";
+    import { Button, Dialog, MaterialApp } from 'https://cdn.skypack.dev/svelte-materialify';
+
+
+
+
 
     //***VARIABLES***
     var telegramID = '', discordID = '', emailID = '', telegramPersonal = false, discordPersonal = false, emailPersonal = false
     var username = '', password = '', passwordRepeat = '', dualisUsername = '', dualisPassword = ''
+    var error400Dialog = false, passwordUnequal = false;
+
+    let hovering = false;
+    let status = false;
+
+
 
     //***FUNCTIONS***
     async function finish () {
@@ -45,33 +56,49 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(registerData)
-        })
+        }
+        )
         .then(response => {
+            if(response.status == 400){
+                error400Dialog = true;
+            }
+            error400Dialog = false;
             console.log(response)
             navigate("/login", { replace: true });
         })
         .catch(error => {
+            console.log("------------------ERROR--------------")
             console.log(error)
+            console.log("HALLO")
+
             return [];
         });
     }
 
-    const filledIn = () => {
-        if(username == "" || password == "" || passwordRepeat == "") { 
+    const filledIn = (e) => {
+            if(username == "" || password == "" || passwordRepeat == "") { 
                 document.getElementById('buttonNext1').disabled = true; 
-                console.log("Empty");            
-        } else { 
-            //Passwords equal?
-            if(password == passwordRepeat){
-                document.getElementById('buttonNext1').disabled = false;
-                console.log("filled");
-            }
-            else{
-                document.getElementById('buttonNext1').disabled = true;
-                console.log("falsch!!!");
-            }
+            } else { 
+                //Passwords equal?
+                if(password.length == passwordRepeat.length){
+                    if(password == passwordRepeat){
+                        document.getElementById('buttonNext1').disabled = false;
+                    }
+                    else{
+                        document.getElementById('buttonNext1').disabled = true;
+                        passwordUnequal = true;
+                    }
+                }
+                
         }
     }
+
+    const enter = () => {
+		hovering = true
+	}
+	
+	const leave = () => (hovering = false)
+
 </script>
 
 <div class="border">
@@ -81,11 +108,18 @@
 
         <SvelteStepWizard initialStep={1}>
             <SvelteStepWizard.Step num={1} let:nextStep>
-                <div class="center">
-                    <h1>Registrierung</h1>
-                    <input class="input" on:keyup={filledIn} placeholder="Benutzername" bind:value={username}/>
-                    <input class="input" on:keyup={filledIn} placeholder="Passwort" bind:value={password}/>
-                    <input class="input" on:keyup={filledIn} placeholder="Passwort (wiederholen)" bind:value={passwordRepeat}/>
+                <div class="encase">
+                    <div class="info" >
+                        <p on:mouseover={enter} on:mouseout={leave} on:focus={enter} on:blur={leave}>Hallo</p>
+                                          
+                    </div>
+                    <div class="center">
+                        <h1>Registrierung</h1>
+                        <input class="input" on:keyup={filledIn} placeholder="Benutzername" bind:value={username}/>
+                        <input class="input" on:keyup={filledIn} placeholder="Passwort" type="password" bind:value={password}/>
+                        <input class="input" on:keyup={filledIn} placeholder="Passwort (wiederholen)" type="password" bind:value={passwordRepeat}/>
+                    </div>
+                    
                 </div>
                 <div class="button">
                     <button class="nextButton" id="buttonNext1" disabled=false on:click={nextStep}>
@@ -167,22 +201,46 @@
     {/each}
 </div>
 
+<Dialog bind:active={error400Dialog} width="auto">
+    <div class="center" style="background: #FFFFFF">
+        <h1>Registrierung fehlgeschlagen</h1>
+        <p>Entweder der Benutzername ist schon vergeben oder die Anmeldedaten für Dualis stimmen nicht.</p>
+    </div>
+</Dialog>
+
+<Dialog bind:active={passwordUnequal} width="auto">
+    <div class="center" style="backgorung: #FFFFFF">
+        <h1>Password nicht gleich!</h1>
+        <p>Die eingegebenen Passwörter sind nicht gleich.</p>
+    </div>
+</Dialog>
+
 
 <style>
     .border {
       border: 3px solid #222222;
       text-align: center;
+      width: 98.6vw;
+      height: 97vh;
     }
     .border:after{
         content: "";
         display: table;
         clear: both;
     }
+    .encase{
+        width: 100%;
+    }
     .center{
         margin: auto;
         width: 40%;
         padding: 10px;
         text-align: center; 
+    }
+    .info{
+        margin: auto;
+        width: 5%;
+        float: right;
     }
     .button{
         margin: auto;
@@ -208,7 +266,7 @@
     .input{
         width: 100%;
         color: black;
-        background-color: #E5E5E5;
+        background-color: white;
         outline: #C4C4C4;
         text-align: center;
     }
