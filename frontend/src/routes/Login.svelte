@@ -1,7 +1,5 @@
 <script>
   //***IMPORTS***
-  import Router from "svelte-routing/Router.svelte";
-  import Route from "svelte-routing/Route.svelte";
   import Link from "svelte-routing/Link.svelte";
   import { navigate } from "svelte-routing";
   import { jwt, BACKEND_SERVER } from "../stores.js";
@@ -45,6 +43,10 @@
 
 </script>
 
+{#each [...[]] as _}
+<div _/>
+{:else}
+
 <div class="outer">
   <div class="middle">
     <div class="inner">
@@ -72,3 +74,5 @@
     </div>
   </div>
 </div>
+
+{/each}

@@ -28,25 +28,29 @@
 
 </script>
 
-<div>
+<div class="outer">
+    <div class="middle">
+        <div class="inner" style="width: auto">
 
-    <div class="center">
-        <h1 >About the Gang of Fork</h1>
-        <hr>
-        <p>Unser Team besteht aus vier Personen:</p>
-    </div>
-
-    <div class="wrapper">
-    {#each person as person}
-        <div class="teammember" on:mouseover={() => {handleMouseOver(person.id)}} on:mouseout={() => {handleMouseOut(person.id)}} on:focus={() => {handleMouseOver(person.id)}} on:blur={() => {handleMouseOut(person.id)}}>
-            <p class="names">{person.name}</p>
-            <div class="center_column">
-                <hr>
-                <p>{person.description}</p>
+            <div class="center">
+                <h1 >About the Gang of Fork</h1>
+                <hr/>
+                <p>Unser Team besteht aus vier Personen:</p>
             </div>
-            <img style="margin-top:40px; margin-left: {person.margin}%; opacity: {person.opacity};" src="{person.image}" height="{person.height}%" alt="{person.name}"/>
+
+            <div class="wrapper">
+            {#each person as person}
+                <div class="teammember" on:mouseover={() => {handleMouseOver(person.id)}} on:mouseout={() => {handleMouseOut(person.id)}} on:focus={() => {handleMouseOver(person.id)}} on:blur={() => {handleMouseOut(person.id)}}>
+                    <p class="names">{person.name}</p>
+                    <div class="center_column">
+                        <hr/>
+                        <p>{person.description}</p>
+                    </div>
+                    <img style="margin-top:40px; margin-left: {person.margin}%; opacity: {person.opacity};" src="{person.image}" height="{person.height}%" alt="{person.name}"/>
+                </div>
+            {/each}    
+            </div>
         </div>
-    {/each}    
     </div>
 </div>
 

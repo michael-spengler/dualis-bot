@@ -244,13 +244,17 @@
         </div>
     </div>
     {:else}
-        <div class="center">
+        <div class="outer">
+            <div class="middle">
+                <div class="inner">
             <p class="warning">
                 Sie können Ihren Bot erst nach dem Anmelden konfigurieren.
             </p>
             <nav>
                 <Link to="login">Login</Link>
             </nav>
+            </div>
+            </div>
         </div>
     {/if}
 

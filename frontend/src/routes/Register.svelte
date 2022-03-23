@@ -2,8 +2,8 @@
     ///***IMPORTS***
     import SvelteStepWizard from 'https://cdn.skypack.dev/svelte-step-wizard';
     import { navigate } from "svelte-routing";
-    import { jwt, BACKEND_SERVER } from "../stores.js";
-    import { Button, Dialog, MaterialApp } from 'https://cdn.skypack.dev/svelte-materialify';
+    import { BACKEND_SERVER } from "../stores.js";
+    import { Dialog } from 'https://cdn.skypack.dev/svelte-materialify';
 
 
 
@@ -11,11 +11,7 @@
     var telegramID = '', discordID = '', emailID = '', telegramPersonal = false, discordPersonal = false, emailPersonal = false
     var username = '', password = '', passwordRepeat = '', dualisUsername = '', dualisPassword = ''
     var error400Dialog = false, passwordUnequal = false;
-
-    let hovering = false;
-    let status = false;
-
-
+    var telegramDialog = false, discordDialog = false;
 
     //***FUNCTIONS***
     async function finish () {
@@ -59,10 +55,11 @@
         .then(async response => {
             if(response.status == 400){
                 error400Dialog = true;
+            }else{
+                error400Dialog = false;
+                console.log(response)
+                navigate("/login", { replace: true });
             }
-            error400Dialog = false;
-            console.log(response)
-            navigate("/login", { replace: true });
         })
         .catch(error => {
             console.log(error)
@@ -70,211 +67,188 @@
         });
     }
 
-    const filledIn = (e) => {
-            if(username == "" || password == "" || passwordRepeat == "") { 
-                document.getElementById('buttonNext1').disabled = true; 
-            } else { 
-                //Passwords equal?
-                if(password.length == passwordRepeat.length){
-                    if(password == passwordRepeat){
-                        document.getElementById('buttonNext1').disabled = false;
-                    }
-                    else{
-                        document.getElementById('buttonNext1').disabled = true;
-                        passwordUnequal = true;
-                    }
-                }
-                
-        }
-    }
-
-    const enter = () => {
-		hovering = true
-	}
-	
-	const leave = () => (hovering = false)
-
 </script>
 
-<div class="border">
-    {#each [...[]] as _}
-    <div />
-    {:else}
+{#each [...[]] as _}
+<div _/>
+{:else}
 
-        <SvelteStepWizard initialStep={1}>
-            <SvelteStepWizard.Step num={1} let:nextStep>
-                <div class="encase">
-                    <div class="center_register">
-                        <h1>Registrierung</h1>
-                        <input class="input" on:keyup={filledIn} placeholder="Benutzername" bind:value={username}/>
-                        <input class="input" on:keyup={filledIn} placeholder="Passwort" type="password" bind:value={password}/>
-                        <input class="input" on:keyup={filledIn} placeholder="Passwort (wiederholen)" type="password" bind:value={passwordRepeat}/>
-                    </div>
-                    
-                </div>
-                <div class="button_space">
-                    <button class="nextButton" id="buttonNext1" disabled=false on:click={nextStep}>
-                        next
-                    </button>
-                </div>
-            </SvelteStepWizard.Step>
-            <SvelteStepWizard.Step num={2} let:previousStep let:nextStep>
-                <div class="info" on:mouseover={enter} on:mouseout={leave} on:focus={enter} on:blur={leave}>
-                    <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="50px" />       
-                    <p hidden={!hovering}>Lade dir den Bot herunter. Dieser zeigt dir deine ID an.</p>        
-                </div>
-                <div class="center_register">
-                    <h1>Telegram</h1>
-                    <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={telegramID}/>
-                    <div>
-                        <input type="checkbox" bind:checked={telegramPersonal}/>
-                        Get Message with Grades
-                    </div>
-                </div>
-                <div class="button_space">
-                    <button class="backButton" on:click={previousStep}>
-                        back
-                    </button>
-                    <button class="nextButton" on:click={nextStep}>
-                        next
-                    </button>
-                </div>
-            </SvelteStepWizard.Step>
-            <SvelteStepWizard.Step num={3} let:previousStep let:nextStep>
-                <div class="info" on:mouseover={enter} on:mouseout={leave} on:focus={enter} on:blur={leave}>
-                    <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="50px" />       
-                    <p hidden={!hovering}>1. Bot über Link (unten) hinzufügen <br> 2. ChannelID durch Rechtsklick auf Channelicon im linken Menü kopieren. Bei Problemen: </p> 
-                    <a hidden={!hovering} href="https://youtu.be/NLWtSHWKbAI?t=18">Tutorial</a>       
-                </div>
-                <div class="center_register" >
-                    <h1>Discord</h1>
-                    <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={discordID}/>
-                    <div>
-                        <input type="checkbox" bind:checked={discordPersonal}/>
-                        Get Message with Grades
-                    </div>
-                </div>
-                <div class="button_space">
-                    <button class="backButton" on:click={previousStep}>
-                        back
-                    </button>
-                    <button class="nextButton" on:click={nextStep}>
-                        next
-                    </button>
-                </div>
-                <p>Füge den Bot mit Hilfe des folgenden Links zu deinem Channel hinzu:</p>
-                <a href="https://discord.com/api/oauth2/authorize?client_id=948977276127686687&permissions=534723950656&scope=bot" target="_blank" >Bot zu Channel hinzufügen</a>
-            </SvelteStepWizard.Step>
-            <SvelteStepWizard.Step num={4} let:previousStep let:nextStep>
-                <div class="center_register">
-                    <h1>E-Mail</h1>
-                    <input class="input" placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
-                    <div>
-                        <input type="checkbox" bind:checked={emailPersonal}/>
-                        Get Message with Grades
-                    </div>
-                </div>
-                <div class="button_space">
-                    <button class="backButton" on:click={previousStep}>
-                        back
-                    </button>
-                    <button class="nextButton" on:click={nextStep}>
-                        next
-                    </button>
-                </div>
-            </SvelteStepWizard.Step>
-            <SvelteStepWizard.Step num={5} let:previousStep>
-                <div class="center_register">
-                    <h1>Registrierung</h1>
-                    <input class="input" placeholder="Dualis-Benutzername" bind:value={dualisUsername}/>
-                    <input class="input" placeholder="Dualis-Passwort" bind:value={dualisPassword}/>
-                </div>
-                <div class="button_space">
-                    <button class="backButton" on:click={previousStep}>
-                        back
-                    </button>
-                    <button class="finishButton" on:click={finish}>
-                        finish
-                    </button>
-                </div>
-            </SvelteStepWizard.Step>
-        </SvelteStepWizard>
+<div class="outer">
+    <div class="middle">
+        <div class="inner">
+                <SvelteStepWizard initialStep={1}>
+                    <SvelteStepWizard.Step num={1} let:nextStep>
+                        <div>
+                            <h1>Registrierung</h1>
+                            <hr/>
+                            <p>
+                                Gib hier die Daten ein, mit denen du dich in der Zukunft anmelden möchtest.
+                            </p>
+                            <input class="input" placeholder="Benutzername" bind:value={username}/>
+                            <input class="input" placeholder="Passwort" type="password" bind:value={password}/>
+                            <input class="input" placeholder="Passwort (wiederholen)" type="password" bind:value={passwordRepeat}/>
+                            {#if password != passwordRepeat}
+                                <p class="warning">
+                                    Die Passwörter stimmen nicht überein!
+                                </p>
+                            {/if}
+                            <div style="text-align: right">
+                                <button class="rButton" id="buttonNext1" disabled={password!=passwordRepeat || !username || !password} on:click={nextStep}>
+                                    next
+                                </button>
+                            </div>
+                        </div>
+                    </SvelteStepWizard.Step>
+                    <SvelteStepWizard.Step num={2} let:previousStep let:nextStep>
+                        <div>
+                            <h1>Telegram</h1>
+                            <hr/>
+                            <p>
+                                Für eine Telegram Benachrichtigung musst du hier deine Chat ID eingeben.
+                            </p>
+                            <button class="gButton" style="margin-top: -5px; margin-bottom: 15px;" on:click={() => (telegramDialog = true)}>
+                                <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="20px" />
+                            </button>
+                            <div>
+                                <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={telegramID}/>
+                            </div>
+                            <div>
+                                <input type="checkbox" bind:checked={telegramPersonal}/>
+                                Get Message with Grades
+                            </div>
+                            <div style="text-align: right">
+                                <button class="gButton" on:click={previousStep}>
+                                back
+                                </button>
+                                <button class="rButton" on:click={nextStep}>
+                                    next
+                                </button>
+                            </div>
+                            <p>Füge den Bot mit Hilfe des folgenden Links zu deinem Channel hinzu:</p>
+                            <a href="https://t.me/dhbw_dualis_bot" target="_blank" >Telegram Dualis Bot</a>   
+                        </div>
+                    </SvelteStepWizard.Step>
+                    <SvelteStepWizard.Step num={3} let:previousStep let:nextStep>
+                        <div>
+                            <h1>Discord</h1>
+                            <hr/>
+                            <p>
+                                Für eine Discord Benachrichtigung musst du hier deine Chat ID eingeben.
+                            </p>
+                            <button class="gButton" style="margin-top: -5px; margin-bottom: 15px;" on:click={() => (discordDialog = true)}>
+                                <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="20px" />
+                            </button>
+                            <div>
+                                <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={discordID}/>
+                            </div>
+                            <div>
+                                <input type="checkbox" bind:checked={discordPersonal}/>
+                                Get Message with Grades
+                            </div>
+                            <div style="text-align: right">
+                                <button class="gButton" on:click={previousStep}>
+                                    back
+                                </button>
+                                <button class="rButton" on:click={nextStep}>
+                                    next
+                                </button>
+                            </div>
+                            <p>Füge den Bot mit Hilfe des folgenden Links zu deinem Channel hinzu:</p>
+                            <a href="https://discord.com/api/oauth2/authorize?client_id=948977276127686687&permissions=534723950656&scope=bot" target="_blank">Discord Dualis Bot</a>
+                        </div>
+                    </SvelteStepWizard.Step>
+                    <SvelteStepWizard.Step num={4} let:previousStep let:nextStep>
+                        <div>
+                            <h1>E-Mail</h1>
+                            <hr/>
+                            <p>
+                                Für eine Benachrichtigung per E-Mail musst du hier deine gewünschte Mailadresse eingeben.
+                            </p>
+                            <input class="input" placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
+                            <div>
+                                <input type="checkbox" bind:checked={emailPersonal}/>
+                                Get Message with Grades
+                            </div>
+                            <div style="text-align: right">
+                                <button class="gButton" on:click={previousStep}>
+                                    back
+                                </button>
+                                <button class="rButton" on:click={nextStep}>
+                                    next
+                                </button>
+                            </div>
+                        </div>
+                    </SvelteStepWizard.Step>
+                    <SvelteStepWizard.Step num={5} let:previousStep>
+                        <div>
+                            <h1>E-Mail</h1>
+                            <hr/>
+                            <p>
+                                Gib hier deine Dualis Anmeldedaten ein.
+                            </p>
+                            <input class="input" placeholder="Dualis-Benutzername" bind:value={dualisUsername}/>
+                            <input type="password" class="input" placeholder="Dualis-Passwort" bind:value={dualisPassword}/>
+                            <div style="text-align: right">
+                                <button class="gButton" on:click={previousStep}>
+                                    back
+                                </button>
+                                <button class="rButton" disabled={!dualisUsername || !dualisPassword} on:click={finish}>
+                                    finish
+                                </button>
+                            </div>
+                        </div>
+                    </SvelteStepWizard.Step>
+                </SvelteStepWizard>
 
-    {/each}
+        </div>
+    </div>
 </div>
 
 <Dialog bind:active={error400Dialog} width="auto">
-    <div class="center_register" style="background: #FFFFFF">
-        <h1>Registrierung fehlgeschlagen</h1>
+    <div class="center" style="background: #FFFFFF">
+        <h2>Registrierung fehlgeschlagen</h2>
         <p>Entweder der Benutzername ist schon vergeben oder die Anmeldedaten für Dualis stimmen nicht.</p>
     </div>
 </Dialog>
 
 <Dialog bind:active={passwordUnequal} width="auto">
-    <div class="center_register" style="backgorung: #FFFFFF">
+    <div class="center" style="background: #FFFFFF">
         <h1>Password nicht gleich!</h1>
         <p>Die eingegebenen Passwörter sind nicht gleich.</p>
     </div>
 </Dialog>
 
+<Dialog bind:active={discordDialog} width="auto">
+    <div class="center" style="background: #FFFFFF">
+        <h2>Anleitung Discord</h2>
+        <ol>
+            <li> Bot über Link (unten) hinzufügen </li>
+            <li> ChannelID durch Rechtsklick auf Channelicon im linken Menü kopieren </li>
+        </ol>
+        <p>Bei Problemen: </p> 
+        <a href="https://youtu.be/NLWtSHWKbAI?t=18">Tutorial</a> 
+    </div>
+</Dialog>
+
+<Dialog bind:active={telegramDialog} width="auto">
+    <div class="center" style="background: #FFFFFF">
+        <h2>Anleitung Telegram</h2>
+        <ol>
+            <li> Telegram Nutzername festlegen, wenn noch nicht vorhanden </li>
+            <li> Bot über Link (unten) öffnen oder nach dhbw_dualis_bot in den Kontakten suchen und dem gewünschten Chat hinzufügen </li>
+            <li> ChannelID mithilfe des <a href="https://t.me/RawDataBot">Raw Data Bots</a> ermitteln </li>
+        </ol>
+        <p>Bei Problemen: </p> 
+        <a href="https://www.alphr.com/find-chat-id-telegram/">Tutorial</a> 
+    </div>
+</Dialog>
+
+{/each}
+
 
 <style>
-    .border {
-      border: 3px solid #222222;
-      text-align: center;
-      width: 98.6vw;
-      height: 97vh;
-    }
-    .border:after{
-        content: "";
-        display: table;
-        clear: both;
-    }
-    .encase{
-        width: 100%;
-    }
-    .center_register{
-        margin: auto;
-        width: 40%;
-        padding: 10px;
-        text-align: center; 
-    }
-    .info{
-        margin: auto;
-        padding: 10px;
-        width: 20%;
-        float: right;
-    }
     .infoPic{
         float: right;
-    }
-    .button_space{
-        margin: auto;
-        width: 60%;
-        padding: 10px;
-        text-align: right;
-    }
-    .nextButton{
-        color: white;
-        background-color: #F54F59;
-        width: 10%;
-    }
-    .backButton{
-        color: black;
-        background-color: #C4C4C4;
-        width: 10%
-    }
-    .finishButton{
-        color: white;
-        background-color: #E30613;
-        width: 10%;
-    }
-    .input{
-        width: 100%;
-        color: black;
-        background-color: white;
-        outline: #C4C4C4;
-        text-align: center;
     }
 
 </style>

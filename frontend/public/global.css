@@ -64,6 +64,9 @@ button {
   font-weight: 700;
 }
 
+button:disabled {
+  background-color: #666 !important;
+}
 
 button:not(:disabled):active {
   background-color: #ddd;
@@ -84,7 +87,7 @@ h1{
   font-weight: 700;
 }
 
-p{
+p, li{
  color: #ABABAB;
  font-weight: 700;
  size: 24px;
