@@ -9,6 +9,7 @@ import { IDualisCourse } from "../interfaces/dualis.interface.ts"
 import * as telegram from "../notifications/telegram.ts"
 import * as msg from "../notifications/message.ts"
 import * as discord from "../notifications/discord.ts"
+import * as email from "../notifications/email.ts"
 
 
 export default class Utils {
@@ -60,8 +61,27 @@ export default class Utils {
         //Discord Notification
         const discordBotToken = Deno.env.get("DISCORD_TOKEN") || ""
         const chatID = user.notifications.discord.chatId 
-        const personalMessageDiscord = user.notifications.discord.withGrades;
+        const personalMessageDiscord = user.notifications.discord.withGrades
         discord.sendMessageDiscord(chatID, msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "%0A"), discordBotToken);
+
+        //Email Notification
+        const mailTo = user.notifications.email.notificationEmail
+        const personalMessageEmail = user.notifications.email.withGrades
+        const smtpConfig = {
+            hostname: Deno.env.get("SMTP_HOST"),
+            port: 465,
+            username: Deno.env.get("actions@fynn-weyrich.de"),
+            password: Deno.env.get("EMAIL_PASS")
+        }
+        const emailConfig = {
+            from: Deno.env.get("EMAIL"),
+            to: mailTo,
+            subject: "DHBW Dualis Bot - Notenupdate",
+            content: msg.getMessageFromChanges(dualisChanges, personalMessageEmail, "%0A"),
+            html: ""
+        }
+
+        email.sendEmail(smtpConfig, emailConfig);
     }
 
 }
