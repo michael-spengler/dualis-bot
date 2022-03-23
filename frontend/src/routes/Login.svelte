@@ -28,7 +28,6 @@
       .then(async response => { 
         if(response.status==200){
           const res = await response.json()
-          console.log(res.jwt)
           jwt.set(res.jwt)
           navigate("/config", { replace: false });
         }else{
@@ -36,7 +35,6 @@
         }
       })
       .catch(error => {
-        console.log(error);
         return [];
       });
   }

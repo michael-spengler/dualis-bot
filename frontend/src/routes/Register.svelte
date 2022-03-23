@@ -40,8 +40,7 @@
             },
             "active": true
         }
-        console.log(registerData);
-
+    
         await fetch(registerCall, {
             method: 'POST',
             headers: { 
@@ -57,12 +56,10 @@
                 error400Dialog = true;
             }else{
                 error400Dialog = false;
-                console.log(response)
                 navigate("/login", { replace: true });
             }
         })
         .catch(error => {
-            console.log(error)
             return [];
         });
     }
