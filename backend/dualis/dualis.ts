@@ -17,9 +17,7 @@ export async function cronjob() {
         (<any>(await User.find({ active: true }))).forEach(async (user: IUser) => {
             try {
                 const newDualisSummary = await getDualisSummary(Utils.decrypt(user.dualis_username), Utils.decrypt(user.dualis_password))
-                console.log(newDualisSummary)
                 const changes = getDualisChanges(user.dualisSummary, newDualisSummary)
-                console.log("user:" + user._id + ", changes:", changes)
                 if (changes.length > 0) {
                     if (changes[0].examinations.length > 0) {
                         await User.updateOne({ _id: user._id }, { "$set": { dualisSummary: newDualisSummary } })
