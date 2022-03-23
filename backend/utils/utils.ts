@@ -47,8 +47,6 @@ export default class Utils {
     }
 
     static notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
-        console.log("notifications not implemented complete yet", user, dualisChanges)
-
         //Telegram Notification
         const telegramBotToken = Deno.env.get("TELEGRAM_BOT") || ""
         const targetID = user.notifications.telegram.notificationNumber //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot

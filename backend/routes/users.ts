@@ -44,8 +44,8 @@ export default class UserController {
             if(!user) {
                 res.setStatus(400).json();
             }
-
             const updatedUser = { ...user, ...req.body }
+            updatedUser.notifications = {...user.notifications, ...req.body.notifications}
             try {
                 userSchema.assert(updatedUser)
             } catch (_e) {
