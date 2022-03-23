@@ -70,6 +70,7 @@
     }
     .wrapper {
         text-align: center;
+        overflow: hidden;
     }
     .teammember{
         position: relative;
@@ -85,9 +86,4 @@
         font-weight: 1000000;
         font-size: 23px;
     }
-
-    .wrapper { 
-        overflow:hidden;
-    }
-
   </style>
