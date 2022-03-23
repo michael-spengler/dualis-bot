@@ -2,6 +2,7 @@
 Dualis Bot Repository 
 
 ## Build / Run Backend and Crawler
+from directory /dualis-bot
 `docker-compose build | docker-compose up`
 
 ## Run Backend Tests
