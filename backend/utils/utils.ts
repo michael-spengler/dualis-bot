@@ -9,7 +9,7 @@ import { IDualisCourse } from "../interfaces/dualis.interface.ts"
 import * as telegram from "../notifications/telegram.ts"
 import * as msg from "../notifications/message.ts"
 import * as discord from "../notifications/discord.ts"
-import * as email from "../notifications/email.ts"
+import sendEmail from "../notifications/email.ts"
 
 
 export default class Utils {
@@ -47,7 +47,7 @@ export default class Utils {
 
     }
 
-    static notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
+    static async notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
         console.log("notifications not implemented complete yet", user, dualisChanges)
 
         //Telegram Notification
@@ -68,20 +68,20 @@ export default class Utils {
         const mailTo = user.notifications.email.notificationEmail
         const personalMessageEmail = user.notifications.email.withGrades
         const smtpConfig = {
-            hostname: Deno.env.get("SMTP_HOST"),
+            hostname: Deno.env.get("SMTP_HOST") as string,
             port: 465,
-            username: Deno.env.get("EMAIL"),
-            password: Deno.env.get("EMAIL_PASS")
+            username: Deno.env.get("EMAIL") as string,
+            password: Deno.env.get("EMAIL_PASS") as string
         }
         const emailConfig = {
-            from: Deno.env.get("EMAIL"),
+            from: Deno.env.get("EMAIL") as string,
             to: mailTo,
             subject: "DHBW Dualis Bot - Notenupdate",
             content: msg.getMessageFromChanges(dualisChanges, personalMessageEmail, "%0A"),
             html: ""
         }
 
-        email.sendEmail(smtpConfig, emailConfig);
+        await sendEmail(smtpConfig, emailConfig);
     }
 
 }
