@@ -35,6 +35,7 @@
       .then(async response => { 
           const res = await response.json()
           user = res;
+          console.log(user);
           if (res.notifications.telegram == undefined) {
             telegramDisabled = true
             telegramActive = false
@@ -50,7 +51,7 @@
           } else {
             discordDisabled = false
             discordActive = res.notifications.discord.active
-            discordID = res.notifications.discord.chatID
+            discordID = res.notifications.discord.chatId
             discordPersonal = res.notifications.discord.withGrades
           }
           if (res.notifications.email == undefined) {
