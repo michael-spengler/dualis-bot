@@ -104,7 +104,7 @@
                                 Für eine Telegram Benachrichtigung musst du hier deine Chat ID eingeben.
                             </p>
                             <button class="gButton" style="margin-top: -5px; margin-bottom: 15px;" on:click={() => (telegramDialog = true)}>
-                                <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="20px" />
+                                <img class="infoPic" src="https://dualis-crawler.s3.eu-central-1.amazonaws.com/info.png" alt="infoIcon" height="20px" />
                             </button>
                             <div>
                                 <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={telegramID}/>
@@ -133,7 +133,7 @@
                                 Für eine Discord Benachrichtigung musst du hier deine Chat ID eingeben.
                             </p>
                             <button class="gButton" style="margin-top: -5px; margin-bottom: 15px;" on:click={() => (discordDialog = true)}>
-                                <img class="infoPic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1200px-Infobox_info_icon.svg.png" alt="infoIcon" height="20px" />
+                                <img class="infoPic" src="https://dualis-crawler.s3.eu-central-1.amazonaws.com/info.png" alt="infoIcon" height="20px" />
                             </button>
                             <div>
                                 <input class="input" placeholder="Chat ID" style="width: 190px" bind:value={discordID}/>
