@@ -77,7 +77,7 @@ export default class Utils {
             from: Deno.env.get("EMAIL") as string,
             to: mailTo,
             subject: "DHBW Dualis Bot - Notenupdate",
-            content: msg.getMessageFromChanges(dualisChanges, personalMessageEmail, "%0A"),
+            content: msg.getMessageFromChanges(dualisChanges, personalMessageEmail, "<br>"),
             html: ""
         }
 
