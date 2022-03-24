@@ -1,16 +1,17 @@
 <script>
     let person = [
-        {name: 'Fynn', description: 'Fynn hat die Führung innerhalb des Projektes übernommen und den Überblick behalten.', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Fynn.png', opacity: 0.5, height: 30, id:1},
-        {name: 'Robin', description: 'Robin war für das Backend zuständig.', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Robin.png', opacity: 0.5, height: 30, id:2},
-        {name: 'Steffen', description: 'Steffen hat am Frontend gearbeitet und war für den Telegram-Bot zuständig.', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Steffen.png', opacity: 0.5, height: 30, id:3},
-        {name: 'Maik', description: 'Maik hat am Frontend gearbeitet und war für den Discord-Bot zuständig.', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Maik.png', opacity: 0.5, height: 30, id:4}
+        {name: 'Fynn', description: 'Internal Applications Architect and Management Specialist for International Product Owners', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Fynn.png', opacity: 0.5, height: 15, id:1, margin: 24},
+        {name: 'Robin', description: 'Expert Experting Dynamic Web Architect Experts for Backend and Mobile Platforms', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Robin.png', opacity: 0.5, height: 15, id:2, margin: 24},
+        {name: 'Steffen', description: 'Head of Office for Forward Tactics for integrated Cloud Technologies', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Steffen.png', opacity: 0.5, height: 15, id:3, margin: 24},
+        {name: 'Maik', description: 'Head of Usability Mobile Design and Lead Usability Supervisor', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Maik.png', opacity: 0.5, height: 15, id:4, margin: 24}
     ]
 
     const handleMouseOver = (id) => {
         for (let index = 0; index < person.length; index++) {
             if (person[index].id == id){
                 person[index].opacity = 1;
-                person[index].height = 40;
+                person[index].height = 20;
+                person[index].margin = 15;
             }
         }
     }
@@ -19,62 +20,66 @@
 		for (let index = 0; index < person.length; index++) {
             if (person[index].id == id){
                 person[index].opacity = 0.5;
-                person[index].height = 30;
+                person[index].height = 15;
+                person[index].margin = 24;
             }
         }
 	}
 
 </script>
 
-<div class="border">
+<div class="outer">
+    <div class="middle">
+        <div class="inner" style="width: auto">
 
-    <div class="center">
-        <h1 >About the Gang of Fork</h1>
-        <hr>
-        <p>Unser Team besteht aus vier Personen:</p>
-    </div>
-
-    {#each person as person}
-        <div class="teammember" on:mouseover={() => {handleMouseOver(person.id)}} on:mouseout={() => {handleMouseOut(person.id)}} on:focus={() => {handleMouseOver(person.id)}} on:blur={() => {handleMouseOut(person.id)}}>
-            <p class="names">{person.name}</p>
-            <div class="center_column">
-                <hr>
-                <p>{person.description}</p>
+            <div class="center">
+                <h1 >About the Gang of Fork</h1>
+                <hr/>
+                <p>Unser Team besteht aus vier Personen:</p>
             </div>
-            <img style="position:absolute; top:50%; left:33%; opacity: {person.opacity};" src="{person.image}" height="{person.height}%" alt="{person.name}"/>
+
+            <div class="wrapper">
+            {#each person as person}
+                <div class="teammember" on:mouseover={() => {handleMouseOver(person.id)}} on:mouseout={() => {handleMouseOut(person.id)}} on:focus={() => {handleMouseOver(person.id)}} on:blur={() => {handleMouseOut(person.id)}}>
+                    <p class="names">{person.name}</p>
+                    <div class="center_column">
+                        <hr/>
+                        <p>{person.description}</p>
+                    </div>
+                    <img style="margin-top:40px; margin-left: {person.margin}%; opacity: {person.opacity};" src="{person.image}" height="{person.height}%" alt="{person.name}"/>
+                </div>
+            {/each}    
+            </div>
         </div>
-    {/each}    
+    </div>
 </div>
 
 
 <style>
     .center {
       margin: auto;
-      width: 350px;
+      width: 300px;
       padding: 10px;
       text-align: center;
+      align-items: center;
     }
     .center_column{
       margin: auto;
       width: 80%;
-      text-align: center;
+      align-items: center;
     }
-    .border {
-      border: 3px solid #222222;
-      text-align: center;
-    }
-    .border:after{
-        content: "";
-        display: table;
-        clear: both;
+    .wrapper {
+        text-align: center;
+        overflow: hidden;
     }
     .teammember{
         position: relative;
         background-color: white;
-        float: left;
-        width: 23%;
+        width: 300px;
         height:500px;
         margin: 1%;
+        display: inline-grid;
+        margin-top: 20px;
     }
     .names{
         color: black;

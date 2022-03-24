@@ -16,9 +16,7 @@
   export let url = "";
 
 </script>
-<svelte:head>
-  <link rel="icon" type="image/jpg" href="../assets/Logo.jpg" />
-</svelte:head>
+
 <Router url="{url}">
   <div>
     <Route path="register" component="{Register}" />
@@ -26,7 +24,12 @@
     <Route path="about" component="{About}" />
     <Route path="login" component="{Login}" />
     <Route path="/" component="{Login}">
-      <Login />
+      <Login/>
     </Route>
+    <footer>
+      <Link to="login">Login</Link> <span>|</span>
+      <Link to="about">About</Link> <span>|</span>
+      <Link to="register">Register</Link>
+    </footer>
   </div>
 </Router>

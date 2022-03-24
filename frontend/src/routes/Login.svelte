@@ -1,7 +1,5 @@
 <script>
   //***IMPORTS***
-  import Router from "svelte-routing/Router.svelte";
-  import Route from "svelte-routing/Route.svelte";
   import Link from "svelte-routing/Link.svelte";
   import { navigate } from "svelte-routing";
   import { jwt, BACKEND_SERVER } from "../stores.js";
@@ -30,7 +28,6 @@
       .then(async response => { 
         if(response.status==200){
           const res = await response.json()
-          console.log(res.jwt)
           jwt.set(res.jwt)
           navigate("/config", { replace: false });
         }else{
@@ -38,35 +35,42 @@
         }
       })
       .catch(error => {
-        console.log(error);
         return [];
       });
   }
 
 </script>
 
-<div class="border">
-  <div class="center">
-    <h1>Anmeldung</h1>
-    <hr/>
-    <p>
-      Gib hier deine Anmeldedaten für den Dualis-Bot ein.
-    </p>
-    <div>
-      <input on:input={() => incorrect = false} bind:value={username} placeholder="Benutzername"/>
-      <input type="password" on:input={() => incorrect = false} bind:value={password} placeholder="Passwort"/>
-    </div>
-    {#if incorrect}
-      <p class="warning">
-        Benutzername oder Passwort falsch!
+{#each [...[]] as _}
+<div _/>
+{:else}
+
+<div class="outer">
+  <div class="middle">
+    <div class="inner">
+      <h1>Anmeldung</h1>
+      <hr/>
+      <p>
+        Gib hier deine Anmeldedaten für den Dualis-Bot ein.
       </p>
-    {/if}
-    <nav>
-      <Link to="register">Registrieren</Link>
-    </nav>
-    <nav>
-      <a href="https://dualis.dhbw.de/">Hier gehts zu Dualis</a>
-    </nav>
-    <button class="rButton" on:click={login}>Anmelden</button>
+      <div>
+        <input on:input={() => incorrect = false} bind:value={username} placeholder="Benutzername"/>
+        <input type="password" on:input={() => incorrect = false} bind:value={password} placeholder="Passwort"/>
+      </div>
+      {#if incorrect}
+        <p class="warning">
+          Benutzername oder Passwort falsch!
+        </p>
+      {/if}
+      <nav>
+        <Link to="register">Registrieren</Link>
+      </nav>
+      <nav>
+        <a href="https://dualis.dhbw.de/">Hier gehts zu Dualis</a>
+      </nav>
+      <button class="rButton" on:click={login}>Anmelden</button>
+    </div>
   </div>
 </div>
+
+{/each}

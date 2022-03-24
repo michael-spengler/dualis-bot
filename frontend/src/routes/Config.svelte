@@ -64,7 +64,6 @@
           }
       })
       .catch(error => {
-        console.log(error);
         return [];
       })
     }
@@ -108,7 +107,6 @@
         })
         .then(getUser())
         .catch(error => {
-            console.log(error);
             return [];
         });
     }
@@ -135,7 +133,6 @@
         })
         .then(getUser())
         .catch(error => {
-            console.log(error);
             return [];
         });
     }
@@ -162,7 +159,6 @@
         })
         .then(getUser())
         .catch(error => {
-            console.log(error);
             return [];
         });
     }
@@ -189,7 +185,6 @@
         })
         .then(getUser())
         .catch(error => {
-            console.log(error);
             return [];
         });
     }
@@ -201,55 +196,66 @@
 
 
     {#if token != ''}
-    <div class="border">
-        <div class="center">
-        <h1>Konfiguration</h1>
-        <hr/>
-        <p>
-            Passe deine Einstellungen an oder richte neue Kommunikationswege ein
-        </p>
-        <div style="text-align: left; margin-top: 40px">	
-            <div style="padding-bottom: 20px">
-                <input type="checkbox" disabled={telegramDisabled} bind:checked={telegramActive}/>
-                <span>Telegram</span>
-                <button class="gButton right" on:click={() => (telegramDialog=true)}>
-                    {#if !telegramDisabled}
-                        Anpassen
-                    {:else}
-                        Konfigurieren
-                    {/if}
-                </button>
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+            <h1>Konfiguration</h1>
+            <hr/>
+            <p>
+                Passe deine Einstellungen an oder richte neue Kommunikationswege ein
+            </p>
+            <div style="text-align: left; margin-top: 40px">	
+                <div style="padding-bottom: 20px">
+                    <input type="checkbox" disabled={telegramDisabled} bind:checked={telegramActive}/>
+                    <span>Telegram</span>
+                    <button class="gButton right" on:click={() => (telegramDialog=true)}>
+                        {#if !telegramDisabled}
+                            Anpassen
+                        {:else}
+                            Konfigurieren
+                        {/if}
+                    </button>
+                </div>
+                <div style="padding-bottom: 20px">
+                    <input type="checkbox" disabled={discordDisabled} bind:checked={discordActive} design="slider"/>
+                    <span>Discord</span>
+                    <button class="gButton right" on:click={() => (discordDialog=true)}>
+                        {#if !discordDisabled}
+                            Anpassen
+                        {:else}
+                            Konfigurieren
+                        {/if}
+                    </button>
+                </div>
+                <div style="padding-bottom: 20px">
+                    <input type="checkbox" disabled={emailDisabled} bind:checked={emailActive} design="slider"/>
+                    <span>E-Mail</span>
+                    <button class="gButton right" on:click={() => (emailDialog=true)}>
+                        {#if !emailDisabled}
+                            Anpassen
+                        {:else}
+                            Konfigurieren
+                        {/if}
+                    </button>  
+                </div>
             </div>
-            <div style="padding-bottom: 20px">
-                <input type="checkbox" disabled={discordDisabled} bind:checked={discordActive} design="slider"/>
-                <span>Discord</span>
-                <button class="gButton right" on:click={() => (discordDialog=true)}>
-                    {#if !discordDisabled}
-                        Anpassen
-                    {:else}
-                        Konfigurieren
-                    {/if}
-                </button>
+            <button class="rButton" on:click={() => save()}>Speichern</button>
             </div>
-            <div style="padding-bottom: 20px">
-                <input type="checkbox" disabled={emailDisabled} bind:checked={emailActive} design="slider"/>
-                <span>E-Mail</span>
-                <button class="gButton right" on:click={() => (emailDialog=true)}>
-                    {#if !emailDisabled}
-                        Anpassen
-                    {:else}
-                        Konfigurieren
-                    {/if}
-                </button>  
-            </div>
-        </div>
-        <button class="rButton" on:click={() => save()}>Speichern</button>
         </div>
     </div>
     {:else}
-        <nav>
-            <Link to="login">Login</Link>
-        </nav>
+        <div class="outer">
+            <div class="middle">
+                <div class="inner">
+            <p class="warning">
+                Sie können Ihren Bot erst nach dem Anmelden konfigurieren.
+            </p>
+            <nav>
+                <Link to="login">Login</Link>
+            </nav>
+            </div>
+            </div>
+        </div>
     {/if}
 
     <Dialog bind:active={telegramDialog} width="auto">

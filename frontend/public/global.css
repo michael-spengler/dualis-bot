@@ -64,6 +64,9 @@ button {
   font-weight: 700;
 }
 
+button:disabled {
+  background-color: #666 !important;
+}
 
 button:not(:disabled):active {
   background-color: #ddd;
@@ -84,7 +87,7 @@ h1{
   font-weight: 700;
 }
 
-p{
+p, li, span{
  color: #ABABAB;
  font-weight: 700;
  size: 24px;
@@ -104,7 +107,7 @@ hr {
 }
 .center {
   margin: auto;
-  width: 350px;
+  width: 300px;
   padding: 10px;
   text-align: center;
 }
@@ -123,4 +126,33 @@ hr {
 }
 .warning {
   color: #E30613
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  text-align: center;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  text-align: center;
 }
