@@ -70,7 +70,7 @@ export default class Utils {
         const smtpConfig = {
             hostname: Deno.env.get("SMTP_HOST"),
             port: 465,
-            username: Deno.env.get("actions@fynn-weyrich.de"),
+            username: Deno.env.get("EMAIL"),
             password: Deno.env.get("EMAIL_PASS")
         }
         const emailConfig = {
