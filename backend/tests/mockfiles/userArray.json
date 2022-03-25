@@ -1,30 +1,30 @@
 [
-    {
-       "_id":{
-          "$oid":"621fdceb79dfb55065eae8b6"
-       },
-       "username":"ba3acc95482fd95f85ca7ff2945a0832",
-       "password":"$2a$10$jxM/iNzSml1qqtzqfEuPtecfaUcDz63hjkp1mEiCS0NUBJzwc4LoO",
-       "dualis_username":"5be65ef490a468d6b9513dffa72e8bf4da7aeb1cffdd9ca1a819e8b230898560d4382ccab6503131fc450570474ac6b8",
-       "dualis_password":"c81adc7aa4c4b27eb7ad47390109c4dc",
-       "active":true,
-       "dualisSummary":[
+  {
+    "_id": {
+      "$oid": "621fdceb79dfb55065eae8b6"
+    },
+    "username": "ba3acc95482fd95f85ca7ff2945a0832",
+    "password": "$2a$10$jxM/iNzSml1qqtzqfEuPtecfaUcDz63hjkp1mEiCS0NUBJzwc4LoO",
+    "dualis_username": "5be65ef490a468d6b9513dffa72e8bf4da7aeb1cffdd9ca1a819e8b230898560d4382ccab6503131fc450570474ac6b8",
+    "dualis_password": "c81adc7aa4c4b27eb7ad47390109c4dc",
+    "active": true,
+    "dualisSummary": [
+      {
+        "name": "\nW3WI_702 \nSchlüsselqualifikationen II (SoSe 2022)",
+        "examinations": [
           {
-             "name":"\nW3WI_702 \nSchlüsselqualifikationen II (SoSe 2022)",
-             "examinations":[
-                {
-                   "exam_type":"Unbenoteter Leistungsnachweis (1%)",
-                   "grade":"noch nicht gesetzt"
-                }
-             ]
+            "exam_type": "Unbenoteter Leistungsnachweis (1%)",
+            "grade": "noch nicht gesetzt"
           }
-       ],
-       "notifications":{
-          "telegram":{
-             "active":true,
-             "withGrades":true,
-             "notificationNumber":"321142074"
-          }
-       }
+        ]
+      }
+    ],
+    "notifications": {
+      "telegram": {
+        "active": true,
+        "withGrades": true,
+        "notificationNumber": "321142074"
+      }
     }
- ]
+  }
+]

@@ -1,10 +1,11 @@
 import authMiddleware from "../../../middleware/authMiddleware.ts";
-import { assertSpyCall, Spy } from "https://deno.land/x/mock@0.13.0/mod.ts";
 import {
+  assertSpyCall,
   mockNextFunction,
   mockRequest,
   mockResponse,
-} from "https://deno.land/x/opine_unittest_utils@0.2/mod.ts";
+  Spy,
+} from "../../test_deps.ts";
 
 Deno.test("Test successfull auth", async () => {
   //set env
@@ -13,8 +14,8 @@ Deno.test("Test successfull auth", async () => {
   //create mocks
   const req = mockRequest({
     headers: new Headers({
-      'auth': 'myJWT'
-    })
+      "auth": "myJWT",
+    }),
   });
 
   const res = mockResponse({});
@@ -32,18 +33,18 @@ Deno.test("Test invalid jwt", async () => {
   //create mocks
   const req = mockRequest({
     headers: new Headers({
-      'auth': 'wrongJWT'
-    })
+      "auth": "wrongJWT",
+    }),
   });
 
   const sendMock = mockResponse();
   const res = mockResponse({
-    setStatus: () => sendMock
+    setStatus: () => sendMock,
   });
   const next = mockNextFunction(() => {});
 
   await authMiddleware(req, res, next);
 
-  assertSpyCall(res.setStatus as Spy<any>, 0, { args: [ 401 ] });
-  assertSpyCall(sendMock.send as Spy<any>, 0, { });
+  assertSpyCall(res.setStatus as Spy<any>, 0, { args: [401] });
+  assertSpyCall(sendMock.send as Spy<any>, 0, {});
 });

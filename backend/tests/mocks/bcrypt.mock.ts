@@ -7,5 +7,5 @@ export function compare(val: string, hash: string) {
 }
 
 export function hash(val: string) {
-    return "hashed";
+  return "hashed";
 }
