@@ -1,4 +1,6 @@
 <script>
+    import Link from "svelte-routing/Link.svelte";
+
     let person = [
         {name: 'Fynn', description: 'Internal Applications Architect and Management Specialist for International Product Owners', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Fynn.png', opacity: 0.5, height: 15, id:1, margin: 24},
         {name: 'Robin', description: 'Expert Experting Dynamic Web Architect Experts for Backend and Mobile Platforms', image: 'https://dualis-crawler.s3.eu-central-1.amazonaws.com/Robin.png', opacity: 0.5, height: 15, id:2, margin: 24},
@@ -38,7 +40,7 @@
                 <p>Unser Team besteht aus vier Personen:</p>
             </div>
 
-            <div class="wrapper">
+            <div class="wrapper" style="margin-bottom: 45px;">
             {#each person as person}
                 <div class="teammember" on:mouseover={() => {handleMouseOver(person.id)}} on:mouseout={() => {handleMouseOut(person.id)}} on:focus={() => {handleMouseOver(person.id)}} on:blur={() => {handleMouseOut(person.id)}}>
                     <p class="names">{person.name}</p>
@@ -50,6 +52,11 @@
                 </div>
             {/each}    
             </div>
+            <footer style="margin-bottom: 15px;">
+                <Link to="login">Login</Link> <span>|</span>
+                <Link to="about">About</Link> <span>|</span>
+                <Link to="register">Register</Link>
+            </footer>
         </div>
     </div>
 </div>

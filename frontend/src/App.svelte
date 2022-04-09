@@ -26,10 +26,5 @@
     <Route path="/" component="{Login}">
       <Login/>
     </Route>
-    <footer>
-      <Link to="login">Login</Link> <span>|</span>
-      <Link to="about">About</Link> <span>|</span>
-      <Link to="register">Register</Link>
-    </footer>
   </div>
 </Router>

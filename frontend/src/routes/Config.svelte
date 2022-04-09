@@ -267,6 +267,11 @@
             </div>
         </div>
     {/if}
+    <footer style="margin-bottom: 15px;">
+        <Link to="login">Login</Link> <span>|</span>
+        <Link to="about">About</Link> <span>|</span>
+        <Link to="register">Register</Link>
+    </footer>
 
     <Dialog bind:active={telegramDialog} width="auto">
         <div class="center" style="background: #FFFFFF">

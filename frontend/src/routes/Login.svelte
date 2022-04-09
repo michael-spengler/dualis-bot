@@ -72,5 +72,10 @@
     </div>
   </div>
 </div>
+<footer style="margin-bottom: 15px;">
+  <Link to="login">Login</Link> <span>|</span>
+  <Link to="about">About</Link> <span>|</span>
+  <Link to="register">Register</Link>
+</footer>
 
 {/each}

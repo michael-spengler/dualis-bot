@@ -4,6 +4,7 @@
     import { navigate } from "svelte-routing";
     import { BACKEND_SERVER } from "../stores.js";
     import { Dialog } from 'https://cdn.skypack.dev/svelte-materialify';
+    import Link from "svelte-routing/Link.svelte";
 
 
 
@@ -239,6 +240,11 @@
         <a href="https://www.alphr.com/find-chat-id-telegram/">Tutorial</a> 
     </div>
 </Dialog>
+<footer style="margin-bottom: 15px;">
+    <Link to="login">Login</Link> <span>|</span>
+    <Link to="about">About</Link> <span>|</span>
+    <Link to="register">Register</Link>
+</footer>
 
 {/each}
 
