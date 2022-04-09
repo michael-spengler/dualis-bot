@@ -132,7 +132,10 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(getUser())
+        .then(
+            getUser(),
+            discordDialog = false
+        )
         .catch(error => {
             return [];
         });
@@ -158,7 +161,10 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(getUser())
+        .then(
+            getUser(),
+            emailDialog = false
+        )
         .catch(error => {
             return [];
         });
@@ -184,7 +190,10 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(getUser())
+        .then(
+            getUser(),
+            telegram = false
+        )
         .catch(error => {
             return [];
         });
