@@ -20,3 +20,12 @@ services:
   dualis-crawler:
     build: ./dualis-crawler
     image: lumaghg/dualis-crawler
+
+  frontend:
+    build: ./frontend
+    image: lumaghg/dualis-frontend
+    ports: 
+      - 80:80
+    depends_on:
+    - dualis-crawler
+    - backend
