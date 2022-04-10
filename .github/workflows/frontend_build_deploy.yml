@@ -18,11 +18,14 @@ jobs:
       run:
         working-directory: ./frontend
     env:
-      BUILD_VER: 1.0.${{ env.GITHUB_RUN_NUMBER }}
       IMAGE: lumaghg/dualis-frontend
 
     steps:
       - uses: actions/checkout@master
+
+      - name: Set Environment Variables
+        run: |
+          echo "BUILD_VER=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
