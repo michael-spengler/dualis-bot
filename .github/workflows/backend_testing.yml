@@ -1,4 +1,4 @@
-name: Backend Unit Tests
+name: Backend CI/CD
 
 on:
   push:

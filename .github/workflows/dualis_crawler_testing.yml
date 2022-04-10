@@ -1,4 +1,4 @@
-name: Dualis-Crawler Unit Tests
+name: Dualis-Crawler CI/CD
 
 on:
   push:

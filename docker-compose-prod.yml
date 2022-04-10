@@ -2,10 +2,9 @@ version: '3.9'
 
 services:
   backend: 
-    build: ./backend
     image: lumaghg/dualis-backend
     labels:
-      - "traefik.http.routers.backend.rule=Host(`api.localhost`)"
+      - "traefik.http.routers.backend.rule=Host(`api.dualis-bot.robin-reyer.de`)"
     ports: 
       - 4000:4000
     environment:
@@ -21,16 +20,14 @@ services:
       - reverse-proxy
     
   dualis-crawler:
-    build: ./dualis-crawler
     image: lumaghg/dualis-crawler
     depends_on:
     - reverse-proxy
 
   frontend:
-    build: ./frontend
     image: lumaghg/dualis-frontend
     labels:
-      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
+      - "traefik.http.routers.frontend.rule=Host(`dualis-bot.robin-reyer.de`)"
     ports: 
       - 4001:80
     depends_on:
@@ -41,12 +38,13 @@ services:
     # The official v2 Traefik docker image
     image: traefik:v2.6
     # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=true --providers.docker
+    command: --api.insecure=false --providers.docker
     ports:
       # The HTTP port
       - "80:80"
       # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      # - "8080:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+    
