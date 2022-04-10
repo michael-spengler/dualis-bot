@@ -18,7 +18,9 @@ jobs:
       IMAGE: lumaghg/dualis-frontend
 
     steps:
-      - uses: actions/checkout@master
+      - uses: Bhacaz/checkout-files
+        with:
+          files: frontend
 
       - name: Set Environment Variables
         run: |

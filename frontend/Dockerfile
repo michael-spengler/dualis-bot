@@ -15,4 +15,4 @@ RUN snel build
 FROM nginx AS production
 
 # copy only the files needed for production 
-COPY --from=build /app/dist /usr/share/nginx/html  
+COPY --from=build /app/dist /usr/share/nginx/html 
