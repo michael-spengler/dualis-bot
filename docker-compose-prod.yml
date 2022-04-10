@@ -19,7 +19,7 @@ services:
       - dualis-crawler
       - reverse-proxy
     
-  dualis-crawler:
+  crawler:
     image: lumaghg/dualis-crawler
     depends_on:
     - reverse-proxy
