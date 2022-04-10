@@ -14,34 +14,18 @@ jobs:
   build_deploy:
     name: Build and Deploy Frontend
     runs-on: ubuntu-latest
-    env:
-      IMAGE: lumaghg/dualis-frontend
 
     steps:
-      - uses: Bhacaz/checkout-files
-        with:
-          files: frontend
+      - uses: actions/checkout@master
 
-      - name: Set Environment Variables
-        run: |
-          echo "BUILD_VER=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
-          cd frontend
+      - name: Build Frontend Docker Image
+        run: docker build -t lumaghg/dualis-frontend ./frontend
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Log in to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and push container image
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: |
-            ${{ env.IMAGE }}:latest
-            ${{ env.IMAGE }}:${{ env.BUILD_VER }}
+      - name: Docker Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Push Image to Dockerhub
+        run: docker push lumaghg/dualis-frontend
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@v0.1.3
