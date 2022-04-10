@@ -18,7 +18,7 @@ jobs:
       run:
         working-directory: ./frontend
     env:
-      BUILD_VER: 1.0.$GITHUB_RUN_NUMBER
+      BUILD_VER: 1.0.${{env.GITHUB_RUN_NUMBER}}
       IMAGE: lumaghg/dualis-frontend
 
     steps:
