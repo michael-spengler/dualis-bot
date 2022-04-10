@@ -1,3 +1,4 @@
+
 html,
 body,
 #__snel {
@@ -29,6 +30,7 @@ a:hover {
 a:visited {
   color: rgb(0, 80, 160);
 }
+
 
 label {
   display: block;
@@ -64,17 +66,21 @@ button {
   font-weight: 700;
 }
 
+
 button:disabled {
   background-color: #666 !important;
 }
 
-button:not(:disabled):active {
+/*
+button:active:not([disabled]){
   background-color: #ddd;
 }
+*/
 
 button:focus {
   border-color: #666;
 }
+
 
 Link, a{
   font-weight: 500;
