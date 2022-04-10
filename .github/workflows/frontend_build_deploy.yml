@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Build Frontend Docker Image
-        run: docker-compose -f docker-compose-prod.yml build frontend --no-cache
+        run: docker-compose -f docker-compose-prod.yml build --no-cache frontend
 
       - name: Docker Login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
