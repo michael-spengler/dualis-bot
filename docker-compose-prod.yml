@@ -16,7 +16,7 @@ services:
       - TELEGRAM_BOT=${TELEGRAM_BOT}
       - WEBSITE=${WEBSITE}
     depends_on:
-      - dualis-crawler
+      - crawler
       - reverse-proxy
     
   crawler:
@@ -31,7 +31,7 @@ services:
     ports: 
       - 4001:80
     depends_on:
-    - dualis-crawler
+    - crawler
     - backend
     - reverse-proxy
   reverse-proxy:
