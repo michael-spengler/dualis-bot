@@ -18,7 +18,7 @@ jobs:
       run:
         working-directory: ./frontend
     env:
-      BUILD_VER: 1.0.${{env.GITHUB_RUN_NUMBER}}
+      BUILD_VER: 1.0.${{ env.GITHUB_RUN_NUMBER }}
       IMAGE: lumaghg/dualis-frontend
 
     steps:
@@ -37,7 +37,7 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE }}:latest
-            ${{ env.IMAGE }}:${{ env.BUILD_VER}}
+            ${{ env.IMAGE }}:${{ env.BUILD_VER }}
 
 
       - name: Deploy to Server
