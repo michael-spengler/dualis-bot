@@ -40,4 +40,4 @@ jobs:
             # Pull the new image from Dockerhub
             docker pull lumaghg/dualis-frontend:latest
             # Replace the container
-            docker-compose up -d frontend
+            docker-compose -f docker-compose-prod.yml up -d frontend
