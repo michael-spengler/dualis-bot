@@ -86,7 +86,7 @@ export default class Utils {
       msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "%0A"),
       discordBotToken,
     );
-
+ 
     //Email Notification
     const mailTo = user.notifications.email.notificationEmail;
     const personalMessageEmail = user.notifications.email.withGrades;
