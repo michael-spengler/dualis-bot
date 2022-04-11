@@ -10,7 +10,7 @@ RUN deno run --allow-run --allow-read https://deno.land/x/snel/install.ts
 
 # build the app
 RUN snel build
-
+ 
 
 FROM nginx AS production
 

@@ -1,0 +1,82 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "backend/**"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "backend/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        deno: [1.19.0]
+    name: Test Backend
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup Deno
+        uses: denolib/setup-deno@master
+        with:
+          deno-version: ${{ matrix.deno }}
+
+      - name: Print deno version
+        run: deno --version
+
+      - name: Run backend tests with import map
+        run: deno test  --allow-all --import-map=./backend/tests/importmap.json ./backend
+      
+  build:
+    name: Build and Push Backend
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build Backend Docker Image
+        run: docker build -t lumaghg/dualis-backend ./backend
+
+      - name: Docker Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Image to Dockerhub
+        run: docker push lumaghg/dualis-backend
+
+  deploy: 
+      name: Deploy Backend
+      needs: build
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          PORT: ${{ secrets.SSH_PORT }}
+          script: |
+            # Login to docker
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            # Pull the new image from Dockerhub
+            docker pull lumaghg/dualis-backend:latest
+            # Replace the container and inject env variables
+            EMAIL=${{ secrets.EMAIL }}\
+            EMAIL_PASS=${{ secrets.EMAIL_PASS }} \
+            SMTP_HOST=${{ secrets.SMTP_HOST }} \
+            BACKEND_PORT=${{ secrets.BACKEND_PORT }} \
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+            JWT_SECRET=${{ secrets.JWT_SECRET }} \
+            AES_SECRET=${{ secrets.AES_SECRET }} \
+            CRAWLER_URL=${{ secrets.CRAWLER_URL }} \
+            TELEGRAM_BOT=${{ secrets.TELEGRAM_BOT }} \
+            WEBSITE=${{ secrets.WEBSITE }} \
+            docker-compose -f docker-compose-prod.yml up -d backend

@@ -7,15 +7,15 @@ services:
     labels:
       - "traefik.http.routers.backend.rule=Host(`api.localhost`)"
     ports: 
-      - 4000:4000
+      - 4000:${BACKEND_PORT}
     environment:
-      - BACKEND_PORT=${BACKEND_PORT}
-      - JWT_SECRET=${JWT_SECRET}
-      - AES_SECRET=${AES_SECRET}
-      - CRAWLER_URL=${CRAWLER_URL}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-      - TELEGRAM_BOT=${TELEGRAM_BOT}
-      - WEBSITE=${WEBSITE}
+      - BACKEND_PORT
+      - JWT_SECRET
+      - AES_SECRET
+      - CRAWLER_URL
+      - DATABASE_PASSWORD
+      - TELEGRAM_BOT
+      - WEBSITE
     depends_on:
       - dualis-crawler
       - reverse-proxy

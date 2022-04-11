@@ -1,0 +1,71 @@
+name: Dualis-Crawler CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "dualis-crawler/**"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "dualis-crawler/**"
+
+jobs:
+
+  test:
+    name: Test Crawler
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+
+
+    - name: Build
+      run: go build -v ./main.go
+      working-directory: ./dualis-crawler
+
+    - name: Test
+      run: go test -v -covermode=atomic ./...
+      working-directory: ./dualis-crawler
+
+  build:
+    name: Build and Push Crawler
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Build Crawler Docker Image
+        run: docker build -t lumaghg/dualis-crawler ./crawler
+
+      - name: Docker Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Image to Dockerhub
+        run: docker push lumaghg/dualis-crawler
+
+  deploy: 
+      name: Deploy Crawler
+      needs: build
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          PORT: ${{ secrets.SSH_PORT }}
+          script: |
+            # Login to docker
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            # Pull the new image from Dockerhub
+            docker pull lumaghg/dualis-crawler:latest
+            # Replace the container
+            docker-compose -f docker-compose-prod.yml up -d crawler
