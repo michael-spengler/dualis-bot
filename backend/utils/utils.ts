@@ -88,13 +88,13 @@ export default class Utils {
     const mailTo = user.notifications.email.notificationEmail;
     const personalMessageEmail = user.notifications.email.withGrades;
     const smtpConfig = {
-      hostname: Deno.env.get("SMTP_HOST") as string,
+      hostname: Deno.env.get("SMTP_HOST") || "",
       port: 465,
-      username: Deno.env.get("EMAIL") as string,
-      password: Deno.env.get("EMAIL_PASS") as string,
+      username: Deno.env.get("EMAIL") || "",
+      password: Deno.env.get("EMAIL_PASS") || "",
     };
     const emailConfig = {
-      from: Deno.env.get("EMAIL") as string,
+      from: Deno.env.get("EMAIL") || "",
       to: mailTo,
       subject: "DHBW Dualis Bot - Notenupdate",
       content: msg.getMessageFromChanges(
