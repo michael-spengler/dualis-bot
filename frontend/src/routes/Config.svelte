@@ -192,7 +192,7 @@
         })
         .then(
             getUser(),
-            telegram = false
+            telegramDialog = false
         )
         .catch(error => {
             return [];
