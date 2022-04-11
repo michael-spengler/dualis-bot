@@ -17,10 +17,10 @@ services:
       - TELEGRAM_BOT
       - WEBSITE
     depends_on:
-      - dualis-crawler
+      - crawler
       - reverse-proxy
     
-  dualis-crawler:
+  crawler:
     build: ./dualis-crawler
     image: lumaghg/dualis-crawler
     depends_on:
@@ -34,7 +34,7 @@ services:
     ports: 
       - 4001:80
     depends_on:
-    - dualis-crawler
+    - crawler
     - backend
     - reverse-proxy
   reverse-proxy:
