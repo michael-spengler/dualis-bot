@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Build Crawler Docker Image
-        run: docker build -t lumaghg/dualis-crawler ./crawler
+        run: docker build -t lumaghg/dualis-crawler ./dualis-crawler
 
       - name: Docker Login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
