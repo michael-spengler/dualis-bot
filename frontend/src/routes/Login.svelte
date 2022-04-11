@@ -3,11 +3,29 @@
   import Link from "svelte-routing/Link.svelte";
   import { navigate } from "svelte-routing";
   import { jwt, BACKEND_SERVER } from "../stores.js";
+  import { onMount } from 'svelte';
 
   //***VARIABLES***
   var username = "";
   var password = "";
   var incorrect = false;
+
+  //***EVENTS***
+  onMount(async () => {
+        // Get the input field
+        var input = document.getElementById("passwordInput");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function(event) {
+          // Number 13 is the "Enter" key on the keyboard
+          if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("loginBtn").click();
+          }
+        });
+	});
 
   //***FUNCTIONS***
   async function login() {
@@ -55,7 +73,7 @@
       </p>
       <div>
         <input on:input={() => incorrect = false} bind:value={username} placeholder="Benutzername"/>
-        <input type="password" on:input={() => incorrect = false} bind:value={password} placeholder="Passwort"/>
+        <input id="passwordInput" type="password" on:input={() => incorrect = false} bind:value={password} placeholder="Passwort"/>
       </div>
       {#if incorrect}
         <p class="warning">
@@ -68,7 +86,7 @@
       <nav>
         <a href="https://dualis.dhbw.de/">Hier gehts zu Dualis</a>
       </nav>
-      <button class="rButton" on:click={login}>Anmelden</button>
+      <button id="loginBtn" class="rButton" on:click={login}>Anmelden</button>
     </div>
   </div>
 </div>
