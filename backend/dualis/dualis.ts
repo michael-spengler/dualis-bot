@@ -18,7 +18,7 @@ export async function cronjob() {
     try {
       const newDualisSummary = await getDualisSummary(
         Utils.decrypt(user.dualis_username), 
-        Utils.decrypt(user.dualis_password),
+        Utils.decrypt(user.dualis_password), 
       );
       const changes = getDualisChanges(user.dualisSummary, newDualisSummary);
       if (changes.length > 0) {
