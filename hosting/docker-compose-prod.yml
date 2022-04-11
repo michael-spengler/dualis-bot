@@ -15,6 +15,7 @@ services:
       - DATABASE_PASSWORD
       - TELEGRAM_BOT
       - WEBSITE
+      - DISCORD_TOKEN
     restart: always
     depends_on: 
       - crawler

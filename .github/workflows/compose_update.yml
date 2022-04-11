@@ -48,4 +48,5 @@ jobs:
             CRAWLER_URL=${{ secrets.CRAWLER_URL }} \
             TELEGRAM_BOT=${{ secrets.TELEGRAM_BOT }} \
             WEBSITE=${{ secrets.WEBSITE }} \
+            DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }} \
             docker-compose -f ./hosting/docker-compose-prod.yml up -d
