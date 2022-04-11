@@ -12,7 +12,7 @@ on:
 
 jobs:
   deploy:
-    name: Build and Push Frontend
+    name: Copy files to Server
     runs-on: ubuntu-latest
 
     steps:
@@ -27,4 +27,4 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           source: "hosting/docker-compose-prod.yml"
-          target: ""
+          target: "/"
