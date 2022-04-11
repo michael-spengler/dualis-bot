@@ -1,6 +1,6 @@
 # Dualis-Bot
 
-Dualis Bot Repository
+Dualis Bot Repository - visit us [here](http://dualis-bot.robin-reyer.de)
 
 ## Build / Run Backend and Crawler
 
