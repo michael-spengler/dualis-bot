@@ -17,7 +17,6 @@ import * as discord from "../notifications/discord.ts";
 
 import "https://deno.land/x/dotenv/load.ts";
 
-
 export default class Utils {
   static client: any;
   static async getDatabaseClient(): Promise<any> {
@@ -81,7 +80,7 @@ export default class Utils {
       msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "%0A"),
       discordBotToken,
     );
- 
+
     //Email Notification
     const mailTo = user.notifications.email.notificationEmail;
     const personalMessageEmail = user.notifications.email.withGrades;
