@@ -26,7 +26,7 @@ export async function cronjob() {
         if (changes[0].examinations.length > 0) {
           await User.updateOne({ _id: user._id }, {
             "$set": { dualisSummary: newDualisSummary },
-          });
+          }); 
           await Utils.notifyUser(user, changes);
         }
       }
