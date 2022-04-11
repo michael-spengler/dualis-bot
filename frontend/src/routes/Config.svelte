@@ -11,7 +11,7 @@
     var telegramActive = false, discordActive = false, emailActive = false, telegramDisabled = false, discordDisabled = false, emailDisabled = false;
     var telegramID = '', discordID = '', emailID = '';
     var telegramPersonal = true, discordPersonal = true, emailPersonal = true;
-    var telegramDialog = false, discordDialog = false, emailDialog = false;
+    var telegramDialog = false, discordDialog = false, emailDialog = false, saveSuccessful = false ;
     var user = '';
 
 
@@ -33,35 +33,33 @@
         }
       })
       .then(async response => { 
-          const res = await response.json()
-          user = res;
-          console.log(user);
-          if (res.notifications.telegram == undefined) {
+          const user = await response.json()
+          if (user.notifications.telegram == undefined) {
             telegramDisabled = true
             telegramActive = false
           } else {
             telegramDisabled = false
-            telegramActive = res.notifications.telegram.active
-            telegramID = res.notifications.telegram.notificationNumber
-            telegramPersonal = res.notifications.telegram.withGrades
+            telegramActive = user.notifications.telegram.active
+            telegramID = user.notifications.telegram.notificationNumber
+            telegramPersonal = user.notifications.telegram.withGrades
           }
-          if (res.notifications.discord == undefined) {
+          if (user.notifications.discord == undefined) {
             discordDisabled = true
             discordActive = false
           } else {
             discordDisabled = false
-            discordActive = res.notifications.discord.active
-            discordID = res.notifications.discord.chatId
-            discordPersonal = res.notifications.discord.withGrades
+            discordActive = user.notifications.discord.active
+            discordID = user.notifications.discord.chatId
+            discordPersonal = user.notifications.discord.withGrades
           }
-          if (res.notifications.email == undefined) {
+          if (user.notifications.email == undefined) {
             emailDisabled = true
             emailActive = false
           } else {
             emailDisabled = false
-            emailActive = res.notifications.email.active
-            emailID = res.notifications.email.notificationEmail
-            emailPersonal = res.notifications.email.withGrades
+            emailActive = user.notifications.email.active
+            emailID = user.notifications.email.notificationEmail
+            emailPersonal = user.notifications.email.withGrades
           }
       })
       .catch(error => {
@@ -72,30 +70,23 @@
     //save-functions
     async function save () {
         const updateCall = BACKEND_SERVER + "/user"
-        const updateData = {
-            ...(!emailDisabled && { notitfications: {
-                "email": {
-                    "notificationEmail": emailID,
-                    "withGrades": emailPersonal,
-                    "active": emailActive,
-                }
+        const updateData = { notifications: {
+            ...(!emailDisabled && { "email": {
+                "notificationEmail": emailID,
+                "withGrades": emailPersonal,
+                "active": emailActive,
             }}),
-            ...(!discordDisabled && { notifications: {
-                "discord": {
-                    "chatId": discordID,
-                    "withGrades": discordPersonal,
-                    "active": discordActive
-                }
+            ...(!discordDisabled && { "discord": {
+                "chatId": discordID,
+                "withGrades": discordPersonal,
+                "active": discordActive
             }}),
-            ...(!telegramDisabled && { notifications: {
-                "telegram": {
-                    "notificationNumber": telegramID,
-                    "withGrades": telegramPersonal,
-                    "active": telegramActive
-                }
+            ...(!telegramDisabled && { "telegram": {
+                "notificationNumber": telegramID,
+                "withGrades": telegramPersonal,
+                "active": telegramActive
             }})
-        }
-
+        }}
         await fetch(updateCall, {
             method: 'PUT',
             headers: { 
@@ -106,9 +97,9 @@
             },
             body: JSON.stringify(updateData)
         })
-        .then(getUser())
+        .then(async response => {getUser(), saveSuccessful=true})
         .catch(error => {
-            return [];
+            return[];
         });
     }
     async function saveDiscord () {
@@ -297,13 +288,18 @@
     </Dialog>
     <Dialog bind:active={emailDialog} width="auto">
         <div class="center" style="background-color: #FFFFFF">
-            <h1>E-Mail</h1>
+            <h3>E-Mail</h3>
             <input placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
             <div>
                 <input type="checkbox" bind:checked={emailPersonal}/>
                 Get Message with Grades
             </div>
             <button class="rButton" on:click={() => saveEmail()}>Speichern</button>
+        </div>
+    </Dialog>
+    <Dialog bind:active={saveSuccessful} width="auto">
+        <div class="center" style="background-color: #FFFFFF">
+            <h3>Speichern erfolgreich!</h3>
         </div>
     </Dialog>
 
