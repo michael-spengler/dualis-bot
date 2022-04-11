@@ -11,7 +11,7 @@ on:
       - "backend/**"
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,3 +32,7 @@ jobs:
 
       - name: Run backend tests with import map
         run: deno test  --allow-all --import-map=./backend/tests/importmap.json ./backend
+      
+  build: 
+    runs-on: ubuntu-latest
+    needs: test
