@@ -93,6 +93,7 @@ export default class Utils {
       username: Deno.env.get("EMAIL") as string,
       password: Deno.env.get("EMAIL_PASS") as string,
     };
+    console.log(smtpConfig)
     const emailConfig = {
       from: Deno.env.get("EMAIL") as string,
       to: mailTo,
