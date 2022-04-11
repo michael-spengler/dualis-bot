@@ -23,6 +23,8 @@ services:
   crawler:
     build: ./dualis-crawler
     image: lumaghg/dualis-crawler
+    labels:
+      - traefik.enable=false
     depends_on:
     - reverse-proxy
 

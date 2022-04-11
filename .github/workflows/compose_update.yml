@@ -28,3 +28,14 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           source: "./hosting/docker-compose-prod.yml"
           target: "~/"
+      
+      - name: Apply docker-compose changes
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          HOST: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          PORT: ${{ secrets.SSH_PORT }}
+          script: |
+            # restart containers, if neccessary
+            docker-compose -f ./hosting/docker-compose-prod.yml up -d
