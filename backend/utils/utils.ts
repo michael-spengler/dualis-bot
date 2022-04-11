@@ -15,9 +15,6 @@ import * as telegram from "../notifications/telegram.ts";
 import * as msg from "../notifications/message.ts";
 import * as discord from "../notifications/discord.ts";
 
-import "https://deno.land/x/dotenv/load.ts";
-
-
 export default class Utils {
   static client: any;
   static async getDatabaseClient(): Promise<any> {
@@ -83,25 +80,21 @@ export default class Utils {
     const personalMessageDiscord = user.notifications.discord.withGrades;
     discord.sendMessageDiscord(
       chatID,
-      msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "%0A"),
+      msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "\n"),
       discordBotToken,
     );
 
     //Email Notification
     const mailTo = user.notifications.email.notificationEmail;
     const personalMessageEmail = user.notifications.email.withGrades;
-    const hostname = Deno.env.get("SMTP_HOST");
-    const email = Deno.env.get("EMAIL");
-    const pass = Deno.env.get("EMAIL_PASS");
     const smtpConfig = {
-      hostname: hostname || "",
+      hostname: Deno.env.get("SMTP_HOST") as string,
       port: 465,
-      username: email || "",
-      password: pass || "",
+      username: Deno.env.get("EMAIL") as string,
+      password: Deno.env.get("EMAIL_PASS") as string,
     };
-    console.log(smtpConfig)
     const emailConfig = {
-      from: email || "",
+      from: Deno.env.get("EMAIL") as string,
       to: mailTo,
       subject: "DHBW Dualis Bot - Notenupdate",
       content: msg.getMessageFromChanges(

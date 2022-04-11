@@ -179,7 +179,7 @@
                     </SvelteStepWizard.Step>
                     <SvelteStepWizard.Step num={5} let:previousStep>
                         <div>
-                            <h1>E-Mail</h1>
+                            <h1>Dualis</h1>
                             <hr/>
                             <p>
                                 Gib hier deine Dualis Anmeldedaten ein.
@@ -234,7 +234,7 @@
         <ol>
             <li> Telegram Nutzername festlegen, wenn noch nicht vorhanden </li>
             <li> Bot über Link (unten) öffnen oder nach dhbw_dualis_bot in den Kontakten suchen und dem gewünschten Chat hinzufügen </li>
-            <li> ChannelID mithilfe des <a href="https://t.me/RawDataBot">Raw Data Bots</a> ermitteln </li>
+            <li> ChannelID mithilfe des <a href="https://t.me/raw_data_bot">Raw Data Bots</a> ermitteln </li>
         </ol>
         <p>Bei Problemen: </p> 
         <a href="https://www.alphr.com/find-chat-id-telegram/">Tutorial</a> 
