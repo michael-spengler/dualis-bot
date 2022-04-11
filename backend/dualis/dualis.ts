@@ -12,6 +12,7 @@ export function setupCronjob() {
   everyMinute(cronjob);
 }
 
+
 export async function cronjob() {
   console.log("running dualis check for every user");
   (<any> (await User.find({ active: true }))).forEach(async (user: IUser) => {
