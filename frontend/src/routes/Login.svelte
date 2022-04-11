@@ -48,7 +48,7 @@
 <div class="outer">
   <div class="middle">
     <div class="inner">
-      <h1>Anmeldung mem</h1>
+      <h1>Anmeldung</h1>
       <hr/>
       <p>
         Gib hier deine Anmeldedaten für den Dualis-Bot ein.
