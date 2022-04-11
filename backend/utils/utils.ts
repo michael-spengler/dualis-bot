@@ -15,6 +15,9 @@ import * as telegram from "../notifications/telegram.ts";
 import * as msg from "../notifications/message.ts";
 import * as discord from "../notifications/discord.ts";
 
+import "https://deno.land/x/dotenv/load.ts";
+
+
 export default class Utils {
   static client: any;
   static async getDatabaseClient(): Promise<any> {
@@ -93,6 +96,7 @@ export default class Utils {
       username: Deno.env.get("EMAIL") || "",
       password: Deno.env.get("EMAIL_PASS") || "",
     };
+    console.log(smtpConfig)
     const emailConfig = {
       from: Deno.env.get("EMAIL") || "",
       to: mailTo,
