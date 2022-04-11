@@ -288,7 +288,7 @@
     </Dialog>
     <Dialog bind:active={emailDialog} width="auto">
         <div class="center" style="background-color: #FFFFFF">
-            <h1>E-Mail</h1>
+            <h3>E-Mail</h3>
             <input placeholder="E-Mail" style="width: 190px" bind:value={emailID}/>
             <div>
                 <input type="checkbox" bind:checked={emailPersonal}/>
@@ -299,7 +299,7 @@
     </Dialog>
     <Dialog bind:active={saveSuccessful} width="auto">
         <div class="center" style="background-color: #FFFFFF">
-            <h1>Speichern erfolgreich!</h1>
+            <h3>Speichern erfolgreich!</h3>
         </div>
     </Dialog>
 
