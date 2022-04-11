@@ -60,12 +60,13 @@ export default class Utils {
     const targetID = user.notifications.telegram.notificationNumber; //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot
     const personalMessage = user.notifications.telegram.withGrades; //check if personal message is necessary for msg function
     //send funny sticker before serious message
-    telegram.sendSticker(
+    await telegram.sendSticker(
       targetID,
       "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA",
       telegramBotToken,
     );
-    telegram.sendMessage(
+    await new Promise(f => setTimeout(f, 2000));
+    await telegram.sendMessage(
       targetID,
       msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"),
       telegramBotToken,
