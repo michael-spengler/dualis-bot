@@ -24,7 +24,7 @@
     <Route path="about" component="{About}" />
     <Route path="login" component="{Login}" />
     <Route path="/" component="{Login}">
-      <Login/>
+      <Login/> 
     </Route>
   </div>
 </Router>

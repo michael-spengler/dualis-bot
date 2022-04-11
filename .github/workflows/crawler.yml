@@ -68,4 +68,4 @@ jobs:
             # Pull the new image from Dockerhub
             docker pull lumaghg/dualis-crawler:latest
             # Replace the container
-            docker-compose -f docker-compose-prod.yml up -d crawler
+            docker-compose -f ./hosting/docker-compose-prod.yml up -d crawler

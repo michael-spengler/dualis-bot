@@ -15,6 +15,7 @@ services:
       - DATABASE_PASSWORD
       - TELEGRAM_BOT
       - WEBSITE
+    restart: always
     depends_on: 
       - crawler
       - reverse-proxy
@@ -23,6 +24,7 @@ services:
     image: lumaghg/dualis-crawler
     depends_on:
     - reverse-proxy
+    restart: always
 
   frontend:
     image: lumaghg/dualis-frontend
@@ -34,11 +36,13 @@ services:
     - crawler
     - backend
     - reverse-proxy
+    restart: always
   reverse-proxy:
     # The official v2 Traefik docker image
     image: traefik:v2.6
     # Enables the web UI and tells Traefik to listen to docker
     command: --api.insecure=false --providers.docker
+    restart: always
     ports:
       # The HTTP port
       - "80:80"
@@ -47,4 +51,5 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+    
     
