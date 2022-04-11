@@ -9,7 +9,7 @@ import {
   cronjob,
   getDualisChanges,
 } from "../../../dualis/dualis.ts";
-import {
+import { 
   IDualisCourse,
   IDualisExamination,
 } from "../../../interfaces/dualis.interface.ts";
