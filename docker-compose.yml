@@ -16,6 +16,10 @@ services:
       - DATABASE_PASSWORD
       - TELEGRAM_BOT
       - WEBSITE
+      - DISCORD_TOKEN
+      - EMAIL
+      - EMAIL_PASS
+      - SMTP_HOST
     depends_on:
       - crawler
       - reverse-proxy

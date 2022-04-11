@@ -13,6 +13,7 @@ app.use(opineCors());
 setupCronjob();
 
 const port = parseInt(Deno.env.get("BACKEND_PORT") as string);
+
 if (Number.isNaN(port)) {
   console.error("Port must be a number");
   Deno.exit(1);
