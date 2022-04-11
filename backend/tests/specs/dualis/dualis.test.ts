@@ -13,7 +13,6 @@ import {
   IDualisCourse,
   IDualisExamination,
 } from "../../../interfaces/dualis.interface.ts";
-import { setupCrawlerMock } from "../../mocks/crawler.mock.ts";
 Deno.test("test cronjob", () => {
   assert(true);
 });
