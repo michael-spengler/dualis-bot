@@ -1,6 +1,7 @@
 # Dualis-Bot
 
 Dualis Bot Repository
+Dies ist eine gute Readme
 
 ## Build / Run Backend and Crawler
 
