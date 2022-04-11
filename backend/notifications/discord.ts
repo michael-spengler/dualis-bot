@@ -10,17 +10,21 @@ export function sendMessageDiscord(
   message: string,
   discordBotToken: string,
 ) {
-  const client = new Client();
-  client.on("ready", () => {
-    console.log(`Ready! User: ${client.user?.tag}`);
-  });
+  try {
+    const client = new Client();
+    client.on("ready", () => {
+      console.log(`Ready! User: ${client.user?.tag}`);
+    });
 
-  client.connect(discordBotToken, [
-    GatewayIntents.DIRECT_MESSAGES,
-    GatewayIntents.GUILDS,
-    GatewayIntents.GUILD_MESSAGES,
-  ]);
+    client.connect(discordBotToken, [
+      GatewayIntents.DIRECT_MESSAGES,
+      GatewayIntents.GUILDS,
+      GatewayIntents.GUILD_MESSAGES,
+    ]);
 
-  const channel = new TextChannel(client, { id: targetID, type: 1 });
-  channel.send(message);
+    const channel = new TextChannel(client, { id: targetID, type: 1 });
+    channel.send(message);
+  } catch (e) {
+    console.error(e);
+  }
 }

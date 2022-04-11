@@ -69,7 +69,7 @@ jobs:
             # Pull the new image from Dockerhub
             docker pull lumaghg/dualis-backend:latest
             # Replace the container and inject env variables
-            EMAIL=${{ secrets.EMAIL }}\
+            EMAIL=${{ secrets.EMAIL }} \
             EMAIL_PASS=${{ secrets.EMAIL_PASS }} \
             SMTP_HOST=${{ secrets.SMTP_HOST }} \
             BACKEND_PORT=${{ secrets.BACKEND_PORT }} \

@@ -12,14 +12,13 @@ export function setupCronjob() {
   everyMinute(cronjob);
 }
 
-
 export async function cronjob() {
   console.log("running dualis check for every user");
   (<any> (await User.find({ active: true }))).forEach(async (user: IUser) => {
     try {
       const newDualisSummary = await getDualisSummary(
-        Utils.decrypt(user.dualis_username), 
-        Utils.decrypt(user.dualis_password), 
+        Utils.decrypt(user.dualis_username),
+        Utils.decrypt(user.dualis_password),
       );
       const changes = getDualisChanges(user.dualisSummary, newDualisSummary);
       if (changes.length > 0) {

@@ -15,6 +15,11 @@ import * as telegram from "../notifications/telegram.ts";
 import * as msg from "../notifications/message.ts";
 import * as discord from "../notifications/discord.ts";
 
+<<<<<<< HEAD
+=======
+import "https://deno.land/x/dotenv/load.ts";
+
+>>>>>>> 9ece0c15e48b3b9a64813d3d01f3d0b58a6da812
 export default class Utils {
   static client: any;
   static async getDatabaseClient(): Promise<any> {
@@ -53,11 +58,6 @@ export default class Utils {
   }
 
   static async notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
-    console.log(
-      "notifications not implemented complete yet",
-      user,
-      dualisChanges,
-    );
     //Telegram Notification
     const telegramBotToken = Deno.env.get("TELEGRAM_BOT") || "";
     const targetID = user.notifications.telegram.notificationNumber; //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot
@@ -93,6 +93,10 @@ export default class Utils {
       username: Deno.env.get("EMAIL") as string,
       password: Deno.env.get("EMAIL_PASS") as string,
     };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9ece0c15e48b3b9a64813d3d01f3d0b58a6da812
     const emailConfig = {
       from: Deno.env.get("EMAIL") as string,
       to: mailTo,

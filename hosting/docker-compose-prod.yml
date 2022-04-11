@@ -16,6 +16,9 @@ services:
       - TELEGRAM_BOT
       - WEBSITE
       - DISCORD_TOKEN
+      - EMAIL
+      - EMAIL_PASS
+      - SMTP_HOST
     restart: always
     depends_on: 
       - crawler
