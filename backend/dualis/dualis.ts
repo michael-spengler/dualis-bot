@@ -5,11 +5,13 @@ import {
 import axiod from "https://deno.land/x/axiod@0.24/mod.ts";
 import User from "../collections/user.collection.ts";
 import Utils from "../utils/utils.ts";
-import { everyMinute } from "../deps.ts";
+import { everyMinute, cron } from "../deps.ts";
 import IUser from "../interfaces/user.interface.ts";
 
 export function setupCronjob() {
   everyMinute(cronjob);
+  //Server time is -2
+  //cron("0 0/5 5-17 ? * MON,TUE,WED,THU,FRI *", cronjob)
 }
 
 export async function cronjob() {
