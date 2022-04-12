@@ -12,7 +12,7 @@ export type {
 export { create, decode, verify } from "https://deno.land/x/djwt@v2.2/mod.ts";
 export { json, opine, Router } from "https://deno.land/x/opine@2.1.2/mod.ts";
 export * as bcrypt from "https://deno.land/x/bcrypt@v0.3.0/mod.ts";
-export { everyMinute } from "https://deno.land/x/deno_cron@v1.0.0/cron.ts";
+export { everyMinute, cron } from "https://deno.land/x/deno_cron@v1.0.0/cron.ts";
 export { Aes } from "https://deno.land/x/crypto@v0.10.0/aes.ts";
 export {
   Cbc,
