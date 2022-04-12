@@ -9,9 +9,9 @@ import { everyMinute, cron } from "../deps.ts";
 import IUser from "../interfaces/user.interface.ts";
 
 export function setupCronjob() {
-  //everyMinute(cronjob);
+  everyMinute(cronjob);
   //Server time is -2
-  cron("0 0/5 5-17 ? * MON,TUE,WED,THU,FRI *", cronjob)
+  //cron("0 0/5 5-17 ? * MON,TUE,WED,THU,FRI *", cronjob)
 }
 
 export async function cronjob() {
