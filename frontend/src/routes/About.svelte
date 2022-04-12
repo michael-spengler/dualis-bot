@@ -52,7 +52,7 @@
                 </div>
             {/each}
             <br/>
-            <a href="https://github.com/dualis-bot/dualis-bot">Unser Github Repository</a>    
+            <a href="https://github.com/dualis-bot/dualis-bot">Unser Github Repository</a>     
             </div>
             <footer style="margin-bottom: 15px;">
                 <Link to="login">Login</Link> <span>|</span>
