@@ -22,7 +22,7 @@ Da es sich nur um einen Prototypen handelt, der in einer sehr kurzen Zeitspanne 
 
 ***
 
-<details><summary><b>## For Developing</b></summary>
+<details><summary><h2>For Developing</h2></summary>
   
 ### Run / Build Frontend
 
