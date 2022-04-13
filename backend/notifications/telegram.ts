@@ -19,3 +19,23 @@ export async function sendSticker(
     `https://api.telegram.org/bot${telegramBotToken}/sendSticker?chat_id=${targetID}&sticker=${sticker}`;
   await Request.get(stickerURL);
 }
+
+export async function sendDocument(
+  targetID: string,
+  document: string,
+  telegramBotToken: string,
+) {
+  const documentURL =
+    `https://api.telegram.org/bot${telegramBotToken}/sendDocument?chat_id=${targetID}&document=${document}`;
+  await Request.get(documentURL);
+}
+
+export async function sendPhoto(
+  targetID: string,
+  photo: string,
+  telegramBotToken: string,
+) {
+  const photoURL =
+    `https://api.telegram.org/bot${telegramBotToken}/sendPhoto?chat_id=${targetID}&photo=${photo}`;
+  await Request.get(photoURL);
+}

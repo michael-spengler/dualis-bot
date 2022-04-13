@@ -24,8 +24,9 @@ export default class Utils {
       try {
         Utils.client = await new MongoClient();
         await Utils.client.connect(
-          "mongodb+srv://dualis-bot:" + Deno.env.get("DATABASE_PASSWORD") +
-            "@cluster0.mw4xn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&authMechanism=SCRAM-SHA-1&authSource=admin",
+          "mongodb+srv://dualis-bot:" +
+            Deno.env.get("DATABASE_PASSWORD") +
+            "@cluster0.mw4xn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&authMechanism=SCRAM-SHA-1&authSource=admin"
         );
       } catch (e) {
         console.error(e);
@@ -56,53 +57,75 @@ export default class Utils {
 
   static async notifyUser(user: IUser, dualisChanges: IDualisCourse[]) {
     //Telegram Notification
-    const telegramBotToken = Deno.env.get("TELEGRAM_BOT") || "";
-    const targetID = user.notifications.telegram.notificationNumber; //Id of user or chat https://www.alphr.com/find-chat-id-telegram/  RawDataBot
-    const personalMessage = user.notifications.telegram.withGrades; //check if personal message is necessary for msg function
-    //send funny sticker before serious message
-    await telegram.sendSticker(
-      targetID,
-      "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA",
-      telegramBotToken,
-    );
-    await new Promise(f => setTimeout(f, 2000));
-    await telegram.sendMessage(
-      targetID,
-      msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A"),
-      telegramBotToken,
-    );
+    if (user.notifications.telegram.active) {
+      const telegramBotToken = Deno.env.get("TELEGRAM_BOT") || "";
+      const targetID = user.notifications.telegram.notificationNumber;
+      const personalMessage = user.notifications.telegram.withGrades; //check if personal message is necessary for msg function
+      //send funny sticker before serious message
+      await telegram.sendSticker(
+        targetID,
+        "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA",
+        telegramBotToken
+      );
+      await new Promise((f) => setTimeout(f, 2000));
+      const returnMsg = msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A");
+      await telegram.sendMessage(
+        targetID,
+        returnMsg.msg,
+        telegramBotToken
+      );
+      if(returnMsg.badGrade){
+        await telegram.sendDocument(
+          targetID,
+          "https://www.mcdonalds.com/content/dam/de/ueber-uns/Franchise-Modell/Bewerbungsbogen_20181017.pdf",
+          telegramBotToken
+        )
+      }
+      if(returnMsg.goodGrade){
+        await telegram.sendPhoto(
+          targetID,
+          "https://memecrunch.com/meme/95TJK/streber/image.png?w=400&c=1",
+          telegramBotToken
+        )
+      }
+      
+    }
 
     //Discord Notification
-    const discordBotToken = Deno.env.get("DISCORD_TOKEN") || "";
-    const chatID = user.notifications.discord.chatId;
-    const personalMessageDiscord = user.notifications.discord.withGrades;
-    discord.sendMessageDiscord(
-      chatID,
-      msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "\n"),
-      discordBotToken,
-    );
+    if (user.notifications.discord.active) {
+      const discordBotToken = Deno.env.get("DISCORD_TOKEN") || "";
+      const chatID = user.notifications.discord.chatId;
+      const personalMessageDiscord = user.notifications.discord.withGrades;
+      discord.sendMessageDiscord(
+        chatID,
+        msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "\n").msg,
+        discordBotToken
+      );
+    }
 
     //Email Notification
-    const mailTo = user.notifications.email.notificationEmail;
-    const personalMessageEmail = user.notifications.email.withGrades;
-    const smtpConfig = {
-      hostname: Deno.env.get("SMTP_HOST") as string,
-      port: 465,
-      username: Deno.env.get("EMAIL") as string,
-      password: Deno.env.get("EMAIL_PASS") as string,
-    };
-    const emailConfig = {
-      from: Deno.env.get("EMAIL") as string,
-      to: mailTo,
-      subject: "DHBW Dualis Bot - Notenupdate",
-      content: msg.getMessageFromChanges(
-        dualisChanges,
-        personalMessageEmail,
-        "<br>",
-      ),
-      html: "",
-    };
+    if (user.notifications.email.active) {
+      const mailTo = user.notifications.email.notificationEmail;
+      const personalMessageEmail = user.notifications.email.withGrades;
+      const smtpConfig = {
+        hostname: Deno.env.get("SMTP_HOST") as string,
+        port: 465,
+        username: Deno.env.get("EMAIL") as string,
+        password: Deno.env.get("EMAIL_PASS") as string,
+      };
+      const emailConfig = {
+        from: Deno.env.get("EMAIL") as string,
+        to: mailTo,
+        subject: "DHBW Dualis Bot - Notenupdate",
+        content: msg.getMessageFromChanges(
+          dualisChanges,
+          personalMessageEmail,
+          "<br>"
+        ).msg,
+        html: "",
+      };
 
-    await sendEmail(smtpConfig, emailConfig);
+      await sendEmail(smtpConfig, emailConfig);
+    }
   }
 }

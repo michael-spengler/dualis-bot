@@ -6,6 +6,9 @@ export function getMessageFromChanges(
   withGrades: boolean,
   newLineChar: string,
 ) {
+  let badGrade = false;
+  let goodGrade = false;
+  const regex = /4,/;
   let message = "Hallo, " + newLineChar +
     "Es sind folgende neue Bewertungen in Dualis verfügbar:";
   // personal message with grades and submodules
@@ -19,6 +22,11 @@ export function getMessageFromChanges(
         const submoduleObject = totalModuleObject[j];
         message += newLineChar + dualisChanges[i].name + " - " +
           submoduleObject.exam_type + ": " + submoduleObject.grade;
+        if (submoduleObject.grade == "1,0"){
+          goodGrade = true;
+        } else if (regex.test(submoduleObject.grade as string)){
+          badGrade = true;
+        }
       }
     }
     // message without grades
@@ -32,5 +40,5 @@ export function getMessageFromChanges(
     "Vielen Dank für ihr Vertrauen an unseren Service. Der Dualis-Bot hält Sie immer auf dem aktuellen Stand. " +
     newLineChar + "Besuche " + Deno.env.get("WEBSITE") +
     " für die persönliche Konfiguration.";
-  return message;
+  return {msg: message, badGrade: badGrade, goodGrade: goodGrade};
 }
