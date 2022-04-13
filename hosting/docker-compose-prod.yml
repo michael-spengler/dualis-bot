@@ -4,7 +4,8 @@ services:
   backend: 
     image: lumaghg/dualis-backend
     labels:
-      - "traefik.backend.rule=Host:api.dualis-bot.robin-reyer.de"
+      - traefik.backend.rule=Host:api.dualis-bot.robin-reyer.de
+      - traefik.enable=true"
     #ports: 
     #  - 4000:4000
     environment:
@@ -35,7 +36,7 @@ services:
   frontend:
     image: lumaghg/dualis-frontend
     labels:
-      - "traefik.frontend.rule=Host:dualis-bot.robin-reyer.de"
+      - traefik.frontend.rule=Host:dualis-bot.robin-reyer.de
     #ports: 
     #  - 4001:80
     depends_on:
