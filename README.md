@@ -1,6 +1,6 @@
 # Dualis-Bot
 
-Der Dualis-Bot ist als Teil einer Prüfungsleistung des Moduls Web-Programmierung innerhalb eines Wirtschaftsinformatikstudiums an der DHBW Mannheim entstanden.
+Der Dualis-Bot ist als Teil einer Prüfungsleistung des Moduls Web-Programmierung innerhalb eines Wirtschaftsinformatikstudiums (WWI20SEA) an der DHBW Mannheim entstanden.
 
 ## Grundlage
 
