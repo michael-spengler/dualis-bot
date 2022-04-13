@@ -5,7 +5,7 @@ services:
     image: lumaghg/dualis-backend
     labels:
       - traefik.backend.rule=Host:api.dualis-bot.robin-reyer.de
-      - traefik.enable=true"
+      - traefik.enable=true
     #ports: 
     #  - 4000:4000
     environment:
@@ -55,7 +55,7 @@ services:
       # The HTTPS port
       - "443:443"
       # The Web UI (enabled by --api.insecure=true)
-      # - "8080:8080"
+      - "8080:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock 
