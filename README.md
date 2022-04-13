@@ -4,7 +4,7 @@ Der Dualis-Bot ist als Teil einer Prüfungsleistung des Moduls Web-Programmierun
 
 ## Grundlage
 
-Da die DHBW Mannheim das Tool [Dualis](https://dualis.dhbw.de) für die Bekanntgabe der Noten aller Module verwendet und man bei einer solchen Bekanntgabe nicht außerhalb dieser Anwendung kontaktiert wird, wollten wir eine Lösung schaffen, die uns auf einem gewünnschten Kommunikationskanal kontaktiert, wenn neue Noten in das Tool eingetragen wurden. Dies haben wir mithilfe eines Webcrawlers, eines Discord und Telegram Bots sowie einer zur Einrichtung und Konfiguration dienenden, mobiloptimierten Weboberfläche realisiert.
+Da die DHBW Mannheim das Tool [Dualis](https://dualis.dhbw.de) für die Bekanntgabe der Noten aller Module verwendet und man bei einer solchen Bekanntgabe nicht außerhalb dieser Anwendung kontaktiert wird, wollten wir eine Lösung schaffen, die uns auf einem gewünschten Kommunikationskanal kontaktiert, wenn neue Noten in das Tool eingetragen wurden. Dies haben wir mithilfe eines Webcrawlers, eines Discord und Telegram Bots sowie einer zur Einrichtung und Konfiguration dienenden, mobiloptimierten Weboberfläche realisiert.
 
 ## Nutzung
 
