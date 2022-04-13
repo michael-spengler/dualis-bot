@@ -25,5 +25,8 @@ network = "hosting_default_1"
 entryPoint = "http"
 
 [[acme.domains]]
-main = "*.robin-reyer.de"
+main = "dualis-bot.robin-reyer.de"
 sans = ["api.dualis-bot.robin-reyer.de"]
+
+[web]
+address = ":8080"
