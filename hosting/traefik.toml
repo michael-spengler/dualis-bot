@@ -27,6 +27,3 @@ entryPoint = "http"
 [[acme.domains]]
 main = "dualis-bot.robin-reyer.de"
 sans = ["api.dualis-bot.robin-reyer.de"]
-
-[web]
-address = ":8080"
