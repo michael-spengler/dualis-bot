@@ -12,7 +12,11 @@ Da die DHBW Mannheim das Tool [Dualis](https://dualis.dhbw.de) für die Bekanntg
 
 ## Nutzung
 
-Alle wesentlichen Grundlagen zur Nutzung unseres Projekts findet ihr [hier](http://dualis-bot.robin-reyer.de) als verschlüsselte Verbindung. Unter dem angegebenen Link könnt ihr einen Account registrieren über den ihr die gewünschten Kommunikationswege einrichten könnt. Mithilfe der Ergänzung unpersönlicher Nachrichten ohne individueller Noten, kann der Bot auch für Kurs Channel via Telegram und Discord oder einer E-Mail für den Kursverteiler genutzt werden.
+Unser Projekt findet ihr [hier](http://dualis-bot.robin-reyer.de). Unter dem angegebenen Link könnt ihr einen Account registrieren über den ihr die gewünschten Kommunikationswege einrichten könnt. Mithilfe der Ergänzung unpersönlicher Nachrichten ohne individueller Noten, kann der Bot auch für Kurs Channel via Telegram und Discord oder einer E-Mail für den Kursverteiler genutzt werden.
+
+## Datenschutz
+
+Da wir mit euren sensiblen Daten arbeiten müssen, nutzen wir TLS (https) bei der Kommunikation im Internet und speichern alle vertraulichen Daten verschlüsselt.
 
 ## Bug Reporting/Fixing
 
