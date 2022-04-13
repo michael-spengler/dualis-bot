@@ -2,7 +2,7 @@
 
 # Dualis-Bot
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-[![GitHub Issues](https://img.shields.io/github/issues/anfederico/clairvoyant.svg)](https://github.com/anfederico/clairvoyant/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/anfederico/clairvoyant.svg)](https://github.com/dualis-bot/dualis-bot/issues)
 
 Der Dualis-Bot ist als Teil einer Prüfungsleistung des Moduls Web-Programmierung innerhalb eines Wirtschaftsinformatikstudiums (WWI20SEA) an der DHBW Mannheim von der Gang of Fork entwickelt worden.
 
