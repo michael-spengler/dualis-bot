@@ -1,4 +1,4 @@
-<img src="https://dualis-crawler.s3.eu-central-1.amazonaws.com/Logo.png" align="right" />
+<img src="https://dualis-crawler.s3.eu-central-1.amazonaws.com/Logo.png" align="right" height="20"/>
 
 # Dualis-Bot
 
