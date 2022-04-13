@@ -18,8 +18,6 @@ Die Server für den Dualis-Bot werden über den Abgabetermin heraus zur Verfügu
 
 Da es sich nur um einen Prototypen handelt, der in einer sehr kurzen Zeitspanne entwickelt wurde übernehmen die Contributer keine Haftung für die kommunizierten Noten.
 
----
-
 ***
 
 ## For Developing
