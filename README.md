@@ -22,6 +22,10 @@ Da es sich nur um einen Prototypen handelt, der in einer sehr kurzen Zeitspanne 
 
 ## For Developing
 
+### Run / Build Frontend
+
+from directory /dualis-bot/frontend `trex run start | snel build`
+
 ### Build / Run Backend and Crawler
 
 from directory /dualis-bot `docker-compose build | docker-compose up`
