@@ -1,3 +1,5 @@
+<img src="https://dualis-crawler.s3.eu-central-1.amazonaws.com/Logo.png" align="right" />
+
 # Dualis-Bot
 
 Der Dualis-Bot ist als Teil einer Prüfungsleistung des Moduls Web-Programmierung innerhalb eines Wirtschaftsinformatikstudiums (WWI20SEA) an der DHBW Mannheim von der Gang of Fork entwickelt worden.
