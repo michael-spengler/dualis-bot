@@ -1,0 +1,29 @@
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+    [entryPoints.http]
+        address = ":80"
+        [entryPoints.http.redirect]
+            entryPoint = "https"
+    [entryPoints.https]
+        address = ":443"
+        [entryPoints.https.tls]
+
+[acme]
+email = "kino@fynn-weyrich.de"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "dualis-bot.robin-reyer.de"
+watch = true
+network = "web"
+
+[acme.httpChallenge]
+entryPoint = "http"
+
+[[acme.domains]]
+main = "dualis-bot.robin-reyer.de"
+sans = ["api.dualis-bot.robin-reyer.de"]

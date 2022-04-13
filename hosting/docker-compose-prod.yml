@@ -45,17 +45,19 @@ services:
     restart: always
   reverse-proxy:
     # The official v2 Traefik docker image
-    image: traefik:v2.6
+    image: traefik:1.7.20-alpine
     # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=false --providers.docker
     restart: always
     ports:
       # The HTTP port
       - "80:80"
+      # The HTTPS port
+      - "443:443"
       # The Web UI (enabled by --api.insecure=true)
       # - "8080:8080"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock 
+      - ./traefik.toml:/traefik.toml
     
     
