@@ -24,6 +24,7 @@ Da es sich nur um einen Prototypen handelt, der in einer sehr kurzen Zeitspanne 
 
 ## For Developing
 
+<details><summary><b>Show instructions</b></summary>
 ### Run / Build Frontend
 
 from directory /dualis-bot/frontend `trex run start | snel build`
@@ -41,3 +42,4 @@ from directory /dualis-bot `docker-compose build | docker-compose up`
 `cd dualis-crawler | go test -v ./...`
 
 ### [Backend-Doku](https://gitlab.com/lumaghg/dualis-bot-backend-doku/-/tree/main)
+</details>
