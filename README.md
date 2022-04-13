@@ -22,9 +22,8 @@ Da es sich nur um einen Prototypen handelt, der in einer sehr kurzen Zeitspanne 
 
 ***
 
-## For Developing
-
-<details><summary><b>Show instructions</b></summary>
+<details><summary><b>## For Developing</b></summary>
+  
 ### Run / Build Frontend
 
 from directory /dualis-bot/frontend `trex run start | snel build`
