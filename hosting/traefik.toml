@@ -19,11 +19,11 @@ onHostRule = true
 endpoint = "unix:///var/run/docker.sock"
 domain = "dualis-bot.robin-reyer.de"
 watch = true
-network = "web"
+network = "hosting_default_1"
 
 [acme.httpChallenge]
 entryPoint = "http"
 
 [[acme.domains]]
-main = "dualis-bot.robin-reyer.de"
+main = "*.robin-reyer.de"
 sans = ["api.dualis-bot.robin-reyer.de"]
