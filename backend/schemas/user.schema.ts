@@ -1,4 +1,4 @@
-import { Schema } from "https://deno.land/x/valivar@v6.2.11/mod.ts";
+import { Schema } from "../deps.ts";
 
 const userSchema = new Schema({
   username: { type: String, required: true },

@@ -1,4 +1,4 @@
-import { Request } from "https://deno.land/x/request@1.3.0/request.ts";
+import { Request } from "../deps.ts";
 
 export async function sendMessage(
   targetID: string,

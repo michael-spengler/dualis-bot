@@ -1,15 +1,16 @@
-import { IJWTPayload } from "../../routes/users.ts";
 import { spy } from "../test_deps.ts";
 
-export const verify = spy(function (jwt: string, secret: string, algo: string) {
-  if (jwt == "wrongJWT") {
-    throw new Error("You provided a wrong jwt");
-  } else {
-    return true;
-  }
-});
+export const verify = spy(
+  function (jwt: string, _secret: string, _algo: string) {
+    if (jwt == "wrongJWT") {
+      throw new Error("You provided a wrong jwt");
+    } else {
+      return true;
+    }
+  },
+);
 
-export const create = function (...args: any[]) {
+export const create = function (..._args: any[]) {
   return "myJWT";
 };
 

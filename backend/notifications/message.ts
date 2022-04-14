@@ -16,11 +16,11 @@ export function getMessageFromChanges(
   // personal message with grades and submodules
   if (withGrades) {
     //iterate through all modules with new grades
-    for (let i in dualisChanges) {
+    for (const i in dualisChanges) {
       message += newLineChar;
       const totalModuleObject = dualisChanges[i].examinations;
       //iterate through submodules
-      for (let j in totalModuleObject) {
+      for (const j in totalModuleObject) {
         const submoduleObject = totalModuleObject[j];
         message +=
           newLineChar +
@@ -39,7 +39,7 @@ export function getMessageFromChanges(
     // message without grades
   } else {
     //iterate through modules with new grades
-    for (let i in dualisChanges) {
+    for (const i in dualisChanges) {
       message += newLineChar + dualisChanges[i].name;
     }
   }

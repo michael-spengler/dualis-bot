@@ -1,9 +1,4 @@
-import {
-  Client,
-  GatewayIntents,
-  Message,
-  TextChannel,
-} from "https://deno.land/x/harmony@v2.6.0/mod.ts";
+import { Client, GatewayIntents, TextChannel } from "../deps.ts";
 
 export function sendMessageDiscord(
   targetID: string,

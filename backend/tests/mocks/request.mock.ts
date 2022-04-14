@@ -1,6 +1,6 @@
 import { spy } from "../test_deps.ts";
 
-export function get(url: string) {
+export function get(_url: string) {
   return "someResponseData";
 }
 

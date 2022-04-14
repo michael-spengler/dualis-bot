@@ -15,8 +15,6 @@ import * as telegram from "../notifications/telegram.ts";
 import * as msg from "../notifications/message.ts";
 import * as discord from "../notifications/discord.ts";
 
-import "https://deno.land/x/dotenv/load.ts";
-
 export default class Utils {
   static client: any;
   static async getDatabaseClient(): Promise<any> {
@@ -26,7 +24,7 @@ export default class Utils {
         await Utils.client.connect(
           "mongodb+srv://dualis-bot:" +
             Deno.env.get("DATABASE_PASSWORD") +
-            "@cluster0.mw4xn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&authMechanism=SCRAM-SHA-1&authSource=admin"
+            "@cluster0.mw4xn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&authMechanism=SCRAM-SHA-1&authSource=admin",
         );
       } catch (e) {
         console.error(e);
@@ -65,30 +63,33 @@ export default class Utils {
       await telegram.sendSticker(
         targetID,
         "CAACAgIAAxkBAAMhYiiuBKoE0HYsdRMUzs_vWVShJH0AArkQAAIlbhhJi3IrcMj-D6YjBA",
-        telegramBotToken
+        telegramBotToken,
       );
       await new Promise((f) => setTimeout(f, 2000));
-      const returnMsg = msg.getMessageFromChanges(dualisChanges, personalMessage, "%0A");
+      const returnMsg = msg.getMessageFromChanges(
+        dualisChanges,
+        personalMessage,
+        "%0A",
+      );
       await telegram.sendMessage(
         targetID,
         returnMsg.msg,
-        telegramBotToken
+        telegramBotToken,
       );
-      if(returnMsg.badGrade){
+      if (returnMsg.badGrade) {
         await telegram.sendDocument(
           targetID,
           "https://www.mcdonalds.com/content/dam/de/ueber-uns/Franchise-Modell/Bewerbungsbogen_20181017.pdf",
-          telegramBotToken
-        )
+          telegramBotToken,
+        );
       }
-      if(returnMsg.goodGrade){
+      if (returnMsg.goodGrade) {
         await telegram.sendPhoto(
           targetID,
           "https://memegenerator.net/img/instances/73883560/schaut-euch-diese-streber-an.jpg",
-          telegramBotToken
-        )
+          telegramBotToken,
+        );
       }
-      
     }
 
     //Discord Notification
@@ -98,8 +99,9 @@ export default class Utils {
       const personalMessageDiscord = user.notifications.discord.withGrades;
       discord.sendMessageDiscord(
         chatID,
-        msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "\n").msg,
-        discordBotToken
+        msg.getMessageFromChanges(dualisChanges, personalMessageDiscord, "\n")
+          .msg,
+        discordBotToken,
       );
     }
 
@@ -120,7 +122,7 @@ export default class Utils {
         content: msg.getMessageFromChanges(
           dualisChanges,
           personalMessageEmail,
-          "<br>"
+          "<br>",
         ).msg,
         html: "",
       };

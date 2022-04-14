@@ -6,6 +6,6 @@ export function compare(val: string, hash: string) {
   return false;
 }
 
-export function hash(val: string) {
+export function hash(_val: string) {
   return "hashed";
 }
