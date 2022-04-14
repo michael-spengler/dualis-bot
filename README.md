@@ -4,6 +4,7 @@
 
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 [![GitHub Issues](https://img.shields.io/github/issues/dualis-bot/dualis-bot.svg)](https://github.com/dualis-bot/dualis-bot/issues)
+[![Website up](https://img.shields.io/website-up-down-green-red/https/dualis-bot.robin-reyer.de)](http://dualis-bot.robin-reyer.de)
 
 Der Dualis-Bot ist als Teil einer Prüfungsleistung des Moduls Web-Programmierung
 innerhalb eines Wirtschaftsinformatikstudiums (WWI20SEA) an der DHBW Mannheim
