@@ -47,6 +47,15 @@ Da es sich nur um einen Prototypen handelt, der in einer sehr kurzen Zeitspanne
 entwickelt wurde, übernehmen die Contributer keine Haftung für die
 kommunizierten Noten oder verwendete Daten.
 
+<details><summary><h2>Mehr von der Gang of Fork</h2></summary>
+  
+Die angegebenen Repositorys sind ein weiterer Teil der Prüfungsleistung des angegebenen Moduls und sind von der Gang of Fork entwickelt worden.
+  
+[opine-unittests-utils](https://github.com/STAT1C-Sy/opine-unittest-utils)
+[denomongo-unittest-utils](https://github.com/lumaghg/denomongo-unittest-utils)
+
+</details>
+
 <details><summary><h2>Entwicklungshinweise</h2></summary>
 
 ### Run / Build Frontend
