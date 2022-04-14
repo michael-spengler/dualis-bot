@@ -5,10 +5,7 @@ on:
     branches: [ main ]
     paths:
       - "hosting/**"
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "hosting/**"
+
 
 jobs:
   deploy:
