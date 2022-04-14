@@ -2,18 +2,18 @@ import {
   IDualisCourse,
   IDualisExamination,
 } from "../interfaces/dualis.interface.ts";
+//WAITING FOR https://github.com/roonie007/axiod/pull/24 to be approved
 import axiod from "https://deno.land/x/axiod@0.24/mod.ts";
 import User from "../collections/user.collection.ts";
 import Utils from "../utils/utils.ts";
-import { everyMinute, cron } from "../deps.ts";
+import { cron } from "../deps.ts";
 import IUser from "../interfaces/user.interface.ts";
 
 export function setupCronjob() {
-  everyMinute(cronjob);
   //Server time is -2
-  //cron("0 0/5 5-17 ? * MON,TUE,WED,THU,FRI *", cronjob)
+  cron("0/5 5-17 * * 1-5", cronjob);
 }
- 
+
 export async function cronjob() {
   console.log("running dualis check for every user");
   (<any> (await User.find({ active: true }))).forEach(async (user: IUser) => {
@@ -29,7 +29,7 @@ export async function cronjob() {
             "$set": { dualisSummary: newDualisSummary },
           });
           await Utils.notifyUser(user, changes);
-        } 
+        }
       }
     } catch (e) {
       console.error(e);

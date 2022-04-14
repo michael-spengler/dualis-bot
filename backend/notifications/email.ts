@@ -1,4 +1,4 @@
-import { SmtpClient } from "https://deno.land/x/smtp/mod.ts";
+import { SmtpClient } from "../deps.ts";
 import { IEmailConf, ISMTPConf } from "../interfaces/emai.interface.ts";
 
 export default async function sendEmail(

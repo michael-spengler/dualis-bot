@@ -1,11 +1,11 @@
 import { IEmailConf, ISMTPConf } from "../../interfaces/emai.interface.ts";
 import { spy } from "../test_deps.ts";
 
-export function connectTLS(smtpConf: ISMTPConf) {
+export function connectTLS(_smtpConf: ISMTPConf) {
   return true;
 }
 
-export function send(emailConf: IEmailConf) {
+export function send(_emailConf: IEmailConf) {
   return true;
 }
 

@@ -1,4 +1,4 @@
-import { assertEquals, assertSpyCall } from "../../test_deps.ts";
+import { assertSpyCall } from "../../test_deps.ts";
 import { sendMessage, sendSticker } from "../../../notifications/telegram.ts";
 
 import { Request } from "../../mocks/request.mock.ts";

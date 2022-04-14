@@ -5,7 +5,6 @@ import userSchema from "../schemas/user.schema.ts";
 import Utils from "../utils/utils.ts";
 import { getDualisSummary } from "../dualis/dualis.ts";
 import _sendEmail from "../notifications/email.ts";
-import "https://deno.land/x/dotenv/load.ts";
 
 export default class AuthController {
   static async loginUser(req: OpineRequest, res: OpineResponse) {

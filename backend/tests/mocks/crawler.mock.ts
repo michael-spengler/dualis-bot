@@ -3,7 +3,7 @@ import { IDualisCourse } from "../../interfaces/dualis.interface.ts";
 
 export function setupCrawlerMock() {
   const app = opine();
-  app.post("/scrapedualis", (req, res) => {
+  app.post("/scrapedualis", (_req, res) => {
     const response: IDualisCourse[] = [{
       examinations: [{
         exam_type: "Klausur",
@@ -14,6 +14,6 @@ export function setupCrawlerMock() {
     res.json(response);
   });
   const port = getPort();
-  const server = app.listen(port);
+  const _server = app.listen(port);
   return port;
 }
