@@ -2,7 +2,7 @@ FROM denoland/deno:1.19.1 AS build
 
 
 WORKDIR /app
-
+ 
 COPY . .
 
 # install snel

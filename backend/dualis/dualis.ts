@@ -29,7 +29,7 @@ export async function cronjob() {
             "$set": { dualisSummary: newDualisSummary },
           });
           await Utils.notifyUser(user, changes);
-        }
+        } 
       }
     } catch (e) {
       console.error(e);
