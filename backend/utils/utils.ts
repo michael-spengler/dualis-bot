@@ -84,7 +84,7 @@ export default class Utils {
       if(returnMsg.goodGrade){
         await telegram.sendPhoto(
           targetID,
-          "https://memecrunch.com/meme/95TJK/streber/image.png?w=400&c=1",
+          "https://memegenerator.net/img/instances/73883560/schaut-euch-diese-streber-an.jpg",
           telegramBotToken
         )
       }
