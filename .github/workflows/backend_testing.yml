@@ -1,0 +1,30 @@
+name: Backend Tests Only
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "backend/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        deno: [1.19.0]
+    name: Test Backend
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup Deno
+        uses: denolib/setup-deno@master
+        with:
+          deno-version: ${{ matrix.deno }}
+
+      - name: Print deno version
+        run: deno --version
+
+      - name: Run backend tests with import map
+        run: deno test  --allow-all --import-map=./backend/tests/importmap.json ./backend
